@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev" : "node backend/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "i": "^0.3.7",
+    "uuid": "^9.0.1"
+  }
+}
