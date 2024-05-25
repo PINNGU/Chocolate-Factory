@@ -1,0 +1,48 @@
+[
+    {
+      "id": "1",
+      "name": "Chocolate Factory One",
+      "chocolates": ["Dark Chocolate", "Milk Chocolate", "White Chocolate"],
+      "workingHours": "9 AM to 5 PM",
+      "status": "Open",
+      "location": {
+        "id": "1",
+        "longitude": "37.7749",
+        "latitude": "-122.4194",
+        "address": "123 Chocolate Street, Chocolate City"
+      },
+      "logo": "chocolate_factory_one_logo.png",
+      "rating": 4.5
+    },
+    {
+      "id": "2",
+      "name": "Sweet Delights Factory",
+      "chocolates": ["Truffles", "Caramel-filled Chocolates", "Nutty Pralines"],
+      "workingHours": "8 AM to 6 PM",
+      "status": "Open",
+      "location": {
+        "id": "2",
+        "longitude": "40.7128",
+        "latitude": "-74.0060",
+        "address": "456 Sweet Avenue, Sugar Town"
+      },
+      "logo": "sweet_delights_logo.png",
+      "rating": 4.2
+    },
+    {
+      "id": "3",
+      "name": "Premium Cocoa Factory",
+      "chocolates": ["Artisanal Dark Chocolate", "Single-Origin Milk Chocolate", "Luxury White Chocolate"],
+      "workingHours": "10 AM to 7 PM",
+      "status": "Open",
+      "location": {
+        "id": "3",
+        "longitude": "51.5074",
+        "latitude": "-0.1278",
+        "address": "789 Cocoa Lane, Cocoa Town"
+      },
+      "logo": "premium_cocoa_logo.png",
+      "rating": 4.8
+    }
+  ]
+  
