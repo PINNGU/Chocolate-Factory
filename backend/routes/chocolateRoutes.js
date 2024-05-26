@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const chocolateController = require('@/controllers/ChocolateController');
+const chocolateController = require('../controllers/ChocolateController');
 
 router.get('/', chocolateController.getAllChocolates);
 router.get('/:id', chocolateController.getChocolateById);
