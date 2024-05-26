@@ -1,8 +1,8 @@
 class Location
 {
-    constructor(longitude,latitude,adress)
+    constructor(id,longitude,latitude,adress)
     {
-        this.id = uuidv4();
+        this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
         this.adress = adress;

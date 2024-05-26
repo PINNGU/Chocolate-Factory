@@ -1,12 +1,16 @@
 const { readJSON, writeJSON } = require('../utils/jsonHandler');
 const { v4: uuidv4 } = require('uuid');
+const path = require('path');
 
 
-const userFilePath = path.join(__dirname, '../data/users.json');
+const chocolatesFilePath = path.join(__dirname, '../data/chocolates.json');
+
 
 class ChocolateService {
-    async getAllChocolates() {
-    return await readJSON(filePath);
+  
+
+  async getAllChocolates() {
+    return await readJSON(chocolatesFilePath);
   }
 
   async getChocolateById(id) {
@@ -18,7 +22,7 @@ class ChocolateService {
     const chocolates = await this.getAllChocolates();
     const newChocolate = { id: uuidv4(), ...chocolateData };
     chocolates.push(newChocolate);
-    await writeJSON(filePath, chocolates);
+    await writeJSON(chocolatesFilePath, chocolates);
     return newChocolate;
   }
 
@@ -27,7 +31,7 @@ class ChocolateService {
     const index = chocolates.findIndex(choc => choc.id === id);
     if (index !== -1) {
       chocolates[index] = { ...chocolates[index], ...chocolateData };
-      await writeJSON(filePath, chocolates);
+      await writeJSON(chocolatesFilePath, chocolates);
       return chocolates[index];
     }
     return null;
@@ -36,7 +40,7 @@ class ChocolateService {
   async deleteChocolate(id) {
     const chocolates = await this.getAllChocolates();
     const updatedChocolates = chocolates.filter(choc => choc.id !== id);
-    await writeJSON(filePath, updatedChocolates);
+    await writeJSON(chocolatesFilePath, updatedChocolates);
     return id;
   }
 }

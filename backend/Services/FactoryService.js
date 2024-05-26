@@ -1,3 +1,4 @@
+
 const path = require('path');
 const jsonHandler = require('../utils/jsonHandler');
 const { v4: uuidv4 } = require('uuid');
@@ -8,7 +9,7 @@ const factoryFilePath = path.join(__dirname, '../data/factories.json');
 
 class FactoryService {
   static async getAllFactories() {
-    return await jsonHandler.readJsonFile(factoryFilePath);
+    return await jsonHandler.readJSON(factoryFilePath);
   }
 
   static async getFactoryById(factoryId) {
@@ -33,7 +34,7 @@ class FactoryService {
       factoryData.rating
     );
     factories.push(newFactory);
-    await jsonHandler.writeJsonFile(factoryFilePath, factories);
+    await jsonHandler.writeJSON(factoryFilePath, factories);
     return newFactory;
   }
 
@@ -51,7 +52,7 @@ class FactoryService {
         ) : factories[factoryIndex].location
       };
       factories[factoryIndex] = updatedFactory;
-      await jsonHandler.writeJsonFile(factoryFilePath, factories);
+      await jsonHandler.writeJSON(factoryFilePath, factories);
       return factories[factoryIndex];
     }
     throw new Error('Factory not found');
@@ -60,7 +61,7 @@ class FactoryService {
   static async deleteFactory(factoryId) {
     const factories = await this.getAllFactories();
     const updatedFactories = factories.filter(factory => factory.id !== factoryId);
-    await jsonHandler.writeJsonFile(factoryFilePath, updatedFactories);
+    await jsonHandler.writeJSON(factoryFilePath, updatedFactories);
     return factoryId;
   }
 
@@ -71,7 +72,7 @@ class FactoryService {
       throw new Error('Factory not found');
     }
     factory.chocolates.push(...newChocolates);
-    await jsonHandler.writeJsonFile(factoryFilePath, factories);
+    await jsonHandler.writeJSON(factoryFilePath, factories);
     return factory;
   }
 }
