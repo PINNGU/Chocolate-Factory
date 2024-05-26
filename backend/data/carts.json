@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "a1b2c3d4-e5f6-7g8h-9i10-jk11lm12no13",
+    "user": "user123",
+    "items": [
+      {
+        "chocolate": {
+          "id": "c68d7e6a-7f8c-4e57-bd47-5e3b6f7b3b49",
+          "name": "Dark Chocolate Bar",
+          "price": 2.99,
+          "type": "Dark",
+          "kind": "Bar",
+          "weight": 100,
+          "description": "Rich dark chocolate bar",
+          "image": "dark_chocolate_bar.jpg",
+          "quantity": 50,
+          "status": "Ima na stanju"
+        },
+        "quantity": 2
+      }
+    ],
+    "totalPrice": 16.45
+  },
+  {
+    "id": "a41c4622-6379-465a-a97e-2797d09cb0a7",
+    "user": "b9908e7d-7d5d-4fb1-b2e8-6a8a13e8fa68",
+    "items": [],
+    "totalPrice": 0
+  }
+]
