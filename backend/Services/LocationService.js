@@ -7,7 +7,7 @@ const locationFilePath = path.join(__dirname, '../data/locations.json');
 
 class LocationService {
   static async getAllLocations() {
-    return await jsonHandler.readJsonFile(locationFilePath);
+    return await jsonHandler.readJSON(locationFilePath);
   }
 
   static async getLocationById(locationId) {
@@ -16,36 +16,59 @@ class LocationService {
   }
 
   static async createLocation(locationData) {
-    const locations = await this.getAllLocations();
-    const newLocation = new Location(
-      locationData.longitude,
-      locationData.latitude,
-      locationData.adress
-    );
-    locations.push(newLocation);
-    await jsonHandler.writeJsonFile(locationFilePath, locations);
-    return newLocation;
-  }
+    try {
+        const locations = await this.getAllLocations();
+        console.log(1);
+        console.log(locationData);
+
+        const newLocation = new Location(
+            locationData.id,
+            locationData.longitude,
+            locationData.latitude,
+            locationData.address
+        );
+        console.log(2);
+
+        locations.push(newLocation);
+        console.log(3);
+
+        await jsonHandler.writeJSON(locationFilePath, locations);
+        console.log(4);
+
+        return newLocation;
+    } catch (error) {
+        console.error('Error creating location:', error);
+        throw new Error('Error creating location');
+    }
+}
+
 
   static async updateLocation(locationId, locationData) {
+    console.log(1);
     const locations = await this.getAllLocations();
+    console.log(2);
     const locationIndex = locations.findIndex(location => location.id === locationId);
+    console.log(3);
     if (locationIndex !== -1) {
       const updatedLocation = {
         ...locations[locationIndex],
         ...locationData
       };
       locations[locationIndex] = updatedLocation;
-      await jsonHandler.writeJsonFile(locationFilePath, locations);
+      await jsonHandler.writeJSON(locationFilePath, locations);
       return locations[locationIndex];
     }
-    throw new Error('Location not found');
+    else{
+        console.log(5);
+    }
+    console.log(4);
+    
   }
 
   static async deleteLocation(locationId) {
     const locations = await this.getAllLocations();
     const updatedLocations = locations.filter(location => location.id !== locationId);
-    await jsonHandler.writeJsonFile(locationFilePath, updatedLocations);
+    await jsonHandler.writeJSON(locationFilePath, updatedLocations);
     return locationId;
   }
 }

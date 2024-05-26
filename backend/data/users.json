@@ -1,1 +1,16 @@
-[]
+{
+    "id": "b9908e7d-7d5d-4fb1-b2e8-6a8a13e8fa68",
+    "username": "john_doe",
+    "password": "hashed_password",
+    "name": "John",
+    "surname": "Doe",
+    "gender": "MALE",
+    "dateOfBirth": "1990-01-01",
+    "role": "CUSTOMER",
+    "purchases": [],
+    "cart": {},
+    "chocolateFactory": {},
+    "points": 200,
+    "customerType": {}
+  }
+  

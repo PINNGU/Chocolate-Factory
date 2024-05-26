@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "address": "123 Main Street, City, Country",
+    "latitude": 23.456789,
+    "longitude": 40
+  },
+  {
+    "id": "2",
+    "longitude": 12.345678,
+    "latitude": 23.456789,
+    "adress": "123 Main Street, City, Country"
+  },
+  {
+    "id": "3",
+    "longitude": 40,
+    "latitude": 23.456789,
+    "adress": "123 Main Street, City, Country"
+  }
+]

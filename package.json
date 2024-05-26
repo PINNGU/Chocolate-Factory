@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "dev" : "node backend/server.js"
+    "dev": "node backend/server.js"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "i": "^0.3.7",
     "uuid": "^9.0.1"
