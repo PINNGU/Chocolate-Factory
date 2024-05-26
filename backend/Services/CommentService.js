@@ -1,6 +1,7 @@
 const { readJSONFile, writeJSONFile } = require('../utils/jsonHandler');
 const Comment = require('../models/Comment');
 const { v4: uuidv4 } = require('uuid');
+const path = require('path');
 
 const filePath = './data/comments.json';
 
