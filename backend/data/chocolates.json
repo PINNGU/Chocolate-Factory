@@ -1,4 +1,5 @@
-{
+[
+  {
     "id": "c68d7e6a-7f8c-4e57-bd47-5e3b6f7b3b49",
     "name": "Dark Chocolate Bar",
     "price": 2.99,
@@ -7,7 +8,7 @@
     "weight": 100,
     "description": "Rich dark chocolate bar",
     "image": "dark_chocolate_bar.jpg",
-    "quantity": 50,
+    "quantity": 70,
     "status": "Ima na stanju"
   }
-  
+]

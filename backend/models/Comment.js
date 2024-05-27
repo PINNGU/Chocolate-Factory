@@ -1,5 +1,8 @@
+const { v4: uuidv4 } = require('uuid');
+
 class Comment {
     constructor(customer, factory, text, rating) {
+      this.id = uuid();
       this.customer = customer;  // Customer who left the comment
       this.factory = factory;    // Factory to which the comment refers
       this.text = text;          // Text of the comment

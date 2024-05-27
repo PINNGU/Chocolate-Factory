@@ -1,1 +1,33 @@
-[]
+[
+  {
+    "id": "a7c39f20-520f-41a8-94e1-75808ab71a9b",
+    "chocolates": [],
+    "factory": "Chocolate Factory ABC",
+    "dateTime": "2024-05-27T10:15:30.000Z",
+    "price": 3.49,
+    "customer": "Alice Smith",
+    "status": "Obrada"
+  },
+  {
+    "id": "64433086-71fd-4f76-8129-55231e0a55eb",
+    "chocolates": [
+      {
+        "id": "c68d7e6a-7f8c-4e57-bd47-5e3b6f7b3b49",
+        "name": "Dark Chocolate Bar",
+        "price": 2.99,
+        "type": "Dark",
+        "kind": "Bar",
+        "weight": 100,
+        "description": "Rich dark chocolate bar",
+        "image": "dark_chocolate_bar.jpg",
+        "quantity": 50,
+        "status": "Ima na stanju"
+      }
+    ],
+    "factory": "Chocolate Factory XYZ",
+    "dateTime": "2024-06-01T12:00:00Z",
+    "price": 10.99,
+    "customer": "b9908e7d-7d5d-4fb1-b2e8-6a8a13e8fa68",
+    "status": "Odobreno"
+  }
+]
