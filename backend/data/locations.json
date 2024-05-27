@@ -1,20 +1,20 @@
 [
   {
-    "id": "1",
-    "address": "123 Main Street, City, Country",
-    "latitude": 23.456789,
-    "longitude": 40
+    "id": "1a2b3c4d-5678-90ab-cdef-1234567890ab",
+    "longitude": 151.215256,
+    "latitude": -33.856159,
+    "address": "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia"
   },
   {
-    "id": "2",
-    "longitude": 12.345678,
-    "latitude": 23.456789,
-    "adress": "123 Main Street, City, Country"
+    "id": "2b3c4d5e-6789-01bc-def2-3456789012cd",
+    "longitude": 2.294351,
+    "latitude": 48.858844,
+    "address": "Eiffel Tower, Paris, Île-de-France, France"
   },
   {
-    "id": "3",
-    "longitude": 40,
-    "latitude": 23.456789,
-    "adress": "123 Main Street, City, Country"
+    "id": "3c4d5e6f-7890-12cd-ef34-5678901234ef",
+    "longitude": 116.570374,
+    "latitude": 40.431908,
+    "address": "Great Wall of China, Beijing, China"
   }
 ]

@@ -19,17 +19,13 @@ class FactoryService {
 
   static async createFactory(factoryData) {
     const factories = await this.getAllFactories();
-    const location = new Location(
-      factoryData.location.longitude,
-      factoryData.location.latitude,
-      factoryData.location.address
-    );
+
     const newFactory = new Factory(
       factoryData.name,
       factoryData.chocolates,
       factoryData.workingHours,
       factoryData.status,
-      location,
+      factoryData.locationId,
       factoryData.logo,
       factoryData.rating
     );
@@ -66,15 +62,34 @@ class FactoryService {
   }
 
   static async addChocolates(factoryId, newChocolates) {
-    const factories = await this.getAllFactories();
-    const factory = factories.find(factory => factory.id === factoryId);
-    if (!factory) {
-      throw new Error('Factory not found');
+    try {
+        // Step 1: Fetch all factories
+        const factories = await this.getAllFactories();
+        console.log(1);
+
+        // Step 2: Find the factory by factoryId
+        const factory = factories.find(factory => factory.id === factoryId);
+        console.log(2);
+        // Step 3: Handle case where factory is not found
+        if (!factory) {
+            throw new Error('Factory not found');
+        }
+        console.log(3);
+        // Step 4: Add new chocolates to the factory
+        factory.chocolates.push(...newChocolates);
+        console.log(4);
+        // Step 5: Write updated factories array back to JSON file
+        await jsonHandler.writeJSON(factoryFilePath, factories);
+        console.log(5);
+        // Step 6: Return the updated factory
+        return factory;
+    } catch (error) {
+        // Step 7: Handle any errors and log them
+        console.error('Error adding chocolates to factory:', error);
+        throw error; // Rethrow the error to propagate it to the caller
     }
-    factory.chocolates.push(...newChocolates);
-    await jsonHandler.writeJSON(factoryFilePath, factories);
-    return factory;
-  }
+}
+
 }
 
 module.exports = FactoryService;

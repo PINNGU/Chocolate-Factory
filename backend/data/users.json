@@ -1,16 +1,40 @@
-{
-    "id": "b9908e7d-7d5d-4fb1-b2e8-6a8a13e8fa68",
+[
+  {
+    "id": "1a2b3c4d-5678-90ab-cdef-1234567890ab",
     "username": "john_doe",
-    "password": "hashed_password",
+    "password": "hashed_password_here",
     "name": "John",
     "surname": "Doe",
     "gender": "MALE",
-    "dateOfBirth": "1990-01-01",
+    "dateOfBirth": "1990-05-15",
     "role": "CUSTOMER",
     "purchases": [],
-    "cart": {},
-    "chocolateFactory": {},
-    "points": 200,
-    "customerType": {}
+    "cart": [],
+    "chocolateFactory": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",
+    "points": 120,
+    "customerType": {
+      "name": "Regular",
+      "discountPercentage": 5,
+      "pointsRequiredForDiscount": 100
+    }
+  },
+  {
+    "id": "56ef7e75-4d0d-41d8-92cb-955855ad902e",
+    "username": "new_user123",
+    "password": "$2b$10$yNm8brec/2kSznwLOm6/nu5xIj665HvsTEmP3m6DFCpo11f42SqWG",
+    "name": "Emily",
+    "surname": "Jones",
+    "gender": "FEMALE",
+    "dateOfBirth": "1995-08-20",
+    "role": "CUSTOMER",
+    "purchases": [],
+    "cart": [],
+    "chocolateFactory": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",
+    "points": 50,
+    "customerType": {
+      "name": "Regular",
+      "discountPercentage": 5,
+      "pointsRequiredForDiscount": 100
+    }
   }
-  
+]
