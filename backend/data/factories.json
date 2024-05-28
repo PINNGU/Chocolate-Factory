@@ -1,12 +1,11 @@
-
 [
   {
     "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
     "name": "Godiva Chocolatier",
     "chocolates": [
-      "Truffles",
-      "Dark Chocolate",
-      "Caramel Chocolate"
+      "c68d7e6a-7f8c-4e57-bd47-5e3b6f7b3b49",
+      "b23c4d5e-2345-6789-01bc-def3456789c",
+      "c34d5e6f-3456-7890-12cd-ef3456789d"
     ],
     "workingHours": "10 AM - 7 PM",
     "status": "Open",
@@ -18,9 +17,9 @@
     "id": "7g3h4i5j-6b79-01cd-ef23-3456789012cd",
     "name": "Cadbury Chocolate Factory",
     "chocolates": [
-      "Milk Chocolate",
-      "Fruit & Nut Chocolate",
-      "Dark Chocolate"
+      "a12b3c4d-1234-5678-90ab-cdef3456789b",
+      "e56f7g8h-5678-9012-34ef-3456789f",
+      "d45e6f7g-4567-8901-23de-f3456789e"
     ],
     "workingHours": "8 AM - 5 PM",
     "status": "Open",
@@ -32,9 +31,10 @@
     "id": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",
     "name": "This is a sample factory",
     "chocolates": [
-      "Dark Chocolate",
-      "Milk Chocolate",
-      "White Chocolate"
+      "c68d7e6a-7f8c-4e57-bd47-5e3b6f7b3b49",
+      "a12b3c4d-1234-5678-90ab-cdef3456789b",
+      "d45e6f7g-4567-8901-23de-f3456789e",
+      "b23c4d5e-2345-6789-01bc-def3456789c"
     ],
     "workingHours": "9 AM - 6 PM",
     "status": "Open",

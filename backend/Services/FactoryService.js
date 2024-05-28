@@ -64,23 +64,24 @@ class FactoryService {
   static async addChocolates(factoryId, newChocolates) {
     try {
         // Step 1: Fetch all factories
+        
         const factories = await this.getAllFactories();
-        console.log(1);
+        
 
         // Step 2: Find the factory by factoryId
         const factory = factories.find(factory => factory.id === factoryId);
-        console.log(2);
+        
         // Step 3: Handle case where factory is not found
         if (!factory) {
             throw new Error('Factory not found');
         }
-        console.log(3);
+        
         // Step 4: Add new chocolates to the factory
-        factory.chocolates.push(...newChocolates);
-        console.log(4);
+        factory.chocolates.push(newChocolates);
+        
         // Step 5: Write updated factories array back to JSON file
         await jsonHandler.writeJSON(factoryFilePath, factories);
-        console.log(5);
+        
         // Step 6: Return the updated factory
         return factory;
     } catch (error) {
