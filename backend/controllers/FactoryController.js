@@ -59,12 +59,18 @@ exports.addChocolatesToFactory = async (req, res) => {
   try {
     const { factoryId } = req.params;
     const { chocolates } = req.body;
-    const updatedFactory = await FactoryService.addChocolatesToFactory(factoryId, chocolates);
+    console.log(10);
+    const updatedFactory = await FactoryService.addChocolates(factoryId, chocolates);
+    console.log(11);
     if (!updatedFactory) {
+      console.log(12);
       return res.status(404).json({ message: 'Factory not found' });
+
     }
+    console.log(13);
     res.status(200).json(updatedFactory);
   } catch (error) {
+    console.log(14);
     res.status(500).json({ message: 'Error adding chocolates to factory', error });
   }
 };
