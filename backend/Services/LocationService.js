@@ -18,22 +18,21 @@ class LocationService {
   static async createLocation(locationData) {
     try {
         const locations = await this.getAllLocations();
-        console.log(1);
+        
         console.log(locationData);
 
         const newLocation = new Location(
-            locationData.id,
             locationData.longitude,
             locationData.latitude,
             locationData.address
         );
-        console.log(2);
+      
 
         locations.push(newLocation);
-        console.log(3);
+        
 
         await jsonHandler.writeJSON(locationFilePath, locations);
-        console.log(4);
+        
 
         return newLocation;
     } catch (error) {
@@ -44,11 +43,11 @@ class LocationService {
 
 
   static async updateLocation(locationId, locationData) {
-    console.log(1);
+
     const locations = await this.getAllLocations();
-    console.log(2);
+    
     const locationIndex = locations.findIndex(location => location.id === locationId);
-    console.log(3);
+    
     if (locationIndex !== -1) {
       const updatedLocation = {
         ...locations[locationIndex],
@@ -59,9 +58,9 @@ class LocationService {
       return locations[locationIndex];
     }
     else{
-        console.log(5);
+        
     }
-    console.log(4);
+    
     
   }
 

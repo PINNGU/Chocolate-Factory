@@ -48,7 +48,7 @@ class UserService {
       customerType
     );
     users.push(newUser);
-    await jsonHandler.writeJsonFile(userFilePath, users);
+    await jsonHandler.writeJSON(userFilePath, users);
     return newUser;
   }
 

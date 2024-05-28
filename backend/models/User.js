@@ -1,16 +1,9 @@
+const {v4 : uuidv4} = require('uuid');
+
+
 class User{
     
-    Role = {
-        CUSTOMER : "CUSTOMER",
-        WORKER : "WORKER",
-        MANAGER : "MANAGER",
-        ADMIN : "ADMIN"
-    }
 
-    Gender = {
-        MALE : "MALE",
-        FEMALE : "FEMALE"
-    }
 
     constructor(username,password,name,surname,gender,
         dateOfBirth,role,purchases,cart,chocolateFactory,points,customerType){
@@ -22,15 +15,7 @@ class User{
         this.surname = surname;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
-
-        if(role == "CUSTOMER")
-            this.role = this.Role.CUSTOMER;
-        else if(role == "WORKER")
-            this.role = this.Role.WORKER;
-        else if(role == "MANAGER")
-            this.role = this.Role.MANAGER;
-        else if(role == "ADMIN")
-            this.role = this.Role.ADMIN;
+        this.role = role;
         
         this.purchases = purchases;
         this.cart = cart;
