@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const chocolateRoutes = require('./routes/chocolateRoutes');
 const cartRoutes = require('./routes/cartRoutes');
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Map routes
+app.use(cors());
 app.use('/api/chocolates', chocolateRoutes);
 app.use('/api/carts', cartRoutes); 
 app.use('/api/purchases', purchaseRoutes); 

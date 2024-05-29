@@ -86,3 +86,12 @@ import SupportIcon from './icons/IconSupport.vue'
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
   </WelcomeItem>
 </template>
+
+<style>
+.view-container {
+  padding: 20px;
+  color: white;
+  background-color: #222;
+  min-height: calc(100vh - 80px); /* Adjust based on your header height */
+  overflow-y: auto;
+}</style>
