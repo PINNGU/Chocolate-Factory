@@ -34,6 +34,7 @@ const router = createRouter({
       component: () => import('../components/AddChocolateToFactory.vue')
 
     }
+
   
   ]
 })

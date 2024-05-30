@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 
 class Chocolate {
   constructor(name, price, type, kind, weight, description, image, quantity) {
-    this.id = uuidv4();  // Generates a unique identifier
+    this.id = uuidv4(),  // Generates a unique identifier
     this.name = name;
     this.price = price;
     this.type = type;
@@ -11,8 +11,8 @@ class Chocolate {
     this.description = description;
     this.image = image;
     this.quantity = quantity;
-    this.status = quantity > 0 ? 'Ima na stanju' : 'Nema na stanju';
-  }
+     this.status = quantity > 0 ? 'Ima na stanju' : 'Nema na stanju';
+ }
 
   // Method to change the quantity of chocolates
   changeQuantity(newQuantity) {
