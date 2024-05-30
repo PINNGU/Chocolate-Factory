@@ -1,73 +1,123 @@
 <template>
-    <div>
-      <h1>Factory List</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Working Hours</th>
-            <th>Status</th>
-            <th>Rating</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="factory in factories" :key="factory.id">
-            <td>{{ factory.name }}</td>
-            <td>{{ factory.workingHours }}</td>
-            <td>{{ factory.status }}</td>
-            <td>{{ factory.rating }}</td>
-          </tr>
-        </tbody>
-      </table>
+
+    <h1 class="text-center mb-4" style="font-size: 3rem; color: #fff; background: linear-gradient(to right, #7F00FF, #E100FF); padding: 20px; border-radius: 12px;">Factory List</h1>
+
+    <!-- Open Factories -->
+    <div v-if="openedFactories.length > 0" class="mb-4">
+      <h3 class="text-center mb-3" style="font-size: 2.5rem; color: white;">Open Factories</h3>
+      <div class="row justify-content-center">
+        <div v-for="(factory, index) in openedFactories" :key="factory.id" class="col-lg-4 col-md-6 mb-4">
+          <div class="card" style="background: linear-gradient(to right, #8000ff, #ff00e6);border: 2px solid orangered;border-radius: 3%;">
+            <div class="card-text">
+              <h4 class="card-title" style="font-size: 2rem; color: #fff;">{{ factory.name }}</h4>
+              
+                <p  style="font-size: 1.5rem; color: #fff;"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
+                <p style="font-size: 1.5rem; color: #fff;"><strong>Status:</strong> {{ factory.status }}</p>
+              
+            
+              <p  style="font-size: 1.5rem; color: #fff;"><strong>Rating:</strong> {{ factory.rating }}</p>
+              <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-lg">View Details</router-link>
+            </div>
+            
+            
+              <img :src="factory.logo" alt="Factory Image" style= "border-radius: 3% 3% 0 0; max-width: 60%;justify-content: right">
+            
+              
+            
+          </div>
+        </div>
+      </div>
     </div>
-  </template>
+
+    <div v-if="closedFactories.length > 0" class="mb-4">
+    <h3 class="text-center mb-3" style="font-size: 2.5rem; color: white;">Closed Factories</h3>
+    <div class="row justify-content-center">
+      <div v-for="(factory, index) in closedFactories" :key="factory.id" class="col-lg-4 col-md-6 mb-4">
+        <div class="card" style="background: linear-gradient(to right, #8000ff, #ff00e6);border: 2px solid orangered;border-radius: 3%;">
+          <div class="card-text">
+            <h4 class="card-title" style="font-size: 2rem; color: #fff;">{{ factory.name }}</h4>
+            <p style="font-size: 1.5rem; color: #fff;"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
+            <p style="font-size: 1.5rem; color: #fff;"><strong>Status:</strong> {{ factory.status }}</p>
+            <p style="font-size: 1.5rem; color: #fff;"><strong>Rating:</strong> {{ factory.rating }}</p>
+            <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-lg">View Details</router-link>
+          </div>
+          <img :src="factory.logo" alt="Factory Image" style="border-radius: 3% 3% 0 0; max-width: 60%; justify-content: right">
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- No Factories Message -->
+    <div v-if="factories.length === 0" class="text-center mt-5">
+      <p style="font-size: 2rem; color: #333;">No factories found.</p>
+    </div>
   
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        factories: []
-      };
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      factories: []
+    };
+  },
+  computed: {
+    openedFactories() {
+      return this.factories.filter(factory => factory.status === 'Open');
     },
-    mounted() {
-      this.fetchFactories();
-      console.log('Factories:', this.factories);
-    },
-    methods: {
-      async fetchFactories() {
-        try {
-          axios.get('http://localhost:3000/api/factories').then(response => {
-            this.factories = response.data;
-            console.log(response.data);
-          });
+    closedFactories() {
+      return this.factories.filter(factory => factory.status === 'Closed');
+    }
+  },
+  mounted() {
+    this.fetchFactories();
+  },
+  methods: {
+    async fetchFactories() {
+      try {
+        const response = await axios.get('http://localhost:3000/api/factories');
         this.factories = response.data;
-        } catch (error) {
-          console.error('Error fetching factories:', error);
-        }
+      } catch (error) {
+        console.error('Error fetching factories:', error);
       }
     }
-  };
-  </script>
-  
-  <style scoped>
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: black
   }
+};
+</script>
+
+<style scoped>
+
+.first-part {
+  display: flex;
+  gap: 10px;
+}
+
+.card{
+  display:flex;
+  gap:100px;
+  max-height: 200px;
+}
+
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-light {
   
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-    background-color: black;
-    
-  }
-  
-  th {
-    background-color: black;
-  }
-  </style>
-  
+  color: white;
+  border-color: #fff;
+}
+
+.btn-light:hover {
+  background-color: #4d89e3;
+  border-color: #f2f2f2;
+}
+
+h1, h3 {
+  font-weight: bold;
+}
+
+</style>
