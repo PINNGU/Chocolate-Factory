@@ -10,7 +10,7 @@
     "workingHours": "10 AM - 7 PM",
     "status": "Open",
     "locationId": "2b3c4d5e-6789-01bc-def2-3456789012cd",
-    "logo": "https://example.com/logos/godiva.png",
+    "logo": "http://localhost:3000/images/maxresdefault.jpg",
     "rating": 4.9
   },
   {
@@ -24,7 +24,7 @@
     "workingHours": "8 AM - 5 PM",
     "status": "Open",
     "locationId": "3c4d5e6f-7890-12cd-ef34-5678901234ef",
-    "logo": "https://example.com/logos/cadbury.png",
+    "logo": "http://localhost:3000/images/download.jpg",
     "rating": 4.7
   },
   {
@@ -39,7 +39,22 @@
     "workingHours": "9 AM - 6 PM",
     "status": "Open",
     "locationId": "1a2b3c4d-5678-90ab-cdef-1234567890ab",
-    "logo": "https://example.com/logos/ghirardelli.png",
+    "logo": "http://localhost:3000/images/maxresdefault.jpg",
+    "rating": 3.5
+  },
+  {
+    "id": "7b7531fd-518a-4ea2-9db1-f47902f15gm3",
+    "name": "Renovating Factory",
+    "chocolates": [
+      "c68d7e6a-7f8c-4e57-bd47-5e3b6f7b3b49",
+      "a12b3c4d-1234-5678-90ab-cdef3456789b",
+      "d45e6f7g-4567-8901-23de-f3456789e",
+      "b23c4d5e-2345-6789-01bc-def3456789c"
+    ],
+    "workingHours": "9 AM - 6 PM",
+    "status": "Closed",
+    "locationId": "1a2b3c4d-5678-90ab-cdef-1234567890ab",
+    "logo": "http://localhost:3000/images/download.jpg",
     "rating": 3.5
   }
 ]
