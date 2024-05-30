@@ -7,7 +7,7 @@
     "kind": "Bar",
     "weight": 100,
     "description": "Rich dark chocolate bar",
-    "image": "dark_chocolate_bar.jpg",
+    "image": "http://localhost:3000/images/dark_choco.jpg",
     "quantity": 70,
     "status": "Ima na stanju"
   },
@@ -19,7 +19,7 @@
     "kind": "Truffles",
     "weight": 150,
     "description": "Creamy milk chocolate truffles",
-    "image": "milk_chocolate_truffles.jpg",
+    "image": "http://localhost:3000/images/milk-truffles.jpg",
     "quantity": 50,
     "status": "Ima na stanju"
   },
@@ -31,7 +31,7 @@
     "kind": "Nuts",
     "weight": 200,
     "description": "White chocolate covered almonds",
-    "image": "white_chocolate_almonds.jpg",
+    "image": "http://localhost:3000/images/white-choco-almonds.jpg",
     "quantity": 80,
     "status": "Ima na stanju"
   },
@@ -43,7 +43,7 @@
     "kind": "Filled",
     "weight": 100,
     "description": "Chocolate filled with caramel",
-    "image": "caramel_filled_chocolate.jpg",
+    "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
     "quantity": 60,
     "status": "Ima na stanju"
   },
@@ -55,7 +55,7 @@
     "kind": "Nuts",
     "weight": 120,
     "description": "Dark chocolate with hazelnuts",
-    "image": "hazelnut_dark_chocolate.jpg",
+    "image": "http://localhost:3000/images/dark_choco.jpg",
     "quantity": 40,
     "status": "Ima na stanju"
   },
@@ -67,7 +67,7 @@
     "kind": "Bar",
     "weight": 100,
     "description": "Mint flavored chocolate with chips",
-    "image": "mint_chocolate_chip.jpg",
+    "image": "http://localhost:3000/images/mint-choco.jpg",
     "quantity": 75,
     "status": "Ima na stanju"
   }
