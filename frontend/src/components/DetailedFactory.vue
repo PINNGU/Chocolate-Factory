@@ -15,9 +15,10 @@
                 <img :src="chocolate.image" alt="Chocolate Image" class="chocolate-image">
                 <div class="chocolate-info">
                   <h3>{{ chocolate.name }}</h3>
-                  <p>{{ chocolate.type }}</p>
+                  <p>{{ chocolate.type }}, {{ chocolate.kind }}</p>
                   <p>{{ chocolate.price }}$</p>
                   <p>Quantity: {{ chocolate.quantity }}</p>
+                  <Button class="remove-button" @click="removeChocolate(chocolate.id)">Remove</Button>
                 </div>
               </div>
               
@@ -81,12 +82,36 @@
             console.error('Error fetching location:', error);
             }
 
-    }
+    },
+    async removeChocolate(chocolateId) {
+        try {
+          this.factory.chocolates = this.factory.chocolates.filter(id => id !== chocolateId);
+          this.chocolates = this.chocolates.filter(chocolate => chocolate.id !== chocolateId);
+          await axios.put(`http://localhost:3000/api/factories/${this.factory.id}`, this.factory);
+          
+          
+        } catch (error) {
+          console.error('Error removing chocolate:', error);
+          alert('There was an error removing the chocolate. Please try again.');
+        }
   }
+}
   };
   </script>
   
   <style scoped>
+
+  .remove-button{
+        justify-content: left;
+        width: fit-content;
+        display: flex;
+        font-size: 15px;
+        font-weight: bold;
+        background-color: #444;
+        border: none;
+        color: #f74856;
+  }
+
     .add-button{
         justify-content: center;
         display: flex;
@@ -94,6 +119,15 @@
         font-weight: bold;
         color: pink;
   border-color: #f2f2f2;
+  border-radius: 4px;
+    }
+
+    .remove-button:hover{
+      cursor: pointer;
+  border-color: #f2f2f2;
+  background-color: #4d89e3;
+  border-radius: 5px;
+
     }
     
     .add-button:hover{

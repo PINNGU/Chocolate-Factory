@@ -61,35 +61,33 @@ class FactoryService {
     return factoryId;
   }
 
-  static async addChocolates(factoryId, newChocolates) {
+  static async addChocolates(factoryId, chocolateId) {
     try {
-        // Step 1: Fetch all factories
-        
-        const factories = await this.getAllFactories();
-        
+      // Step 1: Fetch all factories
+      const factories = await this.getAllFactories();
 
-        // Step 2: Find the factory by factoryId
-        const factory = factories.find(factory => factory.id === factoryId);
-        
-        // Step 3: Handle case where factory is not found
-        if (!factory) {
-            throw new Error('Factory not found');
-        }
-        
-        // Step 4: Add new chocolates to the factory
-        factory.chocolates.push(newChocolates);
-        
-        // Step 5: Write updated factories array back to JSON file
-        await jsonHandler.writeJSON(factoryFilePath, factories);
-        
-        // Step 6: Return the updated factory
-        return factory;
+      // Step 2: Find the factory by factoryId
+      const factory = factories.find(factory => factory.id === factoryId);
+
+      // Step 3: Handle case where factory is not found
+      if (!factory) {
+        throw new Error('Factory not found');
+      }
+
+      // Step 4: Add new chocolate ID to the factory's chocolates array
+      factory.chocolates.push(chocolateId);
+
+      // Step 5: Write updated factories array back to JSON file
+      await jsonHandler.writeJSON(factoryFilePath, factories);
+
+      // Step 6: Return the updated factory
+      return factory;
     } catch (error) {
-        // Step 7: Handle any errors and log them
-        console.error('Error adding chocolates to factory:', error);
-        throw error; // Rethrow the error to propagate it to the caller
+      // Step 7: Handle any errors and log them
+      console.error('Error adding chocolates to factory:', error);
+      throw error; // Rethrow the error to propagate it to the caller
     }
-}
+  }
 
 }
 
