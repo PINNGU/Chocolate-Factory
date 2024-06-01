@@ -1,7 +1,7 @@
 [
   {
     "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
-    "name": "Godiva Chocolatier",
+    "name": "Coks Koks Chocolatier",
     "chocolates": [
       "c34d5e6f-3456-7890-12cd-ef3456789d",
       "b23c4d5e-2345-6789-01bc-def3456789c"
@@ -10,11 +10,11 @@
     "status": "Open",
     "locationId": "2b3c4d5e-6789-01bc-def2-3456789012cd",
     "logo": "http://localhost:3000/images/maxresdefault.jpg",
-    "rating": 4.9
+    "rating": 5
   },
   {
     "id": "7g3h4i5j-6b79-01cd-ef23-3456789012cd",
-    "name": "Cadbury Chocolate Factory",
+    "name": "Mrkson Chocolate Factory",
     "chocolates": [
       "a12b3c4d-1234-5678-90ab-cdef3456789b",
       "e56f7g8h-5678-9012-34ef-3456789f",
@@ -24,7 +24,7 @@
     "status": "Open",
     "locationId": "3c4d5e6f-7890-12cd-ef34-5678901234ef",
     "logo": "http://localhost:3000/images/download.jpg",
-    "rating": 4.7
+    "rating": 4
   },
   {
     "id": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",

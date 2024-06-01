@@ -33,8 +33,12 @@ const router = createRouter({
       name : 'add-chocolates',
       component: () => import('../components/AddChocolateToFactory.vue')
 
+    },
+    {
+      path: '/factory/:id/update',
+      name: 'update-factory',
+      component: () => import('../components/UpdateFactory.vue')
     }
-
   
   ]
 })

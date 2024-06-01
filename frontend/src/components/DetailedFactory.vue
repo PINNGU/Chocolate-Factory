@@ -28,8 +28,10 @@
           </div>
 
         </div>
-        <router-link :to="`/factory/${factory.id}/add-chocolate`" class="add-button">Add chocolate</router-link>
-
+        <div class="actions">
+        <router-link :to="`/factory/${factory.id}/add-chocolate`" class="add-button">Add Chocolate</router-link>
+        <router-link :to="`/factory/${factory.id}/update`" class="update-button">Update Factory</router-link>
+      </div>
       </div>
       <div v-else>
         <p>Loading factory details...</p>
@@ -112,15 +114,15 @@
         color: #f74856;
   }
 
-    .add-button{
-        justify-content: center;
-        display: flex;
-        font-size: 30px;
-        font-weight: bold;
-        color: pink;
+  .add-button, .update-button {
+  justify-content: center;
+  display: flex;
+  font-size: 30px;
+  font-weight: bold;
+  color: pink;
   border-color: #f2f2f2;
   border-radius: 4px;
-    }
+}
 
     .remove-button:hover{
       cursor: pointer;
@@ -202,5 +204,11 @@
     font-size: 1.2rem;
     margin: 0;
   }
+
+  .actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
   </style>
   
