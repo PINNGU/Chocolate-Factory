@@ -7,8 +7,68 @@
     "kind": "Bar",
     "weight": 100,
     "description": "Rich dark chocolate bar",
-    "image": "dark_chocolate_bar.jpg",
+    "image": "http://localhost:3000/images/dark_choco.jpg",
     "quantity": 70,
+    "status": "Ima na stanju"
+  },
+  {
+    "id": "a12b3c4d-1234-5678-90ab-cdef3456789b",
+    "name": "Milk Chocolate Truffles",
+    "price": 4.99,
+    "type": "Milk",
+    "kind": "Truffles",
+    "weight": 150,
+    "description": "Creamy milk chocolate truffles",
+    "image": "http://localhost:3000/images/milk-truffles.jpg",
+    "quantity": 50,
+    "status": "Ima na stanju"
+  },
+  {
+    "id": "b23c4d5e-2345-6789-01bc-def3456789c",
+    "name": "White Chocolate Almonds",
+    "price": 5.49,
+    "type": "White",
+    "kind": "Nuts",
+    "weight": 200,
+    "description": "White chocolate covered almonds",
+    "image": "http://localhost:3000/images/white-choco-almonds.jpg",
+    "quantity": 80,
+    "status": "Ima na stanju"
+  },
+  {
+    "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+    "name": "Caramel Filled Chocolate",
+    "price": 3.99,
+    "type": "Milk",
+    "kind": "Filled",
+    "weight": 100,
+    "description": "Chocolate filled with caramel",
+    "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+    "quantity": 60,
+    "status": "Ima na stanju"
+  },
+  {
+    "id": "d45e6f7g-4567-8901-23de-f3456789e",
+    "name": "Hazelnut Dark Chocolate",
+    "price": 4.49,
+    "type": "Dark",
+    "kind": "Nuts",
+    "weight": 120,
+    "description": "Dark chocolate with hazelnuts",
+    "image": "http://localhost:3000/images/dark_choco.jpg",
+    "quantity": 40,
+    "status": "Ima na stanju"
+  },
+  {
+    "id": "e56f7g8h-5678-9012-34ef-3456789f",
+    "name": "Mint Chocolate Chip",
+    "price": 3.49,
+    "type": "Mint",
+    "kind": "Bar",
+    "weight": 100,
+    "description": "Mint flavored chocolate with chips",
+    "image": "http://localhost:3000/images/mint-choco.jpg",
+    "quantity": 75,
     "status": "Ima na stanju"
   }
 ]

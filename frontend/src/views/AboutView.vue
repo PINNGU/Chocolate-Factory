@@ -1,15 +1,15 @@
 <template>
-  <div class="about">
+  
     <h1>This is an about page</h1>
-  </div>
+  
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+.view-container {
+  padding: 20px;
+  color: white;
+  background-color: #222;
+  min-height: calc(100vh - 80px); /* Adjust based on your header height */
+  overflow-y: auto;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+
 import Factories from '../components/FactoriesList.vue'
 </script>
 
