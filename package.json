@@ -3,9 +3,17 @@
     "dev": "node backend/server.js"
   },
   "dependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
+    "bootstrap": "^5.3.3",
     "express": "^4.19.2",
     "i": "^0.3.7",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "vite": "^5.2.12",
+    "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
