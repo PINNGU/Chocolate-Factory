@@ -1,57 +1,50 @@
 <template>
-
-    <h1 class="text-center mb-4" style="font-size: 3rem; color: #fff; background: linear-gradient(to right, #7F00FF, #E100FF); padding: 20px; border-radius: 12px;">Factory List</h1>
+  <div class="factory-list">
+    <h1 class="text-center mb-4 factory-header">Factory List</h1>
 
     <!-- Open Factories -->
     <div v-if="openedFactories.length > 0" class="mb-4">
-      <h3 class="text-center mb-3" style="font-size: 2.5rem; color: white;">Open Factories</h3>
+      <h3 class="text-center mb-3 section-header">Open Factories</h3>
       <div class="row justify-content-center">
-        <div v-for="(factory, index) in openedFactories" :key="factory.id" class="col-lg-4 col-md-6 mb-4">
-          <div class="card" style="background: linear-gradient(to right, #8000ff, #ff00e6);border: 2px solid orangered;border-radius: 3%;">
-            <div class="card-text">
-              <h4 class="card-title" style="font-size: 2rem; color: #fff;">{{ factory.name }}</h4>
-              
-                <p  style="font-size: 1.5rem; color: #fff;"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
-                <p style="font-size: 1.5rem; color: #fff;"><strong>Status:</strong> {{ factory.status }}</p>
-              
-            
-              <p  style="font-size: 1.5rem; color: #fff;"><strong>Rating:</strong> {{ factory.rating }}</p>
+        <div v-for="(factory, index) in openedFactories" :key="factory.id" class="col-lg-3 col-md-4 mb-4">
+          <div class="card factory-card">
+            <img :src="factory.logo" alt="Factory Image" class="factory-image">
+            <div class="card-body">
+              <h4 class="card-title">{{ factory.name }}</h4>
+              <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
+              <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
+              <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
               <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-lg">View Details</router-link>
             </div>
-            
-            
-              <img :src="factory.logo" alt="Factory Image" style= "border-radius: 3% 3% 0 0; max-width: 60%;justify-content: right">
-            
-              
-            
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Closed Factories -->
     <div v-if="closedFactories.length > 0" class="mb-4">
-    <h3 class="text-center mb-3" style="font-size: 2.5rem; color: white;">Closed Factories</h3>
-    <div class="row justify-content-center">
-      <div v-for="(factory, index) in closedFactories" :key="factory.id" class="col-lg-4 col-md-6 mb-4">
-        <div class="card" style="background: linear-gradient(to right, #8000ff, #ff00e6);border: 2px solid orangered;border-radius: 3%;">
-          <div class="card-text">
-            <h4 class="card-title" style="font-size: 2rem; color: #fff;">{{ factory.name }}</h4>
-            <p style="font-size: 1.5rem; color: #fff;"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
-            <p style="font-size: 1.5rem; color: #fff;"><strong>Status:</strong> {{ factory.status }}</p>
-            <p style="font-size: 1.5rem; color: #fff;"><strong>Rating:</strong> {{ factory.rating }}</p>
-            <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-lg">View Details</router-link>
+      <h3 class="text-center mb-3 section-header">Closed Factories</h3>
+      <div class="row justify-content-center">
+        <div v-for="(factory, index) in closedFactories" :key="factory.id" class="col-lg-3 col-md-4 mb-4">
+          <div class="card factory-card">
+            <img :src="factory.logo" alt="Factory Image" class="factory-image">
+            <div class="card-body">
+              <h4 class="card-title">{{ factory.name }}</h4>
+              <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
+              <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
+              <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+              <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-lg">View Details</router-link>
+            </div>
           </div>
-          <img :src="factory.logo" alt="Factory Image" style="border-radius: 3% 3% 0 0; max-width: 60%; justify-content: right">
         </div>
       </div>
     </div>
-  </div>
 
     <!-- No Factories Message -->
     <div v-if="factories.length === 0" class="text-center mt-5">
       <p style="font-size: 2rem; color: #333;">No factories found.</p>
     </div>
-  
+  </div>
 </template>
 
 <script>
@@ -88,36 +81,83 @@ export default {
 </script>
 
 <style scoped>
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
 
-.first-part {
+.factory-list {
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.factory-header {
+  font-size: 3rem;
+  color: #fff;
+  background: linear-gradient(to right, #7F00FF, #E100FF);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.section-header {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.factory-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 20px;
 }
 
-.card{
-  display:flex;
-  gap:100px;
-  max-height: 200px;
+.factory-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.factory-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
 
-.card:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.card-body {
+  padding: 10px;
+  text-align: left;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
 }
 
 .btn-light {
-  
-  color: white;
-  border-color: #fff;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .btn-light:hover {
-  background-color: #4d89e3;
-  border-color: #f2f2f2;
+  background-color: #0056b3;
 }
-
-h1, h3 {
-  font-weight: bold;
-}
-
 </style>

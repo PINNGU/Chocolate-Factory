@@ -38,8 +38,17 @@ const router = createRouter({
       path: '/factory/:id/update',
       name: 'update-factory',
       component: () => import('../components/UpdateFactory.vue')
-    }
-  
+    },
+    {
+      path: '/chocolate/:id/update',
+      name: 'update-chocolate',
+      component: () => import('../components/UpdateChocolate.vue')
+    },
+    {
+      path: '/factory/:id/comments',
+      name: 'factory-comments',
+      component: () => import('../components/CommentsView.vue')
+    }  
   ]
 })
 
