@@ -3,60 +3,80 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  
-    <main style="min-width: 1200px; margin-left: 0px;">
-      <nav style="margin-bottom: 5px;">
+  <div id="app">
+    <header>
+      <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/factories">Factories</RouterLink>
       </nav>
+    </header>
+    <main>
       <RouterView />
     </main>
-  
-    
-      
-    
-
+  </div>
 </template>
 
 <style scoped>
+body, html {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #eea333f1;
+  color: white;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
 
-
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
 
 header {
-  background-color: #333;
+  background-color: #eea333f1;
   padding: 10px;
   text-align: center;
   color: white;
 }
 
 nav {
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 nav a {
-  margin: 0 10px;
+  color: #ffcc00;
   text-decoration: none;
-  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #fff;
 }
 
 nav a.router-link-exact-active {
-  font-weight: bold;
+  color: #fff;
+  border-bottom: 2px solid #ffcc00;
 }
 
 main {
   flex: 1;
   padding: 20px;
-  background-color: #222;
+  background-color: #fffffff1;
   color: white;
   overflow-y: auto;
-  min-height: 80vh; /* Set a minimum height to ensure constant size */
+  min-width: 1200px; /* Maintains your specified width */
 }
 
 .view-container {
   padding: 20px;
   color: white;
-  background-color: #222;
+  background-color: #fffffff1;
   min-height: calc(100vh - 80px); /* Adjust based on your header height */
   overflow-y: auto;
 }
@@ -79,11 +99,11 @@ th {
 }
 
 tbody tr:nth-child(even) {
-  background-color: #333;
+  background-color: #fffffff1;
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #444;
+  background-color: #fffffff1;
 }
 
 tbody tr {
