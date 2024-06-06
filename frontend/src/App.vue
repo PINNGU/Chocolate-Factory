@@ -3,9 +3,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div id="app">
+  <div class="lele">
     <header>
-      <nav>
+      <nav class="navbar">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/factories">Factories</RouterLink>
       </nav>
@@ -23,17 +23,23 @@ body, html {
   padding: 0;
   background-color: #eea333f1;
   color: white;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   overflow-x: hidden;
+}
+
+.lele{
+  width: 100%;
 }
 
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
   width: 100%;
 }
+
+
 
 header {
   background-color: #eea333f1;
@@ -46,6 +52,7 @@ nav {
   display: flex;
   justify-content: center;
   gap: 20px;
+  width: 100%;
 }
 
 nav a {
@@ -68,14 +75,14 @@ main {
   flex: 1;
   padding: 20px;
   background-color: #fffffff1;
-  color: white;
+  color: black; /* Set to black to ensure text is visible */
   overflow-y: auto;
-  min-width: 1200px; /* Maintains your specified width */
+  width: 100%;
 }
 
 .view-container {
   padding: 20px;
-  color: white;
+  color: black; /* Set to black to ensure text is visible */
   background-color: #fffffff1;
   min-height: calc(100vh - 80px); /* Adjust based on your header height */
   overflow-y: auto;
@@ -107,6 +114,6 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr {
-  color: white;
+  color: black; /* Set to black to ensure text is visible */
 }
 </style>
