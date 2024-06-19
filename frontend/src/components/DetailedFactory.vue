@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title">{{ factory.name }}</h2>
-          <p class="card-text"><strong>Location:</strong> {{ location.address }}</p>
+          <p class="card-text"><strong>Location:</strong> {{ location?.address || 'Loading...' }}</p>
           <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
           <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
           <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
@@ -27,10 +27,24 @@
           </div>
         </div>
       </div>
+      <div class="comments-section">
+        <h2>Comments for {{ factory.name }}</h2>
+        <div v-if="comments.length > 0">
+          <div class="comment-card" v-for="comment in filteredComments" :key="comment.id">
+            <p class="comment-text">{{ comment.text }}</p>
+            <div class="comment-rating">
+              <strong>Rating:</strong>
+              <span v-for="n in comment.rating" :key="n" class="star">★</span>
+            </div>
+          </div>
+        </div>
+        <div v-else>
+          <p class="no-comments">No comments for this factory.</p>
+        </div>
+      </div>
       <div class="actions">
         <router-link :to="`/factory/${factory.id}/add-chocolate`" class="add-button">Add Chocolate</router-link>
         <router-link :to="`/factory/${factory.id}/update`" class="update-factory-button">Update Factory</router-link>
-        <router-link :to="`/factory/${factory.id}/comments`" class="comments-button">Comments</router-link>
       </div>
     </div>
     <div v-else>
@@ -47,33 +61,45 @@ export default {
     return {
       factory: null,
       chocolates: [],
+      comments: [],
       location: null
     };
   },
   mounted() {
     this.fetchFactoryDetails();
   },
+  computed: {
+    filteredComments() {
+      return this.comments.filter(comment => comment.factory === this.factory.id);
+    }
+  },
   methods: {
     async fetchFactoryDetails() {
       const factoryId = this.$route.params.id;
       try {
-        const response = await axios.get(`http://localhost:3000/api/factories/${factoryId}`);
-        this.factory = response.data;
+        const [factoryResponse, commentsResponse] = await Promise.all([
+          axios.get(`http://localhost:3000/api/factories/${factoryId}`),
+          axios.get(`http://localhost:3000/api/comments`)
+        ]);
+
+        this.factory = factoryResponse.data;
+        this.comments = commentsResponse.data;
         await this.fetchChocolates(this.factory.chocolates);
         await this.fetchLocation(this.factory.locationId);
       } catch (error) {
         console.error('Error fetching factory details:', error);
+        alert('Error loading factory details. Please try again later.');
       }
     },
     async fetchChocolates(chocolateIds) {
       this.chocolates = [];
       try {
-        for (const chocolateId of chocolateIds) {
-          const response = await axios.get(`http://localhost:3000/api/chocolates/${chocolateId}`);
-          this.chocolates.push(response.data);
-        }
+        const promises = chocolateIds.map(id => axios.get(`http://localhost:3000/api/chocolates/${id}`));
+        const responses = await Promise.all(promises);
+        this.chocolates = responses.map(response => response.data);
       } catch (error) {
         console.error('Error fetching chocolates:', error);
+        alert('Error loading chocolates. Please try again later.');
       }
     },
     async fetchLocation(locationId) {
@@ -82,6 +108,7 @@ export default {
         this.location = response.data;
       } catch (error) {
         console.error('Error fetching location:', error);
+        alert('Error loading location. Please try again later.');
       }
     },
     async removeChocolate(chocolateId) {
@@ -189,7 +216,7 @@ body {
   margin-top: 10px;
 }
 
-.remove-button, .update-button, .comments-button{
+.remove-button, .update-button {
   display: inline-block;
   padding: 8px 16px;
   font-size: 14px;
@@ -202,15 +229,15 @@ body {
   cursor: pointer;
 }
 
-.update-button, .comments-button {
+.update-button {
   background-color: #007bff;
 }
 
-.remove-button:hover, .update-button:hover, .comments-button:hover {
+.remove-button:hover, .update-button:hover {
   opacity: 0.8;
 }
 
-.add-button, .update-factory-button, .comments-button {
+.add-button, .update-factory-button {
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -225,6 +252,59 @@ body {
 
 .add-button:hover, .update-factory-button:hover {
   opacity: 0.8;
+}
+
+.comments-section {
+  margin-top: 40px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.comments-section h2 {
+  margin-bottom: 20px;
+  color: #4a4a4a;
+}
+
+.comment-card {
+  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.comment-text {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.comment-rating {
+  font-size: 1rem;
+  color: #777;
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  color: #ffd700;
+  margin-left: 5px;
+}
+
+.no-comments {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999;
 }
 
 .actions {
