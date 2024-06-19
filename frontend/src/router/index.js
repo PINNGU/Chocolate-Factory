@@ -48,7 +48,7 @@ const router = createRouter({
       path: '/factory/:id/comments',
       name: 'factory-comments',
       component: () => import('../components/CommentsView.vue')
-    }  
+    }
   ]
 })
 

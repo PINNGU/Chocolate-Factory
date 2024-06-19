@@ -11,6 +11,11 @@
       </div>
     </header>
 
+    <div class="search-box">
+  <input type="text" v-model="searchQuery" placeholder="Search factories..." class="search-input">
+  <button @click="handleSearch" class="search-button">Search</button>
+</div>
+
     <!-- Open Factories -->
     <div v-if="openedFactories.length > 0" class="mb-4">
       <h3 class="text-center mb-3 section-header">
@@ -66,7 +71,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      factories: []
+      factories: [],
+      searchQuery: ''
     };
   },
   computed: {
@@ -78,18 +84,46 @@ export default {
     }
   },
   mounted() {
-    this.fetchFactories();
+    this.fetchAllFactories(); // Fetch all factories on mount
   },
+
   methods: {
-    async fetchFactories() {
+    async fetchAllFactories() {
       try {
         const response = await axios.get('http://localhost:3000/api/factories');
         this.factories = response.data;
       } catch (error) {
         console.error('Error fetching factories:', error);
       }
+    },
+    async searchFactories(query) {
+      try {
+        
+        
+        const response = await axios.get(`http://localhost:3000/api/factories/search/${query}`);
+
+        
+        this.factories = response.data;
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error searching factories:', error);
+      }
+    },
+    handleSearch() {
+      
+      console.log('Search button clicked');
+      console.log('Search query:', this.searchQuery);
+      if (this.searchQuery.trim()) {
+        console.log('Performing search...');
+        this.searchFactories(this.searchQuery);
+        console.log("posle");
+      } else {
+        console.log('Fetching all factories...');
+        this.fetchAllFactories();
+      }
     }
   }
+
 };
 </script>
 
@@ -243,4 +277,39 @@ body {
   background-color: #eea333f1;
   color: #fff;
 }
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 50%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-left: none;
+  background-color: #ffcc00;
+  color: #000;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.search-button:hover {
+  background-color: #eea333f1;
+  color: #fff;
+}
+
+
 </style>
+

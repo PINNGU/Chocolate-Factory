@@ -88,7 +88,15 @@ class FactoryService {
       throw error; // Rethrow the error to propagate it to the caller
     }
   }
-
+  
+  static async searchFactories(searchParam) {
+    const factories = await this.getAllFactories();
+    console.log('Searching factories for:', searchParam);
+    const filteredFactories = factories.filter(factory => 
+      factory.name.toLowerCase().includes(searchParam.toLowerCase())
+    );
+    return filteredFactories;
+  }
 }
 
 module.exports = FactoryService;

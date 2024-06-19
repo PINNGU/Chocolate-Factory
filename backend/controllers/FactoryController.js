@@ -21,6 +21,23 @@ exports.getFactoryById = async (req, res) => {
   }
 };
 
+exports.searchFactories = async (req, res) => {
+  try {
+    
+    const searchParam = req.params.searchParam;
+    console.log('Received searchParam:', searchParam);
+    const factories = await FactoryService.searchFactories(searchParam);
+    
+   
+      res.status(200).json(factories); 
+ 
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching factories', error });
+  }
+};
+
+
+
 exports.createFactory = async (req, res) => {
   try {
     const factoryData = req.body;
