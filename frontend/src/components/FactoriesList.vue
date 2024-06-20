@@ -42,6 +42,18 @@
     <button @click="handleSearch">Search</button>
   </div>
 
+  <div class="sorting-container">
+  <select v-model="sortOption" class="sorting-dropdown">
+    <option value="nameAsc">Sort by Name (A-Z)</option>
+    <option value="nameDesc">Sort by Name (Z-A)</option>
+    <option value="locationAsc">Sort by Location (A-Z)</option>
+    <option value="locationDesc">Sort by Location (Z-A)</option>
+    <option value="gradeAsc">Sort by Average Grade (Ascending)</option>
+    <option value="gradeDesc">Sort by Average Grade (Descending)</option>
+  </select>
+  <button @click="handleSort">Sort</button>
+</div>
+
 
     <!-- Open Factories -->
     <div v-if="openedFactories.length > 0" class="mb-4">
@@ -104,7 +116,8 @@ export default {
       searchQuery: '',
       gradeQuery: '',
       selectedChocolate: '',
-      selectedLocation: ''
+      selectedLocation: '',
+      sortOption: '' 
 
     };
   },
@@ -123,6 +136,22 @@ export default {
   },
 
   methods: {
+    handleSort() {
+    if (this.sortOption === 'nameAsc') {
+      this.factories.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (this.sortOption === 'nameDesc') {
+      this.factories.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (this.sortOption === 'locationAsc') {
+      this.factories.sort((a, b) => a.location.address.localeCompare(b.location.address));
+    } else if (this.sortOption === 'locationDesc') {
+      this.factories.sort((a, b) => b.location.address.localeCompare(a.location.address));
+    } else if (this.sortOption === 'gradeAsc') {
+      this.factories.sort((a, b) => a.rating - b.rating);
+    } else if (this.sortOption === 'gradeDesc') {
+      this.factories.sort((a, b) => b.rating - a.rating);
+    }
+  },
+
     async fetchAllFactories() {
       try {
         const response = await axios.get('http://localhost:3000/api/factories');
@@ -386,6 +415,38 @@ body {
   outline: none;
 }
 
+.sorting-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sorting-dropdown {
+  width: 25%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.sorting-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-left: none;
+  background-color: #ffcc00;
+  color: #000;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.sorting-container button:hover {
+  background-color: #eea333f1;
+  color: #fff;
+}
 
 </style>
 
