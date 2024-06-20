@@ -11,10 +11,37 @@
       </div>
     </header>
 
-    <div class="search-box">
-  <input type="text" v-model="searchQuery" placeholder="Search factories..." class="search-input">
-  <button @click="handleSearch" class="search-button">Search</button>
-</div>
+    <div class="search-container">
+    <input
+      type="text"
+      v-model="searchQuery"
+      placeholder="Search by name..."
+      @keyup.enter="searchFactories"
+    />
+    <input
+      type="number"
+      v-model="gradeQuery"
+      placeholder="Search by grade..."
+      min="0"
+      max="5"
+      step="0.1"
+      @keyup.enter="searchFactories"
+    />
+    <select v-model="selectedChocolate" class="chocolate-dropdown" >
+      
+      <option v-for="chocolate in chocolates" :key="chocolate.id" :value="chocolate.id">
+        {{ chocolate.name }}
+      </option>
+    </select>
+    <select v-model="selectedLocation" class="location-dropdown" >
+      
+      <option v-for="location in locations" :key="location.id" :value="location.id">
+        {{ location.address }}
+      </option>
+    </select>
+    <button @click="handleSearch">Search</button>
+  </div>
+
 
     <!-- Open Factories -->
     <div v-if="openedFactories.length > 0" class="mb-4">
@@ -72,7 +99,13 @@ export default {
   data() {
     return {
       factories: [],
-      searchQuery: ''
+      chocolates: [],
+      locations: [],
+      searchQuery: '',
+      gradeQuery: '',
+      selectedChocolate: '',
+      selectedLocation: ''
+
     };
   },
   computed: {
@@ -85,6 +118,8 @@ export default {
   },
   mounted() {
     this.fetchAllFactories(); // Fetch all factories on mount
+    this.fetchAllChocolates();
+    this.fetchAllLocations();
   },
 
   methods: {
@@ -96,15 +131,34 @@ export default {
         console.error('Error fetching factories:', error);
       }
     },
+    async fetchAllChocolates(){
+      try {
+        const response = await axios.get('http://localhost:3000/api/chocolates');
+        this.chocolates = response.data;
+      } catch (error) {
+        console.error('Error fetching chocolates:', error);
+      }
+    },
+    async fetchAllLocations(){
+      try {
+        const response = await axios.get('http://localhost:3000/api/locations');
+        this.locations = response.data;
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+      }
+    },
     async searchFactories(query) {
       try {
-        
-        
-        const response = await axios.get(`http://localhost:3000/api/factories/search/${query}`);
+        const nameQuery = this.searchQuery;
+        const gradeQuery = this.gradeQuery;
+        const chocolateQuery = this.selectedChocolate;
+        const locationQuery = this.selectedLocation;
 
-        
+        const searchParam = `${nameQuery}&${gradeQuery}&${chocolateQuery}&${locationQuery}`;
+        const response = await axios.get(`http://localhost:3000/api/factories/search/${searchParam}`);
         this.factories = response.data;
-        console.log(response.data);
+        this.openedFactories = this.factories.filter(factory => factory.status === 'Open');
+        this.closedFactories = this.factories.filter(factory => factory.status === 'Closed');
       } catch (error) {
         console.error('Error searching factories:', error);
       }
@@ -113,7 +167,7 @@ export default {
       
       console.log('Search button clicked');
       console.log('Search query:', this.searchQuery);
-      if (this.searchQuery.trim()) {
+      if (this.searchQuery.trim() || this.gradeQuery || this.selectedChocolate || this.selectedLocation){
         console.log('Performing search...');
         this.searchFactories(this.searchQuery);
         console.log("posle");
@@ -278,14 +332,17 @@ body {
   color: #fff;
 }
 
-.search-box {
+
+
+.search-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.search-input {
-  width: 50%;
+.search-container input {
+  width: 30%;
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -293,7 +350,7 @@ body {
   outline: none;
 }
 
-.search-button {
+.search-container button {
   padding: 10px 20px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -305,9 +362,28 @@ body {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.search-button:hover {
+.search-container button:hover {
   background-color: #eea333f1;
   color: #fff;
+}
+
+.chocolate-dropdown {
+  width: 25%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+   border-radius: 5px 0 0 5px;
+  
+  outline: none;
+}
+.location-dropdown {
+  width: 25%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+   border-radius: 5px 0 0 5px;
+  
+  outline: none;
 }
 
 

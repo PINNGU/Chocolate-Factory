@@ -84,22 +84,11 @@ export default {
 
         this.factory = factoryResponse.data;
         this.comments = commentsResponse.data;
-        await this.fetchChocolates(this.factory.chocolates);
+        this.chocolates = this.factory.chocolates;
         await this.fetchLocation(this.factory.locationId);
       } catch (error) {
         console.error('Error fetching factory details:', error);
         alert('Error loading factory details. Please try again later.');
-      }
-    },
-    async fetchChocolates(chocolateIds) {
-      this.chocolates = [];
-      try {
-        const promises = chocolateIds.map(id => axios.get(`http://localhost:3000/api/chocolates/${id}`));
-        const responses = await Promise.all(promises);
-        this.chocolates = responses.map(response => response.data);
-      } catch (error) {
-        console.error('Error fetching chocolates:', error);
-        alert('Error loading chocolates. Please try again later.');
       }
     },
     async fetchLocation(locationId) {

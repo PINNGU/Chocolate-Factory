@@ -89,14 +89,41 @@ class FactoryService {
     }
   }
   
-  static async searchFactories(searchParam) {
-    const factories = await this.getAllFactories();
-    console.log('Searching factories for:', searchParam);
-    const filteredFactories = factories.filter(factory => 
-      factory.name.toLowerCase().includes(searchParam.toLowerCase())
-    );
+
+  static async searchFactories(nameQuery, gradeQuery, chocolateQuery,locationQuery) {
+    const factories = await jsonHandler.readJSON(factoryFilePath);
+    let filteredFactories = factories;
+
+    if (nameQuery) {
+      filteredFactories = filteredFactories.filter(factory =>
+        factory.name.toLowerCase().includes(nameQuery.toLowerCase())
+      );
+    }
+
+    if (gradeQuery) {
+      filteredFactories = filteredFactories.filter(factory =>
+        factory.rating === parseFloat(gradeQuery)
+      );
+    }
+
+    console.log('chocolateQuery:', chocolateQuery);
+    if (chocolateQuery) {
+      filteredFactories = filteredFactories.filter(factory =>
+        factory.chocolates.some(chocolate => chocolate.id === chocolateQuery)
+      );
+    }
+
+    if(locationQuery){
+      filteredFactories = filteredFactories.filter(factory =>
+        factory.locationId === locationQuery
+      );
+    }
+
     return filteredFactories;
   }
 }
+
+
+
 
 module.exports = FactoryService;
