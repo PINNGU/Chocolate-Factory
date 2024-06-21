@@ -6,7 +6,7 @@ class User{
 
 
     constructor(username,password,name,surname,gender,
-        dateOfBirth,role,purchases,cart,chocolateFactory,points,customerType){
+        dateOfBirth,role,purchases,cart,chocolateFactory,points,customerType,deleted){
 
         this.id = uuidv4();
         this.username = username;
@@ -22,7 +22,7 @@ class User{
         this.chocolateFactory = chocolateFactory;
         this.points = points;
         this.customerType = customerType;
-
+        this.deleted = deleted;    
         
     }
 

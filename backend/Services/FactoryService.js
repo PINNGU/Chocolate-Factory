@@ -113,11 +113,16 @@ class FactoryService {
       );
     }
 
-    console.log('locationQuery:', locationQuery);
-    if(locationQuery){
-      filteredFactories = filteredFactories.filter(factory =>
-        factory.location.id === locationQuery
-      );
+    if (locationQuery) {
+      const [queryLongitude, queryLatitude] = locationQuery.split(',').map(Number);
+  
+      filteredFactories = filteredFactories.filter(factory => {
+        const { longitude, latitude } = factory.location;
+        return (
+          Math.abs(longitude - queryLongitude) <= 1 &&
+          Math.abs(latitude - queryLatitude) <= 1
+        );
+      });
     }
 
     return filteredFactories;

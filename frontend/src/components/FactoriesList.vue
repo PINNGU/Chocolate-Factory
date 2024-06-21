@@ -33,13 +33,7 @@
         {{ chocolate.name }}
       </option>
     </select>
-    <select v-model="selectedLocation" class="location-dropdown" >
-      <option value="" disabled>Select the location...</option>
-
-      <option v-for="location in locations" :key="location.id" :value="location.id">
-        {{ location.address }}
-      </option>
-    </select>
+    <map-component @location-selected="handleLocationSelect" class="location-dropdown"></map-component>
     <button @click="handleSearch">Search</button>
   </div>
 
@@ -147,8 +141,14 @@
 
 <script>
 import axios from 'axios';
+import MapComponent from './MapComponent.vue';
+
 
 export default {
+  components: {
+    MapComponent,
+  },
+
   data() {
     return {
       factories: [],
@@ -230,6 +230,7 @@ export default {
         const gradeQuery = this.gradeQuery;
         const chocolateQuery = this.selectedChocolate;
         const locationQuery = this.selectedLocation;
+        
 
         const searchParam = `${nameQuery}&${gradeQuery}&${chocolateQuery}&${locationQuery}`;
         const response = await axios.get(`http://localhost:3000/api/factories/search/${searchParam}`);
@@ -246,6 +247,7 @@ export default {
       this.selectedChocolateKind = '';
       console.log('Search button clicked');
       console.log('Search query:', this.searchQuery);
+      console.log('Selected location:', this.selectedLocation);
       if (this.searchQuery.trim() || this.gradeQuery || this.selectedChocolate || this.selectedLocation){
         console.log('Performing search...');
         this.searchFactories(this.searchQuery);
@@ -254,6 +256,10 @@ export default {
         console.log('Fetching all factories...');
         this.fetchAllFactories();
       }
+    },
+    handleLocationSelect(coordinates) {
+      this.selectedLocation = coordinates;
+
     },
 
  filterFactory(factory) {
@@ -458,7 +464,7 @@ body {
 }
 
 .search-container input {
-  width: 30%;
+  width: 25%;
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -493,13 +499,12 @@ body {
   outline: none;
 }
 .location-dropdown {
-  width: 25%;
-  padding: 10px;
+  width: 5%;
+  padding: 1px;
+  margin: 1px;
   font-size: 1rem;
-  border: 1px solid #ddd;
-   border-radius: 5px 0 0 5px;
-  
-  outline: none;
+ display: flex;
+ justify-content: center;
 }
 
 .sorting-container {
