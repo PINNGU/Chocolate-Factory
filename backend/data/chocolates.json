@@ -38,10 +38,10 @@
   {
     "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
     "name": "Caramel Filled Chocolate",
-    "price": 3.99,
+    "price": 4,
     "type": "Milk",
     "kind": "Filled",
-    "weight": 100,
+    "weight": "120",
     "description": "Chocolate filled with caramel",
     "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
     "quantity": 60,

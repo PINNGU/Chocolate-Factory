@@ -85,6 +85,10 @@
   <button @click="handleSort">Sort</button>
 </div>
 
+<div class = "reset-container">
+<button @click="resetSearch">Reset</button>
+</div>
+
 
 
 
@@ -270,6 +274,18 @@ export default {
     // No filters selected, return true to include all factories
     return true;
   }
+  },
+  resetSearch()
+  {
+    this.searchQuery = '';
+    this.gradeQuery = '';
+    this.selectedChocolate = '';
+    this.selectedLocation = '';
+    this.selectedFactoryStatus = '';
+    this.selectedChocolateType = '';
+    this.selectedChocolateKind = '';
+    this.sortOption = '';
+    this.fetchAllFactories();
   }
 
 
@@ -527,6 +543,29 @@ body {
   font-size: 14px;
 }
 
+.reset-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.reset-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-left: none;
+  background-color: #ffcc00;
+  color: #000;
+  border-radius: 5px 5px 5px 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.reset-container button:hover {
+  background-color: #eea333f1;
+  color: #fff;
+}
 
 </style>
 
