@@ -11,13 +11,85 @@
       </div>
     </header>
 
-    <div class="search-box">
-  <input type="text" v-model="searchQuery" placeholder="Search factories..." class="search-input">
-  <button @click="handleSearch" class="search-button">Search</button>
+    <div class="search-container">
+    <input
+      type="text"
+      v-model="searchQuery"
+      placeholder="Search by name..."
+      @keyup.enter="searchFactories"
+    />
+    <input
+      type="number"
+      v-model="gradeQuery"
+      placeholder="Search by grade..."
+      min="0"
+      max="5"
+      step="0.1"
+      @keyup.enter="searchFactories"
+    />
+    <select v-model="selectedChocolate" class="chocolate-dropdown" >
+      <option value="" disabled>Select a chocolate...</option>
+      <option v-for="chocolate in chocolates" :key="chocolate.id" :value="chocolate.id">
+        {{ chocolate.name }}
+      </option>
+    </select>
+    <select v-model="selectedLocation" class="location-dropdown" >
+      <option value="" disabled>Select the location...</option>
+
+      <option v-for="location in locations" :key="location.id" :value="location.id">
+        {{ location.address }}
+      </option>
+    </select>
+    <button @click="handleSearch">Search</button>
+  </div>
+
+  <div id="additional-sorting-container" class="sorting-container">
+  <select v-model="selectedFactoryStatus" class="combo-box">
+    <option value="" disabled>Select Factory Status</option>
+    <option value="open">Open</option>
+    <option value="closed">Closed</option>
+    <option value="all">All</option>
+  </select>
+  
+  <select v-model="selectedChocolateType" class="combo-box">
+    <option value="" disabled>Select Chocolate Type</option>
+    <option value="Milk">Milk</option>
+    <option value="Dark">Dark</option>
+    <option value="White">White</option>
+    <option value="Mint">Mint</option>
+    <option value="All">All</option>
+  </select>
+  
+  <select v-model="selectedChocolateKind" class="combo-box">
+    <option value="" disabled>Select Chocolate Kind</option>
+    <option value="Bar">Bar</option>
+    <option value="Truffles">Truffles</option>
+    <option value="Nuts">Nuts</option>
+    <option value="Filled">Filled</option>
+    <option value="All">All</option>
+
+  </select>
 </div>
 
+  <div class="sorting-container">
+  <select v-model="sortOption" class="sorting-dropdown">
+    <option value="" disabled>Sort by...</option>
+    <option value="nameAsc">Sort by Name (A-Z)</option>
+    <option value="nameDesc">Sort by Name (Z-A)</option>
+    <option value="locationAsc">Sort by Location (A-Z)</option>
+    <option value="locationDesc">Sort by Location (Z-A)</option>
+    <option value="gradeAsc">Sort by Average Grade (Ascending)</option>
+    <option value="gradeDesc">Sort by Average Grade (Descending)</option>
+  </select>
+
+  <button @click="handleSort">Sort</button>
+</div>
+
+
+
+
     <!-- Open Factories -->
-    <div v-if="openedFactories.length > 0" class="mb-4">
+    <div v-if="openedFactories.length > 0 && selectedFactoryStatus !== 'closed'" class="mb-4">
       <h3 class="text-center mb-3 section-header">
         <span class="line"></span>
         <span class="section-title">Open Factories</span>
@@ -31,6 +103,8 @@
             <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
             <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
             <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+            <p class="card-text"><strong>Rating:</strong> {{ factory.location.address }}</p>
+
             <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-sm">View Details</router-link>
           </div>
         </div>
@@ -38,7 +112,7 @@
     </div>
 
     <!-- Closed Factories -->
-    <div v-if="closedFactories.length > 0" class="mb-4">
+    <div v-if="closedFactories.length > 0 && selectedFactoryStatus !== 'open'"   class="mb-4">
       <h3 class="text-center mb-3 section-header">
         <span class="line"></span>
         <span class="section-title">Closed Factories</span>
@@ -52,6 +126,8 @@
             <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
             <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
             <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+            <p class="card-text"><strong>Rating:</strong> {{ factory.location.address }}</p>
+
             <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-sm">View Details</router-link>
           </div>
         </div>
@@ -72,22 +148,54 @@ export default {
   data() {
     return {
       factories: [],
-      searchQuery: ''
+      chocolates: [],
+      locations: [],
+      searchQuery: '',
+      gradeQuery: '',
+      selectedChocolate: '',
+      selectedLocation: '',
+      sortOption: '' ,
+      selectedFactoryStatus: '',
+      selectedChocolateType: '',
+      selectedChocolateKind: '',
+
+
     };
   },
   computed: {
     openedFactories() {
-      return this.factories.filter(factory => factory.status === 'Open');
+      return this.factories.filter(factory => factory.status === 'Open' && this.filterFactory(factory));
     },
     closedFactories() {
-      return this.factories.filter(factory => factory.status === 'Closed');
-    }
+      return this.factories.filter(factory => factory.status === 'Closed' && this.filterFactory(factory));
+    },
+
+
+    
   },
   mounted() {
     this.fetchAllFactories(); // Fetch all factories on mount
+    this.fetchAllChocolates();
+    this.fetchAllLocations();
   },
 
   methods: {
+    handleSort() {
+    if (this.sortOption === 'nameAsc') {
+      this.factories.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (this.sortOption === 'nameDesc') {
+      this.factories.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (this.sortOption === 'locationAsc') {
+      this.factories.sort((a, b) => a.location.address.localeCompare(b.location.address));
+    } else if (this.sortOption === 'locationDesc') {
+      this.factories.sort((a, b) => b.location.address.localeCompare(a.location.address));
+    } else if (this.sortOption === 'gradeAsc') {
+      this.factories.sort((a, b) => a.rating - b.rating);
+    } else if (this.sortOption === 'gradeDesc') {
+      this.factories.sort((a, b) => b.rating - a.rating);
+    }
+  },
+
     async fetchAllFactories() {
       try {
         const response = await axios.get('http://localhost:3000/api/factories');
@@ -96,24 +204,45 @@ export default {
         console.error('Error fetching factories:', error);
       }
     },
+    async fetchAllChocolates(){
+      try {
+        const response = await axios.get('http://localhost:3000/api/chocolates');
+        this.chocolates = response.data;
+      } catch (error) {
+        console.error('Error fetching chocolates:', error);
+      }
+    },
+    async fetchAllLocations(){
+      try {
+        const response = await axios.get('http://localhost:3000/api/locations');
+        this.locations = response.data;
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+      }
+    },
     async searchFactories(query) {
       try {
-        
-        
-        const response = await axios.get(`http://localhost:3000/api/factories/search/${query}`);
+        const nameQuery = this.searchQuery;
+        const gradeQuery = this.gradeQuery;
+        const chocolateQuery = this.selectedChocolate;
+        const locationQuery = this.selectedLocation;
 
-        
+        const searchParam = `${nameQuery}&${gradeQuery}&${chocolateQuery}&${locationQuery}`;
+        const response = await axios.get(`http://localhost:3000/api/factories/search/${searchParam}`);
         this.factories = response.data;
-        console.log(response.data);
+        this.openedFactories = this.factories.filter(factory => factory.status === 'Open');
+        this.closedFactories = this.factories.filter(factory => factory.status === 'Closed');
       } catch (error) {
         console.error('Error searching factories:', error);
       }
     },
     handleSearch() {
-      
+      this.selectedFactoryStatus = '';
+      this.selectedChocolateType = '';
+      this.selectedChocolateKind = '';
       console.log('Search button clicked');
       console.log('Search query:', this.searchQuery);
-      if (this.searchQuery.trim()) {
+      if (this.searchQuery.trim() || this.gradeQuery || this.selectedChocolate || this.selectedLocation){
         console.log('Performing search...');
         this.searchFactories(this.searchQuery);
         console.log("posle");
@@ -121,7 +250,32 @@ export default {
         console.log('Fetching all factories...');
         this.fetchAllFactories();
       }
-    }
+    },
+
+ filterFactory(factory) {
+  const chocolates = factory.chocolates;
+  
+   
+  if (this.selectedChocolateType && this.selectedChocolateKind && this.selectedChocolateType !== 'All' && this.selectedChocolateKind !== 'All')  {
+    return chocolates.some(chocolate =>
+      chocolate.type === this.selectedChocolateType && chocolate.kind === this.selectedChocolateKind
+    );
+  } else if (this.selectedChocolateType && this.selectedChocolateType !== 'All') {
+    // Check if only selectedChocolateType is specified
+    return chocolates.some(chocolate => chocolate.type === this.selectedChocolateType);
+  } else if (this.selectedChocolateKind && this.selectedChocolateKind !== 'All') {
+    // Check if only selectedChocolateKind is specified
+    return chocolates.some(chocolate => chocolate.kind === this.selectedChocolateKind);
+  } else {
+    // No filters selected, return true to include all factories
+    return true;
+  }
+  }
+
+
+      
+    
+
   }
 
 };
@@ -278,14 +432,17 @@ body {
   color: #fff;
 }
 
-.search-box {
+
+
+.search-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.search-input {
-  width: 50%;
+.search-container input {
+  width: 30%;
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -293,7 +450,7 @@ body {
   outline: none;
 }
 
-.search-button {
+.search-container button {
   padding: 10px 20px;
   font-size: 1rem;
   border: 1px solid #ddd;
@@ -305,9 +462,69 @@ body {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.search-button:hover {
+.search-container button:hover {
   background-color: #eea333f1;
   color: #fff;
+}
+
+.chocolate-dropdown {
+  width: 25%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+   border-radius: 5px 0 0 5px;
+  
+  outline: none;
+}
+.location-dropdown {
+  width: 25%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+   border-radius: 5px 0 0 5px;
+  
+  outline: none;
+}
+
+.sorting-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sorting-dropdown {
+  width: 25%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.sorting-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-left: none;
+  background-color: #ffcc00;
+  color: #000;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.sorting-container button:hover {
+  background-color: #eea333f1;
+  color: #fff;
+}
+
+.combo-box {
+  /* Assuming same styles are used for existing combo boxes */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 

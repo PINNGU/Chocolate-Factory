@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title">{{ factory.name }}</h2>
-          <p class="card-text"><strong>Location:</strong> {{ location?.address || 'Loading...' }}</p>
+          <p class="card-text"><strong>Location:</strong> {{ factory.location?.address || 'Loading...' }}</p>
           <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
           <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
           <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
@@ -61,8 +61,7 @@ export default {
     return {
       factory: null,
       chocolates: [],
-      comments: [],
-      location: null
+      comments: []
     };
   },
   mounted() {
@@ -84,31 +83,11 @@ export default {
 
         this.factory = factoryResponse.data;
         this.comments = commentsResponse.data;
-        await this.fetchChocolates(this.factory.chocolates);
-        await this.fetchLocation(this.factory.locationId);
+        this.chocolates = this.factory.chocolates;
+        
       } catch (error) {
         console.error('Error fetching factory details:', error);
         alert('Error loading factory details. Please try again later.');
-      }
-    },
-    async fetchChocolates(chocolateIds) {
-      this.chocolates = [];
-      try {
-        const promises = chocolateIds.map(id => axios.get(`http://localhost:3000/api/chocolates/${id}`));
-        const responses = await Promise.all(promises);
-        this.chocolates = responses.map(response => response.data);
-      } catch (error) {
-        console.error('Error fetching chocolates:', error);
-        alert('Error loading chocolates. Please try again later.');
-      }
-    },
-    async fetchLocation(locationId) {
-      try {
-        const response = await axios.get(`http://localhost:3000/api/locations/${locationId}`);
-        this.location = response.data;
-      } catch (error) {
-        console.error('Error fetching location:', error);
-        alert('Error loading location. Please try again later.');
       }
     },
     async removeChocolate(chocolateId) {
