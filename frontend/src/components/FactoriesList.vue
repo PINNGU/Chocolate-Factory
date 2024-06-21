@@ -28,13 +28,14 @@
       @keyup.enter="searchFactories"
     />
     <select v-model="selectedChocolate" class="chocolate-dropdown" >
-      
+      <option value="" disabled>Select a chocolate...</option>
       <option v-for="chocolate in chocolates" :key="chocolate.id" :value="chocolate.id">
         {{ chocolate.name }}
       </option>
     </select>
     <select v-model="selectedLocation" class="location-dropdown" >
-      
+      <option value="" disabled>Select the location...</option>
+
       <option v-for="location in locations" :key="location.id" :value="location.id">
         {{ location.address }}
       </option>
@@ -42,8 +43,37 @@
     <button @click="handleSearch">Search</button>
   </div>
 
+  <div id="additional-sorting-container" class="sorting-container">
+  <select v-model="selectedFactoryStatus" class="combo-box">
+    <option value="" disabled>Select Factory Status</option>
+    <option value="open">Open</option>
+    <option value="closed">Closed</option>
+    <option value="all">All</option>
+  </select>
+  
+  <select v-model="selectedChocolateType" class="combo-box">
+    <option value="" disabled>Select Chocolate Type</option>
+    <option value="Milk">Milk</option>
+    <option value="Dark">Dark</option>
+    <option value="White">White</option>
+    <option value="Mint">Mint</option>
+    <option value="All">All</option>
+  </select>
+  
+  <select v-model="selectedChocolateKind" class="combo-box">
+    <option value="" disabled>Select Chocolate Kind</option>
+    <option value="Bar">Bar</option>
+    <option value="Truffles">Truffles</option>
+    <option value="Nuts">Nuts</option>
+    <option value="Filled">Filled</option>
+    <option value="All">All</option>
+
+  </select>
+</div>
+
   <div class="sorting-container">
   <select v-model="sortOption" class="sorting-dropdown">
+    <option value="" disabled>Sort by...</option>
     <option value="nameAsc">Sort by Name (A-Z)</option>
     <option value="nameDesc">Sort by Name (Z-A)</option>
     <option value="locationAsc">Sort by Location (A-Z)</option>
@@ -51,12 +81,15 @@
     <option value="gradeAsc">Sort by Average Grade (Ascending)</option>
     <option value="gradeDesc">Sort by Average Grade (Descending)</option>
   </select>
+
   <button @click="handleSort">Sort</button>
 </div>
 
 
+
+
     <!-- Open Factories -->
-    <div v-if="openedFactories.length > 0" class="mb-4">
+    <div v-if="openedFactories.length > 0 && selectedFactoryStatus !== 'closed'" class="mb-4">
       <h3 class="text-center mb-3 section-header">
         <span class="line"></span>
         <span class="section-title">Open Factories</span>
@@ -70,6 +103,8 @@
             <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
             <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
             <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+            <p class="card-text"><strong>Rating:</strong> {{ factory.location.address }}</p>
+
             <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-sm">View Details</router-link>
           </div>
         </div>
@@ -77,7 +112,7 @@
     </div>
 
     <!-- Closed Factories -->
-    <div v-if="closedFactories.length > 0" class="mb-4">
+    <div v-if="closedFactories.length > 0 && selectedFactoryStatus !== 'open'"   class="mb-4">
       <h3 class="text-center mb-3 section-header">
         <span class="line"></span>
         <span class="section-title">Closed Factories</span>
@@ -91,6 +126,8 @@
             <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
             <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
             <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+            <p class="card-text"><strong>Rating:</strong> {{ factory.location.address }}</p>
+
             <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-sm">View Details</router-link>
           </div>
         </div>
@@ -117,17 +154,24 @@ export default {
       gradeQuery: '',
       selectedChocolate: '',
       selectedLocation: '',
-      sortOption: '' 
+      sortOption: '' ,
+      selectedFactoryStatus: '',
+      selectedChocolateType: '',
+      selectedChocolateKind: '',
+
 
     };
   },
   computed: {
     openedFactories() {
-      return this.factories.filter(factory => factory.status === 'Open');
+      return this.factories.filter(factory => factory.status === 'Open' && this.filterFactory(factory));
     },
     closedFactories() {
-      return this.factories.filter(factory => factory.status === 'Closed');
-    }
+      return this.factories.filter(factory => factory.status === 'Closed' && this.filterFactory(factory));
+    },
+
+
+    
   },
   mounted() {
     this.fetchAllFactories(); // Fetch all factories on mount
@@ -193,7 +237,9 @@ export default {
       }
     },
     handleSearch() {
-      
+      this.selectedFactoryStatus = '';
+      this.selectedChocolateType = '';
+      this.selectedChocolateKind = '';
       console.log('Search button clicked');
       console.log('Search query:', this.searchQuery);
       if (this.searchQuery.trim() || this.gradeQuery || this.selectedChocolate || this.selectedLocation){
@@ -204,7 +250,32 @@ export default {
         console.log('Fetching all factories...');
         this.fetchAllFactories();
       }
-    }
+    },
+
+ filterFactory(factory) {
+  const chocolates = factory.chocolates;
+  
+   
+  if (this.selectedChocolateType && this.selectedChocolateKind && this.selectedChocolateType !== 'All' && this.selectedChocolateKind !== 'All')  {
+    return chocolates.some(chocolate =>
+      chocolate.type === this.selectedChocolateType && chocolate.kind === this.selectedChocolateKind
+    );
+  } else if (this.selectedChocolateType && this.selectedChocolateType !== 'All') {
+    // Check if only selectedChocolateType is specified
+    return chocolates.some(chocolate => chocolate.type === this.selectedChocolateType);
+  } else if (this.selectedChocolateKind && this.selectedChocolateKind !== 'All') {
+    // Check if only selectedChocolateKind is specified
+    return chocolates.some(chocolate => chocolate.kind === this.selectedChocolateKind);
+  } else {
+    // No filters selected, return true to include all factories
+    return true;
+  }
+  }
+
+
+      
+    
+
   }
 
 };
@@ -447,6 +518,15 @@ body {
   background-color: #eea333f1;
   color: #fff;
 }
+
+.combo-box {
+  /* Assuming same styles are used for existing combo boxes */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
 
 </style>
 

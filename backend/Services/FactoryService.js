@@ -113,9 +113,10 @@ class FactoryService {
       );
     }
 
+    console.log('locationQuery:', locationQuery);
     if(locationQuery){
       filteredFactories = filteredFactories.filter(factory =>
-        factory.locationId === locationQuery
+        factory.location.id === locationQuery
       );
     }
 
