@@ -11,6 +11,7 @@ const commentRoutes = require('./routes/commentRoutes');
 const factoryRoutes = require('./routes/factoryRoutes');
 const userRoutes = require('./routes/userRoutes');
 const locationRoutes = require('./routes/locationRoutes');
+const authRoutes = require('./routes/authRoutes'); 
 
 
 
@@ -34,6 +35,7 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/factories', factoryRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/locations', locationRoutes);
+app.use('/api/auth', authRoutes);  
 
 
 
