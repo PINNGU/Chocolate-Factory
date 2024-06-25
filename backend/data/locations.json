@@ -3,18 +3,24 @@
     "id": "1a2b3c4d-5678-90ab-cdef-1234567890ab",
     "longitude": 151.215256,
     "latitude": -33.856159,
-    "address": "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia"
+    "address": "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia",
+    "deleted" :false
+
   },
   {
     "id": "2b3c4d5e-6789-01bc-def2-3456789012cd",
     "longitude": 2.294351,
     "latitude": 48.858844,
-    "address": "Eiffel Tower, Paris, Île-de-France, France"
+    "address": "Eiffel Tower, Paris, Île-de-France, France",
+    "deleted" :false
+
   },
   {
     "id": "3c4d5e6f-7890-12cd-ef34-5678901234ef",
     "longitude": 116.570374,
     "latitude": 40.431908,
-    "address": "Great Wall of China, Beijing, China"
+    "address": "Great Wall of China, Beijing, China",
+    "deleted" :false
+
   }
 ]

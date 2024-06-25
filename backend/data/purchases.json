@@ -6,7 +6,9 @@
     "dateTime": "2024-05-27T10:15:30.000Z",
     "price": 3.49,
     "customer": "Alice Smith",
-    "status": "Obrada"
+    "status": "Obrada",
+    "deleted" :false
+
   },
   {
     "id": "64433086-71fd-4f76-8129-55231e0a55eb",
@@ -28,6 +30,8 @@
     "dateTime": "2024-06-01T12:00:00Z",
     "price": 10.99,
     "customer": "b9908e7d-7d5d-4fb1-b2e8-6a8a13e8fa68",
-    "status": "Odobreno"
+    "status": "Odobreno",
+    "deleted" :false
+
   }
 ]

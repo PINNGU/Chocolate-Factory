@@ -16,7 +16,9 @@
       "name": "Regular",
       "discountPercentage": 5,
       "pointsRequiredForDiscount": 100
-    }
+    },
+    "deleted" :false
+
   },
   {
     "id": "56ef7e75-4d0d-41d8-92cb-955855ad902e",
@@ -35,6 +37,9 @@
       "name": "Regular",
       "discountPercentage": 5,
       "pointsRequiredForDiscount": 100
-    }
+    },
+    "deleted" :false
+
   }
+  
 ]

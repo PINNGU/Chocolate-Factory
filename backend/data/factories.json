@@ -37,7 +37,9 @@
       "address": "Eiffel Tower, Paris, Île-de-France, France"
     },
     "logo": "http://localhost:3000/images/maxresdefault.jpg",
-    "rating": 5
+    "rating": 5,
+    "deleted" :false
+
   },
   {
     "id": "7g3h4i5j-6b79-01cd-ef23-3456789012cd",
@@ -89,7 +91,9 @@
       "address": "Great Wall of China, Beijing, China"
     },
     "logo": "http://localhost:3000/images/download.jpg",
-    "rating": 4
+    "rating": 4,
+    "deleted" :false
+
   },
   {
     "id": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",
@@ -153,7 +157,9 @@
       "address": "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia"
     },
     "logo": "http://localhost:3000/images/maxresdefault.jpg",
-    "rating": 3.5
+    "rating": 3.5,
+    "deleted" :false
+
   },
   {
     "id": "7b7531fd-518a-4ea2-9db1-f47902f15gm3",
@@ -217,6 +223,8 @@
       "address": "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia"
     },
     "logo": "http://localhost:3000/images/download.jpg",
-    "rating": 3.5
+    "rating": 3.5,
+    "deleted" :false
+
   }
 ]
