@@ -1,39 +1,77 @@
 [
   {
-    "id": "1a2b3c4d-5678-90ab-cdef-1234567890ab",
-    "username": "john_doe",
-    "password": "hashed_password_here",
-    "name": "John",
-    "surname": "Doe",
-    "gender": "MALE",
-    "dateOfBirth": "1990-05-15",
-    "role": "CUSTOMER",
+    "id": "1",
+    "username": "admin",
+    "password": "admin123",
+    "name": "Admin",
+    "surname": "User",
+    "gender": "Male",
+    "dateOfBirth": "1990-01-01",
+    "role": "admin",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",
-    "points": 120,
+    "chocolateFactory": "Factory A",
+    "points": 100,
     "customerType": {
       "name": "Regular",
-      "discountPercentage": 5,
+      "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
     }
   },
   {
-    "id": "56ef7e75-4d0d-41d8-92cb-955855ad902e",
-    "username": "new_user123",
-    "password": "$2b$10$yNm8brec/2kSznwLOm6/nu5xIj665HvsTEmP3m6DFCpo11f42SqWG",
-    "name": "Emily",
-    "surname": "Jones",
-    "gender": "FEMALE",
-    "dateOfBirth": "1995-08-20",
-    "role": "CUSTOMER",
+    "id": "2",
+    "username": "manager",
+    "password": "manager123",
+    "name": "Manager",
+    "surname": "Smith",
+    "gender": "Female",
+    "dateOfBirth": "1985-05-15",
+    "role": "manager",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",
+    "chocolateFactory": "Factory B",
+    "points": 80,
+    "customerType": {
+      "name": "Regular",
+      "discountPercentage": 10,
+      "pointsRequiredForDiscount": 100
+    }
+  },
+  {
+    "id": "3",
+    "username": "worker",
+    "password": "worker123",
+    "name": "Worker",
+    "surname": "Brown",
+    "gender": "Male",
+    "dateOfBirth": "1995-08-20",
+    "role": "worker",
+    "purchases": [],
+    "cart": [],
+    "chocolateFactory": "Factory C",
     "points": 50,
     "customerType": {
       "name": "Regular",
-      "discountPercentage": 5,
+      "discountPercentage": 10,
+      "pointsRequiredForDiscount": 100
+    }
+  },
+  {
+    "id": "4",
+    "username": "customer",
+    "password": "customer123",
+    "name": "Customer",
+    "surname": "Johnson",
+    "gender": "Female",
+    "dateOfBirth": "2000-12-05",
+    "role": "customer",
+    "purchases": [],
+    "cart": [],
+    "chocolateFactory": "",
+    "points": 20,
+    "customerType": {
+      "name": "Regular",
+      "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
     }
   }

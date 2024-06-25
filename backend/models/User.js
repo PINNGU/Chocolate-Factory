@@ -3,10 +3,8 @@ const {v4 : uuidv4} = require('uuid');
 
 class User{
     
-
-
     constructor(username,password,name,surname,gender,
-        dateOfBirth,role,purchases,cart,chocolateFactory,points,customerType,deleted){
+        dateOfBirth,role,purchases,cart,chocolateFactory,points,customerType){
 
         this.id = uuidv4();
         this.username = username;
@@ -22,7 +20,7 @@ class User{
         this.chocolateFactory = chocolateFactory;
         this.points = points;
         this.customerType = customerType;
-        this.deleted = deleted;    
+
         
     }
 
