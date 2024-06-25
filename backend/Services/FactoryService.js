@@ -20,12 +20,13 @@ class FactoryService {
   static async createFactory(factoryData) {
     const factories = await this.getAllFactories();
 
+
     const newFactory = new Factory(
       factoryData.name,
       factoryData.chocolates,
       factoryData.workingHours,
       factoryData.status,
-      factoryData.locationId,
+      factoryData.location,
       factoryData.logo,
       factoryData.rating
     );

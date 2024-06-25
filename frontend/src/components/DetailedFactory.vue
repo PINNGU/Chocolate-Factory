@@ -18,7 +18,7 @@
                 <p>{{ chocolate.type }}, {{ chocolate.kind }}</p>
                 <p>{{ chocolate.price }}$</p>
                 <p>Quantity: {{ chocolate.quantity }}</p>
-                <div class="chocolate-actions">
+                <div class="chocolate-actions" v-if="role === 'manager' || role === 'admin'">
                   <button class="remove-button" @click="removeChocolate(chocolate.id)">Remove</button>
                   <router-link :to="`/chocolate/${chocolate.id}/update`" class="update-button">Update</router-link>
                 </div>
@@ -42,7 +42,7 @@
           <p class="no-comments">No comments for this factory.</p>
         </div>
       </div>
-      <div class="actions">
+      <div class="actions" v-if="role === 'manager' || role === 'admin'">
         <router-link :to="`/factory/${factory.id}/add-chocolate`" class="add-button">Add Chocolate</router-link>
         <router-link :to="`/factory/${factory.id}/update`" class="update-factory-button">Update Factory</router-link>
       </div>
@@ -59,6 +59,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      user_role:null,
       factory: null,
       chocolates: [],
       comments: []
@@ -66,6 +67,7 @@ export default {
   },
   mounted() {
     this.fetchFactoryDetails();
+    this.role = localStorage.getItem('role');
   },
   computed: {
     filteredComments() {

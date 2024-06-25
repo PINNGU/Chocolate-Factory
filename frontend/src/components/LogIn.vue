@@ -50,8 +50,10 @@ const login = async () => {
     // Store the token and username securely
     const token = response.data.token;
     const user = response.data.username;
+    const role = response.data.role;
     localStorage.setItem('token', token);
     localStorage.setItem('username', user);
+    localStorage.setItem('role', role);
     
 
     // Redirect to a protected route or update application state

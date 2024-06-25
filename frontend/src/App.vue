@@ -4,6 +4,7 @@
       <nav class="navbar">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/factories">Factories</RouterLink>
+        <RouterLink to="/factories/create" v-if="role === 'admin'">Create Factory</RouterLink>
         <div v-if="isLoggedIn" class="user-menu">
           <span class="username" @click="toggleMenu">{{ username }}</span>
           <ul v-if="showMenu" class="dropdown-menu">
@@ -25,8 +26,11 @@
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 import { computed, ref, onMounted } from 'vue';
 
+
+
 const showMenu = ref(false);
 const username = ref('');
+const role = ref('');
 const router = useRouter();
 
 const isLoggedIn = computed(() => {
@@ -37,9 +41,14 @@ const getUsername = () => {
   return localStorage.getItem('username') || '';
 };
 
+const getRole = () => {
+  return localStorage.getItem('role') || '';
+};
+
 const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('username');
+  localStorage.removeItem('role');
   showMenu.value = false;
 
   // Redirect to home or login page and reload to ensure state is rese
@@ -55,9 +64,15 @@ const fetchUsername = () => {
   username.value = getUsername();
 };
 
+const fetchRole = () => {
+  role.value = getRole();  
+
+};
+
 // Fetch username on component mount
 onMounted(() => {
   fetchUsername();
+  fetchRole();
 });
 </script>
 

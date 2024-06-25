@@ -53,7 +53,13 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../components/LogIn.vue')
+    },
+    {
+      path: '/factories/create',
+      name: 'create-factory',
+      component: () => import('../components/CreateFactory.vue')
     }
+
   ]
 })
 

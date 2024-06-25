@@ -4,23 +4,34 @@
     "longitude": 151.215256,
     "latitude": -33.856159,
     "address": "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia",
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "2b3c4d5e-6789-01bc-def2-3456789012cd",
     "longitude": 2.294351,
     "latitude": 48.858844,
     "address": "Eiffel Tower, Paris, Île-de-France, France",
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "3c4d5e6f-7890-12cd-ef34-5678901234ef",
     "longitude": 116.570374,
     "latitude": 40.431908,
     "address": "Great Wall of China, Beijing, China",
-    "deleted" :false
-
+    "deleted": false
+  },
+  {
+    "id": "745561ec-c80d-4343-9941-f7a1e30c8c07",
+    "longitude": -106.72826199444391,
+    "latitude": 32.0326086870529,
+    "address": "Doña Ana County, New Mexico, United States of America",
+    "deleted": false
+  },
+  {
+    "id": "3fe1edce-9f15-40c8-80d9-d1621cb983ab",
+    "longitude": 19.704424727826648,
+    "latitude": 45.24429542537257,
+    "address": "Milana Vidaka 29, 21410 Futog, Serbia",
+    "deleted": false
   }
 ]

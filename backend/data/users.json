@@ -17,8 +17,7 @@
       "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
     },
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "2",
@@ -31,7 +30,7 @@
     "role": "manager",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "Factory B",
+    "chocolateFactory": "testing",
     "points": 80,
     "customerType": {
       "name": "Regular",
@@ -76,8 +75,25 @@
       "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
     },
-    "deleted" :false
-
+    "deleted": false
+  },
+  {
+    "id": "049ba58e-a6cc-4484-a40a-790e7334d727",
+    "username": "asds",
+    "password": "$2b$10$v5rOMrhJFJIEQJC.UYGALuUPR8s8l0woo9d3I1t75rF9/Nribt8Gm",
+    "name": "asss",
+    "surname": "dsdas",
+    "gender": "Female",
+    "dateOfBirth": "2024-06-21",
+    "role": "manager",
+    "purchases": [],
+    "cart": [],
+    "chocolateFactory": "adadssd",
+    "points": 0,
+    "customerType": {
+      "name": "",
+      "discountPercentage": 0,
+      "pointsRequiredForDiscount": 0
+    }
   }
-  
 ]
