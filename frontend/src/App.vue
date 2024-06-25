@@ -4,6 +4,7 @@
       <nav class="navbar">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/factories">Factories</RouterLink>
+        <RouterLink to="/users" v-if="role === 'admin'">Users</RouterLink>
         <RouterLink to="/factories/create" v-if="role === 'admin'">Create Factory</RouterLink>
         <div v-if="isLoggedIn" class="user-menu">
           <span class="username" @click="toggleMenu">{{ username }}</span>

@@ -58,6 +58,11 @@ const router = createRouter({
       path: '/factories/create',
       name: 'create-factory',
       component: () => import('../components/CreateFactory.vue')
+    },
+    {
+      path : '/users',
+      name : 'users',
+      component: () => import('../components/UsersView.vue')
     }
 
   ]
