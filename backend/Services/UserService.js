@@ -80,7 +80,7 @@ class UserService {
           ...userData
         };
 
-        users[userIndex] = updatedUser;d
+        users[userIndex] = updatedUser;
         await jsonHandler.writeJSON(userFilePath, users);
         return updatedUser;
 

@@ -1,15 +1,6 @@
 <template>
   <div class="factory-list">
-    <header class="complex-header">
-      <div class="overlay"></div>
-      <div class="header-content">
-        <h1 class="company-name">ChocolateFactory</h1>
-        <p class="company-tagline">Sweetening Lives, One Chocolate at a Time</p>
-        <p class="company-history">
-          Since 1950, ChocolateFactory has been creating the finest chocolates using traditional methods and the highest quality ingredients. Step into our world and discover the passion and craftsmanship behind every piece of chocolate.
-        </p>
-      </div>
-    </header>
+ 
 
     <div class="search-container">
     <input

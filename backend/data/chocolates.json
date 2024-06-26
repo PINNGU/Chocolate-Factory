@@ -10,7 +10,7 @@
     "image": "http://localhost:3000/images/dark_choco.jpg",
     "quantity": 70,
     "status": "Ima na stanju",
-    "deleted" :false
+    "deleted": false
   },
   {
     "id": "a12b3c4d-1234-5678-90ab-cdef3456789b",
@@ -23,8 +23,7 @@
     "image": "http://localhost:3000/images/milk-truffles.jpg",
     "quantity": 50,
     "status": "Ima na stanju",
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "b23c4d5e-2345-6789-01bc-def3456789c",
@@ -37,8 +36,7 @@
     "image": "http://localhost:3000/images/white-choco-almonds.jpg",
     "quantity": 80,
     "status": "Ima na stanju",
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
@@ -51,8 +49,7 @@
     "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
     "quantity": 60,
     "status": "Ima na stanju",
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "d45e6f7g-4567-8901-23de-f3456789e",
@@ -65,8 +62,7 @@
     "image": "http://localhost:3000/images/dark_choco.jpg",
     "quantity": 40,
     "status": "Ima na stanju",
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "e56f7g8h-5678-9012-34ef-3456789f",
@@ -79,7 +75,44 @@
     "image": "http://localhost:3000/images/mint-choco.jpg",
     "quantity": 75,
     "status": "Ima na stanju",
-    "deleted" :false
-
+    "deleted": false
+  },
+  {
+    "id": "722d15b3-b13d-4cc5-9ae5-d514c949e323",
+    "name": "Protein Chocolate",
+    "price": 20,
+    "type": "Type",
+    "kind": "Protein",
+    "weight": 60,
+    "description": "Very tasty yumm whos gonna carry the boats",
+    "image": "aa",
+    "quantity": 0,
+    "status": "Nema na stanju",
+    "deleted": false
+  },
+  {
+    "id": "2ac1b4ad-9ba9-4b60-8810-a46e0152d551",
+    "name": "testing",
+    "price": 6,
+    "type": "testtt",
+    "kind": "lol",
+    "weight": 2,
+    "description": "asd",
+    "image": "s",
+    "quantity": 0,
+    "status": "Nema na stanju",
+    "deleted": false
+  },
+  {
+    "id": "2d69481c-3e52-4c14-8c2c-d1e844d955a6",
+    "name": "New chocolate test",
+    "price": 21,
+    "type": "Dark",
+    "kind": "Very rich",
+    "weight": 90,
+    "description": "very tasty yummy",
+    "image": "http://localhost:3000/images/1719412065072.png",
+    "quantity": 0,
+    "status": "Nema na stanju"
   }
 ]

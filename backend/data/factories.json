@@ -224,36 +224,73 @@
     "deleted": false
   },
   {
-    "id": "d351ab2b-cac7-4097-b5a6-1d573187c897",
+    "id": "23cd07f0-5e9e-44b0-a041-354bb5405844",
     "name": "testing",
     "chocolates": [],
-    "workingHours": "03h - 12h",
+    "workingHours": "01h - 09h",
     "status": "Open",
     "location": {
-      "id": "745561ec-c80d-4343-9941-f7a1e30c8c07",
-      "longitude": -106.72826199444391,
-      "latitude": 32.0326086870529,
-      "address": "Doña Ana County, New Mexico, United States of America",
+      "id": "98d5953e-b20e-458d-895f-67335dd0c71f",
+      "longitude": 6.534366809760255,
+      "latitude": 44.92142435430816,
+      "address": "Crêtes, Goulet, 05240 La Salle-les-Alpes, France",
       "deleted": false
     },
-    "logo": "",
+    "logo": "http://localhost:3000/images/1719409646504.jpg",
     "rating": 4,
     "deleted": false
   },
   {
-    "id": "8e0535fd-86be-4e18-ad92-472452e2f3ad",
-    "name": "adadssd",
-    "chocolates": [],
-    "workingHours": "03h - 15h",
+    "id": "8761905e-3742-4b71-a6ff-b2f430bb1e35",
+    "name": "brotherhood chocolates",
+    "chocolates": [
+      {
+        "id": "722d15b3-b13d-4cc5-9ae5-d514c949e323",
+        "name": "Protein Chocolate",
+        "price": 20,
+        "type": "Dark",
+        "kind": "Protein",
+        "weight": 60,
+        "description": "Very tasty yumm whos gonna carry the boats",
+        "image": "aa",
+        "quantity": 0,
+        "status": "Nema na stanju"
+      },
+      {
+        "id": "2ac1b4ad-9ba9-4b60-8810-a46e0152d551",
+        "name": "testing",
+        "price": 6,
+        "type": "testtt",
+        "kind": "lol",
+        "weight": 2,
+        "description": "asd",
+        "image": "s",
+        "quantity": 0,
+        "status": "Nema na stanju"
+      },
+      {
+        "id": "2d69481c-3e52-4c14-8c2c-d1e844d955a6",
+        "name": "New chocolate test",
+        "price": 21,
+        "type": "Dark",
+        "kind": "Very rich",
+        "weight": 90,
+        "description": "very tasty yummy",
+        "image": "http://localhost:3000/images/1719412065072.png",
+        "quantity": 0,
+        "status": "Nema na stanju"
+      }
+    ],
+    "workingHours": "09h - 16h",
     "status": "Open",
     "location": {
-      "id": "3fe1edce-9f15-40c8-80d9-d1621cb983ab",
-      "longitude": 19.704424727826648,
-      "latitude": 45.24429542537257,
-      "address": "Milana Vidaka 29, 21410 Futog, Serbia",
+      "id": "dd71def6-110a-4b67-9907-a790cccf97b9",
+      "longitude": 19.099702551604775,
+      "latitude": 44.379348277026054,
+      "address": "unnamed road, 75400 Zvornik, Bosnia and Herzegovina",
       "deleted": false
     },
-    "logo": "",
+    "logo": "http://localhost:3000/images/1719410160648.jpg",
     "rating": 5,
     "deleted": false
   }

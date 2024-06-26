@@ -105,9 +105,9 @@ export default {
     },
     async removeChocolate(chocolateId) {
       try {
-        this.factory.chocolates = this.factory.chocolates.filter(id => id !== chocolateId);
-        this.chocolates = this.chocolates.filter(chocolate => chocolate.id !== chocolateId);
+        this.factory.chocolates = this.factory.chocolates.filter(chocolate => chocolate.id !== chocolateId);
         await axios.put(`http://localhost:3000/api/factories/${this.factory.id}`, this.factory);
+        this.chocolates = this.factory.chocolates;
       } catch (error) {
         console.error('Error removing chocolate:', error);
         alert('There was an error removing the chocolate. Please try again.');

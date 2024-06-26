@@ -30,7 +30,7 @@
     "role": "manager",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "",
+    "chocolateFactory": "testing",
     "points": 80,
     "customerType": {
       "name": "Regular",
@@ -89,6 +89,25 @@
     "purchases": [],
     "cart": [],
     "chocolateFactory": "adadssd",
+    "points": 0,
+    "customerType": {
+      "name": "",
+      "discountPercentage": 0,
+      "pointsRequiredForDiscount": 0
+    }
+  },
+  {
+    "id": "81263a19-1b93-4eca-aabe-e00005163125",
+    "username": "Veljko",
+    "password": "$2b$10$VYY4Xz.p1S8p3SUgmKkwBuL/YyEnM9R4O1lXENsq5dlAfNb3clSWC",
+    "name": "veljko",
+    "surname": "veljkic",
+    "gender": "Male",
+    "dateOfBirth": "2002-06-16",
+    "role": "manager",
+    "purchases": [],
+    "cart": [],
+    "chocolateFactory": "brotherhood chocolates",
     "points": 0,
     "customerType": {
       "name": "",
