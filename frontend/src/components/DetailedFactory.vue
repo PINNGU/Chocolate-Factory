@@ -59,7 +59,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      user_role:null,
+      
       factory: null,
       chocolates: [],
       comments: []
@@ -71,8 +71,19 @@ export default {
   },
   computed: {
     filteredComments() {
-      return this.comments.filter(comment => comment.factory === this.factory.id);
+      this.comments = this.comments.filter(comment => comment.factory === this.factory.id && comment.deleted === false);
+      
+      if(this.role === 'admin' || this.role === 'manager'){
+        
+        return this.comments;
+       
     }
+    else
+    {
+      
+      this.comments = this.comments.filter(comment => comment.approved === true);
+    }
+  }
   },
   methods: {
     async fetchFactoryDetails() {

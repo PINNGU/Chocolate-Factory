@@ -4,7 +4,7 @@
     "username": "admin",
     "password": "admin123",
     "name": "Admin",
-    "surname": "User",
+    "surname": "Prezime",
     "gender": "Male",
     "dateOfBirth": "1990-01-01",
     "role": "admin",
@@ -30,7 +30,7 @@
     "role": "manager",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "testing",
+    "chocolateFactory": "",
     "points": 80,
     "customerType": {
       "name": "Regular",

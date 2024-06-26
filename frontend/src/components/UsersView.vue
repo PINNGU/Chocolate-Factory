@@ -1,38 +1,42 @@
 <template>
   <div>
     <!-- Search Box -->
-    <input type="text" v-model="searchQuery" placeholder="Search by name, surname, or username" class="search-box">
+    <div class="search-container">
+      <input type="text" v-model="searchQuery" placeholder="Search by name, surname, or username" class="search-box">
+      <button @click="search" class="search-button">Search</button>
+    </div>
     
-    <!-- Sorting Dropdown -->
-    <select v-model="sortBy" class="sort-dropdown">
-      <option value="">Sort by</option>
-      <option value="name">Name</option>
-      <option value="surname">Surname</option>
-      <option value="username">Username</option>
-      <option value="points">Points</option>
-    </select>
-    
-    <!-- Sorting Order -->
-    <select v-model="sortOrder" class="sort-order">
-      <option value="asc">Ascending</option>
-      <option value="desc">Descending</option>
-    </select>
-    
-    <!-- Filter by Role -->
-    <select v-model="roleFilter" class="filter-dropdown">
-      <option value="">Filter by role</option>
-      <option value="admin">Admin</option>
-      <option value="manager">Manager</option>
-      <option value="worker">Worker</option>
-      <option value="customer">Customer</option>
-    </select>
-    
-    <!-- Filter by Customer Type -->
-    <select v-model="userTypeFilter" class="filter-dropdown">
-      <option value="">Filter by customer type</option>
-      <option value="Regular">Regular</option>
-      <!-- Add other customer types as needed -->
-    </select>
+    <!-- Sorting and Filtering Controls -->
+    <div class="controls-container">
+      <select v-model="sortBy" class="sort-dropdown">
+        <option value="">Sort by</option>
+        <option value="name">Name</option>
+        <option value="surname">Surname</option>
+        <option value="username">Username</option>
+        <option value="points">Points</option>
+      </select>
+      
+      <select v-model="sortOrder" class="sort-order">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
+      
+      <select v-model="roleFilter" class="filter-dropdown">
+        <option value="">Filter by role</option>
+        <option value="admin">Admin</option>
+        <option value="manager">Manager</option>
+        <option value="worker">Worker</option>
+        <option value="customer">Customer</option>
+      </select>
+      
+      <select v-model="userTypeFilter" class="filter-dropdown">
+        <option value="">Filter by customer type</option>
+        <option value="Regular">Regular</option>
+        <!-- Add other customer types as needed -->
+      </select>
+      
+      <button @click="resetFilters" class="reset-button">Reset</button>
+    </div>
     
     <!-- User Cards -->
     <div class="user-cards-container">
@@ -47,6 +51,8 @@
         <p><strong>Customer Type:</strong> {{ user.customerType.name }}</p>
         <p><strong>Discount:</strong> {{ user.customerType.discountPercentage }}%</p>
         <p><strong>Points Required for Discount:</strong> {{ user.customerType.pointsRequiredForDiscount }}</p>
+        <button v-if="user.role==='worker'" @click ="promoteUser(user.id)" class ="search-button">Promote</button>
+        <button v-if="user.role==='manager'" @click ="demoteUser(user.id)" class="reset-button">Demote</button>
       </div>
     </div>
   </div>
@@ -68,15 +74,7 @@ export default {
   },
   computed: {
     filteredUsers() {
-      let filtered = this.users.filter(user => {
-        // Filter by search query
-        let searchRegex = new RegExp(this.searchQuery, 'i');
-        return (
-          searchRegex.test(user.name) ||
-          searchRegex.test(user.surname) ||
-          searchRegex.test(user.username)
-        );
-      });
+      let filtered = this.users;
 
       // Apply role filter
       if (this.roleFilter) {
@@ -94,10 +92,15 @@ export default {
           let aValue = a[this.sortBy];
           let bValue = b[this.sortBy];
 
+          if (this.sortBy === 'points') {
+            aValue = Number(aValue);
+            bValue = Number(bValue);
+          }
+
           if (this.sortOrder === 'asc') {
-            return aValue.localeCompare(bValue);
+            return aValue > bValue ? 1 : -1;
           } else {
-            return bValue.localeCompare(aValue);
+            return aValue < bValue ? 1 : -1;
           }
         });
       }
@@ -115,6 +118,47 @@ export default {
         this.users = response.data;
       } catch (error) {
         console.error('Error fetching users:', error);
+      }
+    },
+    async search() {
+      try{
+        
+        const response = await axios.get(`http://localhost:3000/api/users/search/${this.searchQuery}`);
+
+        this.users = response.data;
+      } catch (error) {
+        console.error('Error searching users:', error);
+      }
+    },
+    resetFilters() {
+      this.searchQuery = '';
+      this.roleFilter = '';
+      this.userTypeFilter = '';
+      this.sortBy = '';
+      this.sortOrder = 'asc';
+      this.fetchUsers();
+    },
+    async promoteUser(userId) {
+      try {
+        const user = this.users.find(user => user.id === userId);
+        user.role = 'manager';
+        await axios.put(`http://localhost:3000/api/users/${userId}`, user);
+        window.location.reload();
+      } catch (error) {
+        console.error('Error promoting user:', error);
+        alert('There was an error promoting the user. Please try again.');
+      }
+    },
+    async demoteUser(userId) {
+      try {
+        const user = this.users.find(user => user.id === userId);
+        console.log(user);
+        user.role = 'worker';
+        await axios.put(`http://localhost:3000/api/users/${userId}`, user);
+        window.location.reload();
+      } catch (error) {
+        console.error('Error demoting user:', error);
+        alert('There was an error demoting the user. Please try again.');
       }
     }
   }
@@ -139,22 +183,62 @@ export default {
 
 .user-card h3 {
   margin-top: 0;
-  color: #333;
+  color: orange
 }
 
 .user-card p {
   margin: 5px 0;
-  color: #666;
+  color: black;
 }
 
-.search-box,
+.search-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.search-box {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.search-button {
+  padding: 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+.controls-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
 .sort-dropdown,
 .sort-order,
-.filter-dropdown {
-  margin-bottom: 10px;
+.filter-dropdown,
+.reset-button {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
+.reset-button {
+  background-color: #f44336;
+  color: white;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #e53935;
+}
 </style>

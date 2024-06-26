@@ -4,6 +4,8 @@
     "customer": "b9908e7d-7d5d-4fb1-b2e8-6a8a13e8fa68",
     "factory": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
     "text": "Great selection of chocolates!",
-    "rating": 5
+    "rating": 5,
+    "approved" : false,
+    "deleted" : false
   }
 ]

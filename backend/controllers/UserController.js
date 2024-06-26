@@ -11,6 +11,17 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+exports.searchUsers = async (req, res) => {
+  try{
+    const searchParam = req.params.searchParam;
+
+    const users = await UserService.searchUsers(searchParam);
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching users', error });
+  }
+}
+
 exports.getUserById = async (req, res) => {
   try {
     const user = await UserService.getUserById(req.params.userId);
@@ -37,12 +48,16 @@ exports.updateUser = async (req, res) => {
   try {
     const { userId } = req.params;
     const userData = req.body;
+
     const updatedUser = await UserService.updateUser(userId, userData);
+    console.log(userId, userData, updatedUser);
+
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
     }
     res.status(200).json(updatedUser);
   } catch (error) {
+
     res.status(500).json({ message: 'Error updating user', error });
   }
 };

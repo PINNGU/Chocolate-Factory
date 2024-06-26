@@ -18,6 +18,21 @@ class UserService {
         throw new Error('Error retrieving users');
       }
     }
+
+    static async searchUsers(searchParam) {
+      const users = await this.getAllUsers();
+      let filteredUsers = users;
+
+      
+      if (searchParam) {
+        filteredUsers = users.filter(user => {
+          return user.username.toLowerCase().includes(searchParam.toLowerCase()) ||
+            user.name.toLowerCase().includes(searchParam.toLowerCase()) ||
+            user.surname.toLowerCase().includes(searchParam.toLowerCase());
+        });
+      }
+      return filteredUsers;
+    }
   
 
   static async getUserById(userId) {
@@ -54,19 +69,21 @@ class UserService {
 
   static async updateUser(userId, userData) {
     const users = await this.getAllUsers();
+
     const userIndex = users.findIndex(user => user.id === userId);
+
     if (userIndex !== -1) {
       try {
+
         const updatedUser = {
           ...users[userIndex],
-          ...userData,
-          role: userData.role ? User.Role[userData.role] : users[userIndex].role,
-          gender: userData.gender ? User.Gender[userData.gender] : users[userIndex].gender,
-          customerType: userData.customerType ? userData.customerType : users[userIndex].customerType,
+          ...userData
         };
-        users[userIndex] = updatedUser;
+
+        users[userIndex] = updatedUser;d
         await jsonHandler.writeJSON(userFilePath, users);
         return updatedUser;
+
       } catch (error) {
         console.error('Error updating user:', error);
         throw new Error('Error updating user');
