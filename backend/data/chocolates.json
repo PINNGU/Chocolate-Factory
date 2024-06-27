@@ -114,5 +114,29 @@
     "image": "http://localhost:3000/images/1719412065072.png",
     "quantity": 0,
     "status": "Nema na stanju"
+  },
+  {
+    "id": "d771425e-bb25-42c6-acf3-81e26b595c92",
+    "name": "asdsd",
+    "price": 2,
+    "type": "testtt",
+    "kind": "asdasd",
+    "weight": 2,
+    "description": "asdasd",
+    "image": "http://localhost:3000/images/1719412990330.jpg",
+    "quantity": 0,
+    "status": "Nema na stanju"
+  },
+  {
+    "id": "acc33e11-dc1a-4333-8bb4-eb5882ba1b89",
+    "name": "Protein Chocolate",
+    "price": 20,
+    "type": "Protein",
+    "kind": "Caramel",
+    "weight": 65,
+    "description": "lightweight baby",
+    "image": "http://localhost:3000/images/1719484824151.jpg",
+    "quantity": 18,
+    "status": "Nema na stanju"
   }
 ]

@@ -47,17 +47,20 @@ const login = async () => {
       password: passwordValue
     });
 
-    // Store the token and username securely
+    // Store the token and user details securely
     const token = response.data.token;
     const user = response.data.username;
     const role = response.data.role;
+    const id = response.data.id;  // Retrieve the id from the response
+    const factoryId = response.data.factoryId;  // Retrieve the factoryId from the response
     localStorage.setItem('token', token);
     localStorage.setItem('username', user);
     localStorage.setItem('role', role);
-    
+    localStorage.setItem('id', id);  // Store the id in localStorage
+    localStorage.setItem('factoryId', factoryId);  // Store
 
     // Redirect to a protected route or update application state
-    router.push('/factories').then(() => {
+    router.push('/').then(() => {
       window.location.reload();
     });
 

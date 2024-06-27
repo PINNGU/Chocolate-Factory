@@ -42,7 +42,6 @@ class UserService {
 
   static async createUser(userData) {
     const users = await this.getAllUsers();
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
     const customerType = new CustomerType(
       userData.customerType.name,
       userData.customerType.discountPercentage,
@@ -50,7 +49,7 @@ class UserService {
     );
     const newUser = new User(
       userData.username,
-      hashedPassword,
+      userData.password,
       userData.name,
       userData.surname,
       userData.gender,

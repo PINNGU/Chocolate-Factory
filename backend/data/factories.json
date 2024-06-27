@@ -241,57 +241,33 @@
     "deleted": false
   },
   {
-    "id": "8761905e-3742-4b71-a6ff-b2f430bb1e35",
-    "name": "brotherhood chocolates",
+    "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
+    "name": "choc test",
     "chocolates": [
       {
-        "id": "722d15b3-b13d-4cc5-9ae5-d514c949e323",
+        "id": "acc33e11-dc1a-4333-8bb4-eb5882ba1b89",
         "name": "Protein Chocolate",
         "price": 20,
-        "type": "Dark",
-        "kind": "Protein",
-        "weight": 60,
-        "description": "Very tasty yumm whos gonna carry the boats",
-        "image": "aa",
-        "quantity": 0,
-        "status": "Nema na stanju"
-      },
-      {
-        "id": "2ac1b4ad-9ba9-4b60-8810-a46e0152d551",
-        "name": "testing",
-        "price": 6,
-        "type": "testtt",
-        "kind": "lol",
-        "weight": 2,
-        "description": "asd",
-        "image": "s",
-        "quantity": 0,
-        "status": "Nema na stanju"
-      },
-      {
-        "id": "2d69481c-3e52-4c14-8c2c-d1e844d955a6",
-        "name": "New chocolate test",
-        "price": 21,
-        "type": "Dark",
-        "kind": "Very rich",
-        "weight": 90,
-        "description": "very tasty yummy",
-        "image": "http://localhost:3000/images/1719412065072.png",
-        "quantity": 0,
+        "type": "Protein",
+        "kind": "Caramel",
+        "weight": 65,
+        "description": "lightweight baby",
+        "image": "http://localhost:3000/images/1719484824151.jpg",
+        "quantity": 18,
         "status": "Nema na stanju"
       }
     ],
-    "workingHours": "09h - 16h",
+    "workingHours": "02h - 12h",
     "status": "Open",
     "location": {
-      "id": "dd71def6-110a-4b67-9907-a790cccf97b9",
-      "longitude": 19.099702551604775,
-      "latitude": 44.379348277026054,
-      "address": "unnamed road, 75400 Zvornik, Bosnia and Herzegovina",
+      "id": "7b5619ff-b2d9-45b5-b7e8-1e38cfbfa300",
+      "longitude": -81.49338374291115,
+      "latitude": 45.67902277731116,
+      "address": "Northeastern Manitoulin and the Islands, ON, Canada",
       "deleted": false
     },
-    "logo": "http://localhost:3000/images/1719410160648.jpg",
-    "rating": 5,
+    "logo": "http://localhost:3000/images/1719484288973.jpg",
+    "rating": 4,
     "deleted": false
   }
 ]

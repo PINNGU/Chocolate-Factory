@@ -46,13 +46,14 @@
         <p><strong>Gender:</strong> {{ user.gender }}</p>
         <p><strong>Date of Birth:</strong> {{ user.dateOfBirth }}</p>
         <p><strong>Role:</strong> {{ user.role }}</p>
-        <p><strong>Factory:</strong> {{ user.chocolateFactory }}</p>
+        <p><strong>Factory:</strong> {{ user.chocolateFactory.name }}</p>
         <p><strong>Points:</strong> {{ user.points }}</p>
         <p><strong>Customer Type:</strong> {{ user.customerType.name }}</p>
         <p><strong>Discount:</strong> {{ user.customerType.discountPercentage }}%</p>
         <p><strong>Points Required for Discount:</strong> {{ user.customerType.pointsRequiredForDiscount }}</p>
         <button v-if="user.role==='worker'" @click ="promoteUser(user.id)" class ="search-button">Promote</button>
         <button v-if="user.role==='manager'" @click ="demoteUser(user.id)" class="reset-button">Demote</button>
+        <button v-if="user.blocked===false" @click ="blockUser(user.id)" class="reset-button">Block</button>
       </div>
     </div>
   </div>
@@ -159,6 +160,17 @@ export default {
       } catch (error) {
         console.error('Error demoting user:', error);
         alert('There was an error demoting the user. Please try again.');
+      }
+    },
+    async blockUser(userId) {
+      try {
+        const user = this.users.find(user => user.id === userId);
+        user.blocked = true;
+        await axios.put(`http://localhost:3000/api/users/${userId}`, user);
+        window.location.reload();
+      } catch (error) {
+        console.error('Error blocking user:', error);
+        alert('There was an error blocking the user. Please try again.');
       }
     }
   }

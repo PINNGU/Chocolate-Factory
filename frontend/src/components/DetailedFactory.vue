@@ -1,14 +1,19 @@
 <template>
   <div class="factory-details">
     <h1>Factory Details</h1>
-    <div v-if="factory">
+    <div v-if="factory != null">
       <div class="card">
         <div class="card-body">
-          <h2 class="card-title">{{ factory.name }}</h2>
-          <p class="card-text"><strong>Location:</strong> {{ factory.location?.address || 'Loading...' }}</p>
-          <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
-          <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
-          <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+          <div class="card-content">
+            <div class="card-text-content">
+              <h2 class="card-title">{{ factory.name }}</h2>
+              <p class="card-text"><strong>Location:</strong> {{ factory.location?.address || 'Loading...' }}</p>
+              <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
+              <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
+              <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+            </div>
+            <span><img :src="factory.logo" alt="Factory Logo" class="factory-logo" width="300px" height="200px"></span>
+          </div>
           <p class="card-text"><strong>Chocolates:</strong></p>
           <div class="chocolates-container">
             <div class="chocolate-card" v-for="chocolate in chocolates" :key="chocolate.id">
@@ -48,7 +53,7 @@
       </div>
     </div>
     <div v-else>
-      <p>Loading factory details...</p>
+      <h2>You don't have an assigned factory yet...</h2>
     </div>
   </div>
 </template>
@@ -59,7 +64,6 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      
       factory: null,
       chocolates: [],
       comments: []
@@ -72,18 +76,13 @@ export default {
   computed: {
     filteredComments() {
       this.comments = this.comments.filter(comment => comment.factory === this.factory.id && comment.deleted === false);
-      
-      if(this.role === 'admin' || this.role === 'manager'){
-        
+
+      if (this.role === 'admin' || this.role === 'manager') {
         return this.comments;
-       
+      } else {
+        this.comments = this.comments.filter(comment => comment.approved === true);
+      }
     }
-    else
-    {
-      
-      this.comments = this.comments.filter(comment => comment.approved === true);
-    }
-  }
   },
   methods: {
     async fetchFactoryDetails() {
@@ -97,7 +96,7 @@ export default {
         this.factory = factoryResponse.data;
         this.comments = commentsResponse.data;
         this.chocolates = this.factory.chocolates;
-        
+
       } catch (error) {
         console.error('Error fetching factory details:', error);
         alert('Error loading factory details. Please try again later.');
@@ -278,30 +277,44 @@ body {
   font-size: 1.2rem;
   color: #555;
   margin-bottom: 10px;
-  flex-grow: 1;
 }
 
 .comment-rating {
-  font-size: 1rem;
-  color: #777;
   display: flex;
   align-items: center;
 }
 
+.comment-rating strong {
+  margin-right: 5px;
+  color: #444;
+}
+
 .star {
-  color: #ffd700;
-  margin-left: 5px;
+  color: #ffcc00;
+  margin-right: 2px;
 }
 
 .no-comments {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #999;
+  font-size: 1rem;
+  color: #777;
 }
 
 .actions {
+  margin-top: 20px;
+}
+
+.card-content {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  align-items: flex-start;
+}
+
+.card-text-content {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.factory-logo {
+  flex-shrink: 0;
 }
 </style>

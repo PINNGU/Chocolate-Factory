@@ -3,21 +3,25 @@
     "id": "1",
     "username": "admin",
     "password": "admin123",
-    "name": "Admin",
+    "name": "Adminovic",
     "surname": "Prezime",
     "gender": "Male",
     "dateOfBirth": "1990-01-01",
     "role": "admin",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "Factory A",
+    "chocolateFactory": {
+      "id": "",
+      "name": ""
+    },
     "points": 100,
     "customerType": {
       "name": "Regular",
       "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
     },
-    "deleted": false
+    "deleted": false,
+    "blocked" : false
   },
   {
     "id": "2",
@@ -30,13 +34,18 @@
     "role": "manager",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "testing",
+    "chocolateFactory": {
+      "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
+      "name": "choc test"
+    },
     "points": 80,
     "customerType": {
       "name": "Regular",
       "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
-    }
+    },
+    "deleted": false,
+    "blocked" : false
   },
   {
     "id": "3",
@@ -49,13 +58,18 @@
     "role": "worker",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "Factory C",
+    "chocolateFactory": {
+       "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
+      "name": "choc test"
+    },
     "points": 50,
     "customerType": {
       "name": "Regular",
       "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
-    }
+    },
+    "deleted": false,
+    "blocked" : false
   },
   {
     "id": "4",
@@ -68,19 +82,23 @@
     "role": "customer",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "",
+    "chocolateFactory": {
+      "id": "",
+      "name": ""
+    },
     "points": 20,
     "customerType": {
       "name": "Regular",
       "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
     },
-    "deleted": false
+    "deleted": false,
+    "blocked" : false
   },
   {
     "id": "049ba58e-a6cc-4484-a40a-790e7334d727",
-    "username": "asds",
-    "password": "$2b$10$v5rOMrhJFJIEQJC.UYGALuUPR8s8l0woo9d3I1t75rF9/Nribt8Gm",
+    "username": "a",
+    "password": "a",
     "name": "asss",
     "surname": "dsdas",
     "gender": "Female",
@@ -88,31 +106,41 @@
     "role": "manager",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "adadssd",
+    "chocolateFactory": {
+      "id": "",
+      "name": ""
+    },
     "points": 0,
     "customerType": {
       "name": "",
       "discountPercentage": 0,
       "pointsRequiredForDiscount": 0
-    }
+    },
+    "deleted": false,
+    "blocked" : false
   },
   {
-    "id": "81263a19-1b93-4eca-aabe-e00005163125",
-    "username": "Veljko",
-    "password": "$2b$10$VYY4Xz.p1S8p3SUgmKkwBuL/YyEnM9R4O1lXENsq5dlAfNb3clSWC",
-    "name": "veljko",
-    "surname": "veljkic",
+    "id": "46e35d26-60a8-456e-a100-15b3c6908b41",
+    "username": "a123",
+    "password": "$2b$10$Xgaq2VNB.j4T1tIransjfejv3ThnK9WYDbEOh3LPlGG5YwvZIc63S",
+    "name": "aminoacid",
+    "surname": "bcaa",
     "gender": "Male",
-    "dateOfBirth": "2002-06-16",
-    "role": "manager",
+    "dateOfBirth": "2024-02-23",
+    "role": "worker",
     "purchases": [],
     "cart": [],
-    "chocolateFactory": "brotherhood chocolates",
+    "chocolateFactory": {
+      "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
+      "name": "choc test"
+    },
     "points": 0,
     "customerType": {
       "name": "",
       "discountPercentage": 0,
       "pointsRequiredForDiscount": 0
-    }
+    },
+    "deleted": false,
+    "blocked" : false
   }
 ]

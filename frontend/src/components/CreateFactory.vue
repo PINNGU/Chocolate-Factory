@@ -175,21 +175,23 @@ export default {
         }
       }
 
-      if (this.selectedManagerId) {
+    
+
+      try {
+        const response = await axios.post('http://localhost:3000/api/factories', this.factory);
+        this.$router.push(`/factory/${response.data.id}`);
+
+        if (this.selectedManagerId) {
         await axios.put(`http://localhost:3000/api/users/${this.selectedManagerId}`, {
-          chocolateFactory: this.factory.name
+          chocolateFactory: {id:response.data.id,name:this.factory.name}
         });
       } else {
         await axios.post('http://localhost:3000/api/users', {
           ...this.newManager,
           role: 'manager',
-          chocolateFactory: this.factory.name
+          chocolateFactory: {id:response.data.id,name:this.factory.name}
         });
       }
-
-      try {
-        const response = await axios.post('http://localhost:3000/api/factories', this.factory);
-        this.$router.push(`/factory/${response.data.id}`);
       } catch (error) {
         console.error('Error creating factory:', error);
         alert('There was an error creating the factory. Please try again.');
@@ -217,7 +219,7 @@ export default {
       try {
         const response = await axios.get('http://localhost:3000/api/users');
         this.managers = response.data.filter(user => user.role === 'manager');
-        this.managers = this.managers.filter(manager => !manager.chocolateFactory);
+        this.managers = this.managers.filter(manager => !manager.chocolateFactory.id);
         console.log(this.unassignedManagers);
       } catch (error) {
         console.error('Error fetching managers:', error);

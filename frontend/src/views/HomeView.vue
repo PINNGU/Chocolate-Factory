@@ -16,6 +16,11 @@ import Factories from '../components/FactoriesList.vue'
 </template>
 
 <style scoped>
+.body, html {
+  margin: 0;
+  padding: 0;
+
+}
 
 .complex-header {
   position: relative;

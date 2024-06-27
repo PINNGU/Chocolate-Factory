@@ -2,13 +2,20 @@
   <div class="lele">
     <header>
       <nav class="navbar">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/factories">Factories</RouterLink>
+        
+        <RouterLink to="/">Factories</RouterLink>
         <RouterLink to="/users" v-if="role === 'admin'">Users</RouterLink>
         <RouterLink to="/factories/create" v-if="role === 'admin'">Create Factory</RouterLink>
+        <RouterLink to="/factory/my" v-if="role === 'manager' || role ==='worker'">My Factory</RouterLink>
         <div v-if="isLoggedIn" class="user-menu">
           <span class="username" @click="toggleMenu">{{ username }}</span>
           <ul v-if="showMenu" class="dropdown-menu">
+            <li>
+              <div>
+              <RouterLink :to="`/profile/${id}`">Edit Profile</RouterLink>
+              </div>
+              
+            </li>
             <li @click="logout">Logout</li>
           </ul>
         </div>
@@ -32,11 +39,18 @@ import { computed, ref, onMounted } from 'vue';
 const showMenu = ref(false);
 const username = ref('');
 const role = ref('');
+const id = ref('');
 const router = useRouter();
+
+
 
 const isLoggedIn = computed(() => {
   return !!localStorage.getItem('token');
 });
+
+const getId = () => {
+  return localStorage.getItem('id') || '';
+};
 
 const getUsername = () => {
   return localStorage.getItem('username') || '';
@@ -50,15 +64,26 @@ const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('username');
   localStorage.removeItem('role');
+  localStorage.removeItem('id');
+  localStorage.removeItem('factoryId');
   showMenu.value = false;
 
-  // Redirect to home or login page and reload to ensure state is rese
+  
+  router.push(`/`).then(() => {
     window.location.reload();
+  })
+
+
  
 };
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
+};
+
+const fetchId = () => {
+  id.value = getId();
+  console.log("id",id);
 };
 
 const fetchUsername = () => {
@@ -74,6 +99,7 @@ const fetchRole = () => {
 onMounted(() => {
   fetchUsername();
   fetchRole();
+  fetchId();
 });
 </script>
 
@@ -140,6 +166,7 @@ nav .login-link {
   margin-right: 10px;
   position: relative;
   cursor: pointer;
+  min-width: 100px;
 }
 
 .username {
@@ -163,12 +190,16 @@ nav .login-link {
 
 .dropdown-menu li {
   cursor: pointer;
+  
+  width: 100px;
   color: #fff;
   padding: 5px 0;
 }
 
 .dropdown-menu li:hover {
   background-color: #555;
+  color: #fff;
+  transition : none;
 }
 
 main {

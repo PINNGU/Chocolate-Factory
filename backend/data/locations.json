@@ -33,5 +33,33 @@
     "latitude": 44.379348277026054,
     "address": "unnamed road, 75400 Zvornik, Bosnia and Herzegovina",
     "deleted": false
+  },
+  {
+    "id": "bf99c410-1ea1-48e9-b9ba-ed382f42601b",
+    "longitude": 126.71128411486143,
+    "latitude": 37.906769372668364,
+    "address": "South Korea, Gyeonggi, Paju-si, Jangdan-myeon, Huimang-ro",
+    "deleted": false
+  },
+  {
+    "id": "3a6d001e-e2f0-4cbf-a7b4-8acd232211df",
+    "longitude": 30.050248375533783,
+    "latitude": 51.414384171250305,
+    "address": "Builders Avenue, Vyshhorod Raion, Prypiat, Kyiv Oblast, 01196, Ukraine",
+    "deleted": false
+  },
+  {
+    "id": "97396f64-1c14-4a3c-b969-24328ed76782",
+    "longitude": -85.76632798777466,
+    "latitude": 38.25802924796628,
+    "address": "Kentucky Peerless Distilling Co., 120 North 10th Street, Louisville, KY 40202, United States of America",
+    "deleted": false
+  },
+  {
+    "id": "58fef40b-4647-47e9-a9a6-971729da92d1",
+    "longitude": -81.49338374291115,
+    "latitude": 45.67902277731116,
+    "address": "Northeastern Manitoulin and the Islands, ON, Canada",
+    "deleted": false
   }
 ]
