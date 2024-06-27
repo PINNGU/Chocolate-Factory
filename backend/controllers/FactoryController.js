@@ -77,11 +77,11 @@ exports.deleteFactory = async (req, res) => {
 exports.addChocolatesToFactory = async (req, res) => {
   try {
     const { factoryId } = req.params;
-    const { chocolateId } = req.body; // Note this change: Expecting a single chocolate ID
+    const { chocolate } = req.body; // Note this change: Expecting a single chocolate ID
     console.log('Received factoryId:', factoryId);
-    console.log('Received chocolateId:', chocolateId);
+    console.log('Received chocolate:', chocolate);
 
-    const updatedFactory = await FactoryService.addChocolates(factoryId, chocolateId);
+    const updatedFactory = await FactoryService.addChocolates(factoryId, chocolate);
     
     if (!updatedFactory) {
       return res.status(404).json({ message: 'Factory not found' });

@@ -20,12 +20,13 @@ class FactoryService {
   static async createFactory(factoryData) {
     const factories = await this.getAllFactories();
 
+
     const newFactory = new Factory(
       factoryData.name,
       factoryData.chocolates,
       factoryData.workingHours,
       factoryData.status,
-      factoryData.locationId,
+      factoryData.location,
       factoryData.logo,
       factoryData.rating
     );
@@ -61,7 +62,7 @@ class FactoryService {
     return factoryId;
   }
 
-  static async addChocolates(factoryId, chocolateId) {
+  static async addChocolates(factoryId, chocolate) {
     try {
       // Step 1: Fetch all factories
       const factories = await this.getAllFactories();
@@ -75,7 +76,7 @@ class FactoryService {
       }
 
       // Step 4: Add new chocolate ID to the factory's chocolates array
-      factory.chocolates.push(chocolateId);
+      factory.chocolates.push(chocolate);
 
       // Step 5: Write updated factories array back to JSON file
       await jsonHandler.writeJSON(factoryFilePath, factories);

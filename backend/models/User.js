@@ -20,7 +20,8 @@ class User{
         this.chocolateFactory = chocolateFactory;
         this.points = points;
         this.customerType = customerType;
-
+        this.deleted = false;
+        this.blocked = false;
         
     }
 

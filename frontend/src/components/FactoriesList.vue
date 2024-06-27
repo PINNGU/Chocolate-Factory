@@ -1,15 +1,6 @@
 <template>
   <div class="factory-list">
-    <header class="complex-header">
-      <div class="overlay"></div>
-      <div class="header-content">
-        <h1 class="company-name">ChocolateFactory</h1>
-        <p class="company-tagline">Sweetening Lives, One Chocolate at a Time</p>
-        <p class="company-history">
-          Since 1950, ChocolateFactory has been creating the finest chocolates using traditional methods and the highest quality ingredients. Step into our world and discover the passion and craftsmanship behind every piece of chocolate.
-        </p>
-      </div>
-    </header>
+ 
 
     <div class="search-container">
     <input
@@ -101,7 +92,7 @@
             <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
             <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
             <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
-            <p class="card-text"><strong>Rating:</strong> {{ factory.location.address }}</p>
+            <p class="card-text"><strong>Address:</strong> {{ factory.location.address }}</p>
 
             <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-sm">View Details</router-link>
           </div>
@@ -124,18 +115,21 @@
             <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
             <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
             <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
-            <p class="card-text"><strong>Rating:</strong> {{ factory.location.address }}</p>
+            <p class="card-text"><strong>Address:</strong> {{ factory.location.address }}</p>
 
             <router-link :to="`/factory/${factory.id}`" class="btn btn-light btn-sm">View Details</router-link>
           </div>
         </div>
       </div>
+      
     </div>
 
     <!-- No Factories Message -->
     <div v-if="factories.length === 0" class="text-center mt-5">
       <p style="font-size: 2rem; color: #333;">No factories found.</p>
     </div>
+
+
   </div>
 </template>
 
@@ -257,8 +251,10 @@ export default {
         this.fetchAllFactories();
       }
     },
-    handleLocationSelect(coordinates) {
-      this.selectedLocation = coordinates;
+    handleLocationSelect(location) {
+      this.selectedLocation = location.coordinates;
+      console.log(location.coordinates);
+      console.log(location.address);
 
     },
 

@@ -38,8 +38,7 @@
     },
     "logo": "http://localhost:3000/images/maxresdefault.jpg",
     "rating": 5,
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "7g3h4i5j-6b79-01cd-ef23-3456789012cd",
@@ -92,8 +91,7 @@
     },
     "logo": "http://localhost:3000/images/download.jpg",
     "rating": 4,
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "7b7531fd-518a-4ea2-9db1-f47902f15ee1",
@@ -158,8 +156,7 @@
     },
     "logo": "http://localhost:3000/images/maxresdefault.jpg",
     "rating": 3.5,
-    "deleted" :false
-
+    "deleted": false
   },
   {
     "id": "7b7531fd-518a-4ea2-9db1-f47902f15gm3",
@@ -224,7 +221,53 @@
     },
     "logo": "http://localhost:3000/images/download.jpg",
     "rating": 3.5,
-    "deleted" :false
-
+    "deleted": false
+  },
+  {
+    "id": "23cd07f0-5e9e-44b0-a041-354bb5405844",
+    "name": "testing",
+    "chocolates": [],
+    "workingHours": "01h - 09h",
+    "status": "Open",
+    "location": {
+      "id": "98d5953e-b20e-458d-895f-67335dd0c71f",
+      "longitude": 6.534366809760255,
+      "latitude": 44.92142435430816,
+      "address": "Crêtes, Goulet, 05240 La Salle-les-Alpes, France",
+      "deleted": false
+    },
+    "logo": "http://localhost:3000/images/1719409646504.jpg",
+    "rating": 4,
+    "deleted": false
+  },
+  {
+    "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
+    "name": "choc test",
+    "chocolates": [
+      {
+        "id": "acc33e11-dc1a-4333-8bb4-eb5882ba1b89",
+        "name": "Protein Chocolate",
+        "price": 20,
+        "type": "Protein",
+        "kind": "Caramel",
+        "weight": 65,
+        "description": "lightweight baby",
+        "image": "http://localhost:3000/images/1719484824151.jpg",
+        "quantity": 18,
+        "status": "Nema na stanju"
+      }
+    ],
+    "workingHours": "02h - 12h",
+    "status": "Open",
+    "location": {
+      "id": "7b5619ff-b2d9-45b5-b7e8-1e38cfbfa300",
+      "longitude": -81.49338374291115,
+      "latitude": 45.67902277731116,
+      "address": "Northeastern Manitoulin and the Islands, ON, Canada",
+      "deleted": false
+    },
+    "logo": "http://localhost:3000/images/1719484288973.jpg",
+    "rating": 4,
+    "deleted": false
   }
 ]

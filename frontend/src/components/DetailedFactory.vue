@@ -1,14 +1,19 @@
 <template>
   <div class="factory-details">
     <h1>Factory Details</h1>
-    <div v-if="factory">
+    <div v-if="factory != null">
       <div class="card">
         <div class="card-body">
-          <h2 class="card-title">{{ factory.name }}</h2>
-          <p class="card-text"><strong>Location:</strong> {{ factory.location?.address || 'Loading...' }}</p>
-          <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
-          <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
-          <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+          <div class="card-content">
+            <div class="card-text-content">
+              <h2 class="card-title">{{ factory.name }}</h2>
+              <p class="card-text"><strong>Location:</strong> {{ factory.location?.address || 'Loading...' }}</p>
+              <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
+              <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
+              <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
+            </div>
+            <span><img :src="factory.logo" alt="Factory Logo" class="factory-logo" width="300px" height="200px"></span>
+          </div>
           <p class="card-text"><strong>Chocolates:</strong></p>
           <div class="chocolates-container">
             <div class="chocolate-card" v-for="chocolate in chocolates" :key="chocolate.id">
@@ -18,7 +23,7 @@
                 <p>{{ chocolate.type }}, {{ chocolate.kind }}</p>
                 <p>{{ chocolate.price }}$</p>
                 <p>Quantity: {{ chocolate.quantity }}</p>
-                <div class="chocolate-actions">
+                <div class="chocolate-actions" v-if="role === 'manager' || role === 'admin'">
                   <button class="remove-button" @click="removeChocolate(chocolate.id)">Remove</button>
                   <router-link :to="`/chocolate/${chocolate.id}/update`" class="update-button">Update</router-link>
                 </div>
@@ -42,13 +47,13 @@
           <p class="no-comments">No comments for this factory.</p>
         </div>
       </div>
-      <div class="actions">
+      <div class="actions" v-if="role === 'manager' || role === 'admin'">
         <router-link :to="`/factory/${factory.id}/add-chocolate`" class="add-button">Add Chocolate</router-link>
         <router-link :to="`/factory/${factory.id}/update`" class="update-factory-button">Update Factory</router-link>
       </div>
     </div>
     <div v-else>
-      <p>Loading factory details...</p>
+      <h2>You don't have an assigned factory yet...</h2>
     </div>
   </div>
 </template>
@@ -66,10 +71,17 @@ export default {
   },
   mounted() {
     this.fetchFactoryDetails();
+    this.role = localStorage.getItem('role');
   },
   computed: {
     filteredComments() {
-      return this.comments.filter(comment => comment.factory === this.factory.id);
+      this.comments = this.comments.filter(comment => comment.factory === this.factory.id && comment.deleted === false);
+
+      if (this.role === 'admin' || this.role === 'manager') {
+        return this.comments;
+      } else {
+        this.comments = this.comments.filter(comment => comment.approved === true);
+      }
     }
   },
   methods: {
@@ -84,7 +96,7 @@ export default {
         this.factory = factoryResponse.data;
         this.comments = commentsResponse.data;
         this.chocolates = this.factory.chocolates;
-        
+
       } catch (error) {
         console.error('Error fetching factory details:', error);
         alert('Error loading factory details. Please try again later.');
@@ -92,9 +104,9 @@ export default {
     },
     async removeChocolate(chocolateId) {
       try {
-        this.factory.chocolates = this.factory.chocolates.filter(id => id !== chocolateId);
-        this.chocolates = this.chocolates.filter(chocolate => chocolate.id !== chocolateId);
+        this.factory.chocolates = this.factory.chocolates.filter(chocolate => chocolate.id !== chocolateId);
         await axios.put(`http://localhost:3000/api/factories/${this.factory.id}`, this.factory);
+        this.chocolates = this.factory.chocolates;
       } catch (error) {
         console.error('Error removing chocolate:', error);
         alert('There was an error removing the chocolate. Please try again.');
@@ -265,30 +277,44 @@ body {
   font-size: 1.2rem;
   color: #555;
   margin-bottom: 10px;
-  flex-grow: 1;
 }
 
 .comment-rating {
-  font-size: 1rem;
-  color: #777;
   display: flex;
   align-items: center;
 }
 
+.comment-rating strong {
+  margin-right: 5px;
+  color: #444;
+}
+
 .star {
-  color: #ffd700;
-  margin-left: 5px;
+  color: #ffcc00;
+  margin-right: 2px;
 }
 
 .no-comments {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #999;
+  font-size: 1rem;
+  color: #777;
 }
 
 .actions {
+  margin-top: 20px;
+}
+
+.card-content {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  align-items: flex-start;
+}
+
+.card-text-content {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.factory-logo {
+  flex-shrink: 0;
 }
 </style>

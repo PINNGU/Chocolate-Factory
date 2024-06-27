@@ -2,13 +2,13 @@
 
 class Location
 {
-    constructor(longitude,latitude,address,deleted)
+    constructor(longitude,latitude,address)
     {
         this.id = uuidv4();
         this.longitude = longitude;
         this.latitude = latitude;
         this.address = address;
-        this.deleted = deleted;
+        this.deleted = false;
     }
 }
 module.exports = Location;

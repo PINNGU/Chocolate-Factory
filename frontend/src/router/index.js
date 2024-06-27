@@ -5,11 +5,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
       path: '/about',
       name: 'about',
       // route level code-splitting
@@ -18,7 +13,7 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: "/factories",
+      path: "/",
       name: "factories",
 
       component: () => import("../views/FactoriesView.vue")
@@ -53,7 +48,36 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../components/LogIn.vue')
+    },
+    {
+      path: '/factories/create',
+      name: 'create-factory',
+      component: () => import('../components/CreateFactory.vue')
+    },
+    {
+      path : '/users',
+      name : 'users',
+      component: () => import('../components/UsersView.vue')
+    },
+    {
+      path: '/profile/:id',
+      name: 'profile',
+      component: () => import('../components/Profile.vue')
+    },
+    {
+      path : '/factory/my',
+      name : 'my-factory',
+      component: () => import('../components/MyFactory.vue')
+    },
+    {
+      path : '/factory/:id/add-worker',
+      name : 'add-worker',
+      component: () => import('../components/AddWorkerToFactory.vue')
+      
     }
+
+
+
   ]
 })
 
