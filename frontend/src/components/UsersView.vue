@@ -53,7 +53,7 @@
         <p><strong>Points Required for Discount:</strong> {{ user.customerType.pointsRequiredForDiscount }}</p>
         <button v-if="user.role==='worker'" @click ="promoteUser(user.id)" class ="search-button">Promote</button>
         <button v-if="user.role==='manager'" @click ="demoteUser(user.id)" class="reset-button">Demote</button>
-        <button v-if="user.blocked===false" @click ="blockUser(user.id)" class="reset-button">Block</button>
+        <button v-if="user.blocked===false && user.id != this.id" @click ="blockUser(user.id)" class="reset-button">Block</button>
       </div>
     </div>
   </div>
@@ -65,6 +65,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      id : localStorage.getItem('id'),
       users: [],
       searchQuery: '',
       roleFilter: '',

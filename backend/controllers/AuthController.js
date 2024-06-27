@@ -17,7 +17,7 @@ class AuthController {
       }
 
       const token = jwt.sign({ userId: user.id, role: user.role }, secretKey, { expiresIn: '1h' });
-      res.json({ token,id:user.id, username: user.username,role: user.role,factoryId:user.chocolateFactory.id}); //ovdje odredjujes sta ti vraca login uz token
+      res.json({ token,id:user.id, username: user.username,role: user.role,factoryId:user.chocolateFactory.id,blocked:user.blocked}); //ovdje odredjujes sta ti vraca login uz token
     } catch (error) {
       res.status(500).json({ message: 'Internal server error' });
     }

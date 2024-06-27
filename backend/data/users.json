@@ -21,7 +21,7 @@
       "pointsRequiredForDiscount": 100
     },
     "deleted": false,
-    "blocked" : false
+    "blocked": false
   },
   {
     "id": "2",
@@ -45,7 +45,7 @@
       "pointsRequiredForDiscount": 100
     },
     "deleted": false,
-    "blocked" : false
+    "blocked": false
   },
   {
     "id": "3",
@@ -59,7 +59,7 @@
     "purchases": [],
     "cart": [],
     "chocolateFactory": {
-       "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
+      "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
       "name": "choc test"
     },
     "points": 50,
@@ -69,7 +69,7 @@
       "pointsRequiredForDiscount": 100
     },
     "deleted": false,
-    "blocked" : false
+    "blocked": false
   },
   {
     "id": "4",
@@ -93,7 +93,7 @@
       "pointsRequiredForDiscount": 100
     },
     "deleted": false,
-    "blocked" : false
+    "blocked": false
   },
   {
     "id": "049ba58e-a6cc-4484-a40a-790e7334d727",
@@ -117,7 +117,7 @@
       "pointsRequiredForDiscount": 0
     },
     "deleted": false,
-    "blocked" : false
+    "blocked": false
   },
   {
     "id": "46e35d26-60a8-456e-a100-15b3c6908b41",
@@ -141,6 +141,6 @@
       "pointsRequiredForDiscount": 0
     },
     "deleted": false,
-    "blocked" : false
+    "blocked": false
   }
 ]

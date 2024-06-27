@@ -53,7 +53,16 @@ const login = async () => {
     const role = response.data.role;
     const id = response.data.id;  // Retrieve the id from the response
     const factoryId = response.data.factoryId;  // Retrieve the factoryId from the response
-    localStorage.setItem('token', token);
+    const blocked = response.data.blocked;
+    if(blocked)
+    {
+     alert('You are blocked from the system,please contact the admin.');
+     router.push('/').then(() => {
+      window.location.reload();
+    });
+      return;
+    }
+        localStorage.setItem('token', token);
     localStorage.setItem('username', user);
     localStorage.setItem('role', role);
     localStorage.setItem('id', id);  // Store the id in localStorage
