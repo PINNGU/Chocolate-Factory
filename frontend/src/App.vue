@@ -2,19 +2,20 @@
   <div class="lele">
     <header>
       <nav class="navbar">
-        
         <RouterLink to="/">Factories</RouterLink>
         <RouterLink to="/users" v-if="role === 'admin'">Users</RouterLink>
         <RouterLink to="/factories/create" v-if="role === 'admin'">Create Factory</RouterLink>
-        <RouterLink to="/factory/my" v-if="role === 'manager' || role ==='worker'">My Factory</RouterLink>
+        <RouterLink to="/factory/my" v-if="role === 'manager' || role === 'worker'">My Factory</RouterLink>
+        <RouterLink to="/purchases" v-if="role === 'customer'">My Purchases</RouterLink>
+        <RouterLink to="/managerPurchases" v-if="role === 'manager'">Purchases</RouterLink>
+        <RouterLink to="/cart" v-if="role === 'customer'">Cart</RouterLink> <!-- Add this line -->
         <div v-if="isLoggedIn" class="user-menu">
           <span class="username" @click="toggleMenu">{{ username }}</span>
           <ul v-if="showMenu" class="dropdown-menu">
             <li>
               <div>
-              <RouterLink :to="`/profile/${id}`">Edit Profile</RouterLink>
+                <RouterLink :to="`/profile/${id}`">Edit Profile</RouterLink>
               </div>
-              
             </li>
             <li @click="logout">Logout</li>
           </ul>
@@ -34,15 +35,11 @@
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 import { computed, ref, onMounted } from 'vue';
 
-
-
 const showMenu = ref(false);
 const username = ref('');
 const role = ref('');
 const id = ref('');
 const router = useRouter();
-
-
 
 const isLoggedIn = computed(() => {
   return !!localStorage.getItem('token');
@@ -66,15 +63,12 @@ const logout = () => {
   localStorage.removeItem('role');
   localStorage.removeItem('id');
   localStorage.removeItem('factoryId');
+  localStorage.removeItem('cart');
   showMenu.value = false;
 
-  
   router.push(`/`).then(() => {
     window.location.reload();
-  })
-
-
- 
+  });
 };
 
 const toggleMenu = () => {
@@ -83,7 +77,6 @@ const toggleMenu = () => {
 
 const fetchId = () => {
   id.value = getId();
-  console.log("id",id);
 };
 
 const fetchUsername = () => {
@@ -91,11 +84,9 @@ const fetchUsername = () => {
 };
 
 const fetchRole = () => {
-  role.value = getRole();  
-
+  role.value = getRole();
 };
 
-// Fetch username on component mount
 onMounted(() => {
   fetchUsername();
   fetchRole();
@@ -199,7 +190,7 @@ nav .login-link {
 .dropdown-menu li:hover {
   background-color: #555;
   color: #fff;
-  transition : none;
+  transition: none;
 }
 
 main {
