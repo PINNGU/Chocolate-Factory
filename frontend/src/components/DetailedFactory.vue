@@ -23,6 +23,10 @@
                 <p>{{ chocolate.type }}, {{ chocolate.kind }}</p>
                 <p>{{ chocolate.price }}$</p>
                 <p>Quantity: {{ chocolate.quantity }}</p>
+                <div v-if="role === 'customer'" class="add-to-cart">
+                  <input type="number" v-model.number="chocolate.quantityToAdd" :max="chocolate.quantity" min="1" @input="validateQuantity(chocolate)">
+                  <button class="add-to-cart-button" @click="addToCart(chocolate)">Add to Cart</button>
+                </div>
                 <div class="chocolate-actions" v-if="role === 'manager' || role === 'admin'">
                   <button class="remove-button" @click="removeChocolate(chocolate.id)">Remove</button>
                   <router-link :to="`/chocolate/${chocolate.id}/update`" class="update-button">Update</router-link>
@@ -66,12 +70,12 @@ export default {
     return {
       factory: null,
       chocolates: [],
-      comments: []
+      comments: [],
+      role: localStorage.getItem('role')
     };
   },
   mounted() {
     this.fetchFactoryDetails();
-    this.role = localStorage.getItem('role');
   },
   computed: {
     filteredComments() {
@@ -80,7 +84,7 @@ export default {
       if (this.role === 'admin' || this.role === 'manager') {
         return this.comments;
       } else {
-        this.comments = this.comments.filter(comment => comment.approved === true);
+        return this.comments.filter(comment => comment.approved === true);
       }
     }
   },
@@ -95,11 +99,83 @@ export default {
 
         this.factory = factoryResponse.data;
         this.comments = commentsResponse.data;
-        this.chocolates = this.factory.chocolates;
+        this.chocolates = this.factory.chocolates.map(chocolate => ({
+          ...chocolate,
+          quantityToAdd: 1
+        }));
 
       } catch (error) {
         console.error('Error fetching factory details:', error);
         alert('Error loading factory details. Please try again later.');
+      }
+    },
+    validateQuantity(chocolate) {
+      if (chocolate.quantityToAdd > chocolate.quantity) {
+        chocolate.quantityToAdd = chocolate.quantity;
+      } else if (chocolate.quantityToAdd < 1) {
+        chocolate.quantityToAdd = 1;
+      }
+    },
+    addToCart(chocolate) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(item => item.chocolate.id === chocolate.id);
+
+      // Check if there are chocolates from another factory in the cart
+      const hasChocolatesFromOtherFactories = cart.some(item => item.factoryId !== this.factory.id);
+
+      if (hasChocolatesFromOtherFactories) {
+        // Prompt the user to confirm clearing the cart
+        if (confirm('Adding chocolates from another factory will empty your current cart. Do you want to proceed?')) {
+          // Clear the cart
+          localStorage.removeItem('cart');
+          cart.length = 0; // Empty the array
+
+          // Add the new chocolate to the cart
+          cart.push({
+            chocolate: {
+              id: chocolate.id,
+              name: chocolate.name,
+              price: chocolate.price,
+              type: chocolate.type,
+              kind: chocolate.kind,
+              image: chocolate.image,
+              quantity: chocolate.quantity
+            },
+            quantity: chocolate.quantityToAdd,
+            factoryId: this.factory.id
+          });
+
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert(`${chocolate.quantityToAdd} ${chocolate.name}(s) added to cart.`);
+        } else {
+          // User cancelled, do nothing
+          return;
+        }
+      } else {
+        // No chocolates from another factory in the cart, proceed as usual
+        if (existingItem) {
+          existingItem.quantity += chocolate.quantityToAdd;
+          if (existingItem.quantity > chocolate.quantity) {
+            existingItem.quantity = chocolate.quantity;
+          }
+        } else {
+          cart.push({
+            chocolate: {
+              id: chocolate.id,
+              name: chocolate.name,
+              price: chocolate.price,
+              type: chocolate.type,
+              kind: chocolate.kind,
+              image: chocolate.image,
+              quantity: chocolate.quantity
+            },
+            quantity: chocolate.quantityToAdd,
+            factoryId: this.factory.id
+          });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${chocolate.quantityToAdd} ${chocolate.name}(s) added to cart.`);
       }
     },
     async removeChocolate(chocolateId) {
@@ -201,120 +277,142 @@ body {
   color: #555;
 }
 
-.chocolate-actions {
+.add-to-cart {
   display: flex;
   align-items: center;
   margin-top: 10px;
 }
 
-.remove-button, .update-button {
-  display: inline-block;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  background-color: #444;
-  border: none;
-  color: #fff;
+.add-to-cart input {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   margin-right: 10px;
-  border-radius: 5px;
+}
+
+.add-to-cart-button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+}
+
+.add-to-cart-button:hover {
+  background-color: #0056b3;
+}
+
+.chocolate-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.remove-button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
 }
 
 .update-button {
-  background-color: #007bff;
-}
-
-.remove-button:hover, .update-button:hover {
-  opacity: 0.8;
-}
-
-.add-button, .update-factory-button {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #007bff;
+  padding: 8px 16px;
+  font-size: 1rem;
+  background-color: #28a745;
   color: #fff;
   border: none;
-  border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.add-button:hover, .update-factory-button:hover {
-  opacity: 0.8;
+.update-button:hover {
+  background-color: #218838;
+}
+
+.factory-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .comments-section {
-  margin-top: 40px;
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.comments-section h2 {
-  margin-bottom: 20px;
-  color: #4a4a4a;
+  margin-top: 30px;
 }
 
 .comment-card {
-  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 15px;
-  margin: 10px 0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.comment-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .comment-text {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #555;
-  margin-bottom: 10px;
 }
 
 .comment-rating {
-  display: flex;
-  align-items: center;
-}
-
-.comment-rating strong {
-  margin-right: 5px;
-  color: #444;
+  font-size: 1rem;
+  color: #f39c12;
+  margin-top: 5px;
 }
 
 .star {
-  color: #ffcc00;
   margin-right: 2px;
 }
 
 .no-comments {
-  font-size: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
   color: #777;
 }
 
 .actions {
+  display: flex;
+  gap: 20px;
   margin-top: 20px;
 }
 
-.card-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+.add-button, .update-factory-button {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
-.card-text-content {
-  flex: 1;
-  margin-right: 20px;
+.add-button:hover, .update-factory-button:hover {
+  background-color: #0056b3;
 }
 
-.factory-logo {
-  flex-shrink: 0;
+.update-factory-button {
+  background-color: #28a745;
+}
+
+.update-factory-button:hover {
+  background-color: #218838;
 }
 </style>

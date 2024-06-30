@@ -86,9 +86,9 @@
       "id": "",
       "name": ""
     },
-    "points": 20,
+    "points": 74,
     "customerType": {
-      "name": "Regular",
+      "name": "Premium",
       "discountPercentage": 10,
       "pointsRequiredForDiscount": 100
     },

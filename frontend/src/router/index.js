@@ -74,9 +74,24 @@ const router = createRouter({
       name : 'add-worker',
       component: () => import('../components/AddWorkerToFactory.vue')
       
+    },
+    {
+      path: '/purchases',
+      name: 'purchases',
+      component: () => import('../components/CustomerPurchases.vue'),
+      meta: { requiresAuth: true } // Ensure the route is protected
+    },
+    {
+      path: '/managerPurchases',
+      name: 'manager-purchases',
+      component: () => import('../components/ManagerPurchases.vue'),
+      meta: { requiresAuth: true } // Ensure the route is protected
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: () => import('../components/Cart.vue')
     }
-
-
 
   ]
 })
