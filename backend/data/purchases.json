@@ -74,8 +74,9 @@
     "dateTime": "2024-06-03T09:45:00Z",
     "price": 13.47,
     "customer": "4",
-    "status": "Obrada",
-    "deleted": false
+    "status": "Blokirano",
+    "deleted": false,
+    "reason": "pinngu cigan"
   },
   {
     "id": "4",
@@ -186,5 +187,166 @@
     "customer": null,
     "status": "Obrada",
     "deleted": false
+  },
+  {
+    "id": "2e9f0aca-7ea7-442e-9e36-4dd829b223e5",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 10
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-06-30T16:03:21.113Z",
+    "price": 39.900000000000006,
+    "customer": null,
+    "status": "Obrada",
+    "deleted": false
+  },
+  {
+    "id": "cc77d121-1611-4309-b43a-ceb878bfd794",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 6
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-06-30T17:14:57.126Z",
+    "price": 23.94,
+    "customer": null,
+    "status": "Obrada",
+    "deleted": false
+  },
+  {
+    "id": "08d7f6d2-12f2-4068-bab6-34b89dec1b09",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 1
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-06-30T17:26:58.074Z",
+    "price": 3.99,
+    "customer": null,
+    "status": "Obrada",
+    "deleted": false
+  },
+  {
+    "id": "84f905de-473c-4efa-949a-74f850c9a24b",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 2
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-06-30T17:31:47.857Z",
+    "price": 7.98,
+    "customer": "4",
+    "status": "Obrada",
+    "deleted": false
+  },
+  {
+    "id": "2916bcc8-3c79-4e2e-92fa-633629e92298",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 1
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-06-30T17:38:33.114Z",
+    "price": 3.99,
+    "customer": "4",
+    "status": "Obrada",
+    "deleted": false
+  },
+  {
+    "id": "e10ec26d-ed38-478c-9ee8-432bdef45463",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 9
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-06-30T20:42:28.841Z",
+    "price": 35.910000000000004,
+    "customer": "4",
+    "status": "Obrada",
+    "deleted": false
+  },
+  {
+    "id": "d77ebfa0-7ccf-4034-8e17-5abfee35230b",
+    "chocolates": [
+      {
+        "id": "d45e6f7g-4567-8901-23de-f3456789e",
+        "name": "Hazelnut Dark Chocolate",
+        "price": 4.49,
+        "type": "Dark",
+        "kind": "Nuts",
+        "image": "http://localhost:3000/images/dark_choco.jpg",
+        "quantity": 10
+      }
+    ],
+    "factory": {
+      "id": "7g3h4i5j-6b79-01cd-ef23-3456789012cd",
+      "name": "Mrkson Chocolate Factory"
+    },
+    "dateTime": "2024-06-30T20:53:11.772Z",
+    "price": 44.900000000000006,
+    "customer": "4",
+    "status": "Otkazano",
+    "deleted": true
   }
 ]

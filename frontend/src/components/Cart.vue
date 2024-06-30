@@ -33,7 +33,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      cart: JSON.parse(localStorage.getItem('cart')) || []
+      cart: JSON.parse(localStorage.getItem('cart')) || [],
+      user: null,
     };
   },
   computed: {
@@ -49,6 +50,9 @@ export default {
       deep: true
     }
   },
+  async created() {
+    await this.fetchUserDetails();
+  },
   methods: {
     updateQuantity(item, change) {
       item.quantity += change;
@@ -57,6 +61,16 @@ export default {
     },
     removeFromCart(chocolateId) {
       this.cart = this.cart.filter(item => item.chocolate.id !== chocolateId);
+    },
+    async fetchUserDetails() {
+      try {
+        const userId = localStorage.getItem('id'); // assuming userId is stored in localStorage
+        const response = await axios.get(`http://localhost:3000/api/users/${userId}`);
+        this.user = response.data;
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+        alert('There was an error fetching user details. Please try again.');
+      }
     },
     async fetchFactoryDetails(item) {
       try {
@@ -99,7 +113,7 @@ export default {
         },
         dateTime: new Date().toISOString(),
         price: this.cart.reduce((total, item) => total + (item.chocolate.price * item.quantity), 0),
-        customer: localStorage.getItem('userId'), // or however you get the customer ID
+        customer: localStorage.getItem('id'), // or however you get the customer ID
         status: 'Obrada',
         deleted: false
       };
@@ -109,12 +123,55 @@ export default {
       try {
         const response = await axios.post('http://localhost:3000/api/purchases', newPurchase);
         console.log('API response:', response);
+        
+        for (const item of this.cart) {
+          await this.updateFactoryChocolateQuantity(item.chocolate.factory.id, item.chocolate.id, item.quantity);
+        }
+
+        // Calculate the points and update the user
+        const pointsEarned = Math.floor(newPurchase.price / 1000 * 133);
+        await this.updateUserPoints(pointsEarned);
+
         localStorage.removeItem('cart');
         alert('Purchase completed successfully.');
         this.cart = []; // clear the cart after successful checkout
       } catch (error) {
         console.error('Error creating purchase:', error);
         alert('There was an error processing your purchase. Please try again.');
+      }
+    },
+    async updateUserPoints(points) {
+      try {
+        const updatedUser = { ...this.user, points: this.user.points + points };
+        const response = await axios.put(`http://localhost:3000/api/users/${this.user.id}`, updatedUser);
+        this.user = response.data;
+      } catch (error) {
+        console.error('Error updating user points:', error);
+        alert('There was an error updating user points. Please try again.');
+      }
+    },
+    async updateFactoryChocolateQuantity(factoryId, chocolateId, quantityPurchased) {
+      try {
+        // Fetch factory details
+        const factoryResponse = await axios.get(`http://localhost:3000/api/factories/${factoryId}`);
+        const factory = factoryResponse.data;
+
+        // Find the chocolate in the factory's chocolates array
+        const chocolate = factory.chocolates.find(choco => choco.id === chocolateId);
+        if (chocolate) {
+          // Update chocolate quantity
+          chocolate.quantity -= quantityPurchased;
+          if (chocolate.quantity < 0) chocolate.quantity = 0;
+
+          // Update the factory in the backend
+          await axios.put(`http://localhost:3000/api/factories/${factory.id}`, factory);
+        } else {
+          console.error('Chocolate not found in factory.');
+          alert('Chocolate not found in factory. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error updating factory chocolate quantity:', error);
+        alert('There was an error updating factory chocolate quantity. Please try again.');
       }
     }
   }

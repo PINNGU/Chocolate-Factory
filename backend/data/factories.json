@@ -12,7 +12,7 @@
         "weight": 100,
         "description": "Chocolate filled with caramel",
         "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
-        "quantity": 60,
+        "quantity": 50,
         "status": "Ima na stanju"
       },
       {
@@ -31,10 +31,11 @@
     "workingHours": "10 AM - 7 PM",
     "status": "Open",
     "location": {
-      "id": "2b3c4d5e-6789-01bc-def2-3456789012cd",
+      "id": "91d77e3c-85d4-4553-93b5-4eefe6c36801",
       "longitude": 2.294351,
       "latitude": 48.858844,
-      "address": "Eiffel Tower, Paris, Île-de-France, France"
+      "address": "Eiffel Tower, Paris, Île-de-France, France",
+      "deleted": false
     },
     "logo": "http://localhost:3000/images/maxresdefault.jpg",
     "rating": 5,
@@ -77,17 +78,18 @@
         "weight": 120,
         "description": "Dark chocolate with hazelnuts",
         "image": "http://localhost:3000/images/dark_choco.jpg",
-        "quantity": 40,
+        "quantity": 30,
         "status": "Ima na stanju"
       }
     ],
     "workingHours": "8 AM - 5 PM",
     "status": "Open",
     "location": {
-      "id": "3c4d5e6f-7890-12cd-ef34-5678901234ef",
+      "id": "91080613-8c5d-4009-9e1f-3e6df437377c",
       "longitude": 116.570374,
       "latitude": 40.431908,
-      "address": "Great Wall of China, Beijing, China"
+      "address": "Great Wall of China, Beijing, China",
+      "deleted": false
     },
     "logo": "http://localhost:3000/images/download.jpg",
     "rating": 4,
@@ -253,14 +255,14 @@
         "weight": 65,
         "description": "lightweight baby",
         "image": "http://localhost:3000/images/1719484824151.jpg",
-        "quantity": 18,
+        "quantity": 25,
         "status": "Nema na stanju"
       }
     ],
     "workingHours": "02h - 12h",
     "status": "Open",
     "location": {
-      "id": "7b5619ff-b2d9-45b5-b7e8-1e38cfbfa300",
+      "id": "5464d89b-ca73-4870-8b31-d5ed12622a98",
       "longitude": -81.49338374291115,
       "latitude": 45.67902277731116,
       "address": "Northeastern Manitoulin and the Islands, ON, Canada",

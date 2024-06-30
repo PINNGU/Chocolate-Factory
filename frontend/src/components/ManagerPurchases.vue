@@ -58,6 +58,7 @@
               <th>Date</th>
               <th>Price</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +74,10 @@
               <td>{{ formatDate(purchase.dateTime) }}</td>
               <td>{{ purchase.price }}</td>
               <td>{{ purchase.status }}</td>
+              <td>
+                <button @click="approvePurchase(purchase)" class="approve">Approve</button>
+                <button @click="promptDisapprovePurchase(purchase)" class="disapprove">Disapprove</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -106,6 +111,48 @@
           </tbody>
         </table>
       </div>
+      <div v-if="groupedPurchases['Blokirano']?.length > 0">
+        <h2>Disapproved</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Factory</th>
+              <th>Chocolates</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="purchase in filteredAndSortedPurchases['Blokirano']" :key="purchase.id">
+              <td>{{ purchase.factory.name }}</td>
+              <td>
+                <ul>
+                  <li v-for="chocolate in purchase.chocolates" :key="chocolate.id">
+                    {{ chocolate.name }} ({{ chocolate.quantity }})
+                  </li>
+                </ul>
+              </td>
+              <td>{{ formatDate(purchase.dateTime) }}</td>
+              <td>{{ purchase.price }}</td>
+              <td>{{ purchase.status }}</td>
+              <td>{{ purchase.reason }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div v-if="showDisapproveModal" class="modal">
+      <div class="modal-content">
+        <h2>Disapprove Purchase</h2>
+        <textarea v-model="disapproveReason" placeholder="Reason for disapproval"></textarea>
+        <div class="modal-buttons">
+          <button @click="disapprovePurchase">Submit</button>
+          <button @click="closeDisapproveModal">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -126,6 +173,9 @@ const filters = ref({
 });
 const sortBy = ref('date');
 const sortOrder = ref('asc');
+const showDisapproveModal = ref(false);
+const disapproveReason = ref('');
+const purchaseToDisapprove = ref(null);
 
 const fetchPurchases = async () => {
   try {
@@ -222,6 +272,50 @@ const filteredAndSortedPurchases = computed(() => {
   return grouped;
 });
 
+const approvePurchase = async (purchase) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.put(
+      `http://localhost:3000/api/purchases/${purchase.id}`,
+      { status: 'Odobreno' },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    fetchPurchases();
+  } catch (error) {
+    errorMessage.value = 'Failed to approve purchase. Please try again later.';
+  }
+};
+
+const promptDisapprovePurchase = (purchase) => {
+  purchaseToDisapprove.value = purchase;
+  disapproveReason.value = '';
+  showDisapproveModal.value = true;
+};
+
+const disapprovePurchase = async () => {
+  if (!disapproveReason.value) {
+    errorMessage.value = 'Please provide a reason for disapproval.';
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.put(
+      `http://localhost:3000/api/purchases/${purchaseToDisapprove.value.id}`,
+      { status: 'Blokirano', reason: disapproveReason.value },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    fetchPurchases();
+    closeDisapproveModal();
+  } catch (error) {
+    errorMessage.value = 'Failed to disapprove purchase. Please try again later.';
+  }
+};
+
+const closeDisapproveModal = () => {
+  showDisapproveModal.value = false;
+};
+
 onMounted(fetchPurchases);
 </script>
 
@@ -300,5 +394,39 @@ tbody tr {
   color: red;
   font-size: 14px;
   margin-bottom: 20px;
+}
+
+.approve {
+  background-color: green;
+}
+
+.disapprove {
+  background-color: red;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 </style>

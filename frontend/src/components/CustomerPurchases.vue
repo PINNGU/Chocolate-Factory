@@ -58,6 +58,7 @@
               <th>Date</th>
               <th>Price</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +74,7 @@
               <td>{{ formatDate(purchase.dateTime) }}</td>
               <td>{{ purchase.price }}</td>
               <td>{{ purchase.status }}</td>
+              <td><button @click="cancelPurchase(purchase)">Cancel</button></td>
             </tr>
           </tbody>
         </table>
@@ -217,6 +219,37 @@ const filteredAndSortedPurchases = computed(() => {
   });
   return grouped;
 });
+
+const cancelPurchase = async (purchase) => {
+  try {
+    // Deduct points from the customer
+    const pointsLost = Math.floor(purchase.price / 1000 * 133 * 4);
+    const userId = localStorage.getItem('id');
+    const userResponse = await axios.get(`http://localhost:3000/api/users/${userId}`);
+    const user = userResponse.data;
+
+    const updatedUser = { ...user, points: user.points - pointsLost };
+    await axios.put(`http://localhost:3000/api/users/${userId}`, updatedUser);
+
+    // Update the purchase status to canceled (or delete it)
+    const updatedPurchase = { ...purchase, status: "Otkazano" ,deleted: true };
+    await axios.put(`http://localhost:3000/api/purchases/${purchase.id}`, updatedPurchase);
+
+    // Update the local state
+    purchases.value = purchases.value.filter(p => p.id !== purchase.id);
+
+    // Recalculate grouped purchases from the updated purchases array
+    groupedPurchases.value = purchases.value.reduce((acc, purchase) => {
+      if (!acc[purchase.status]) {
+        acc[purchase.status] = [];
+      }
+      acc[purchase.status].push(purchase);
+      return acc;
+    }, {});
+  } catch (error) {
+    errorMessage.value = 'Failed to cancel the purchase. Please try again later.';
+  }
+};
 
 onMounted(fetchPurchases);
 </script>
