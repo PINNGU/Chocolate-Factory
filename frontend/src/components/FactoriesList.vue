@@ -386,20 +386,20 @@ body {
 
 .factory-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
 .factory-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
   height: 100%;
-  max-width: 400px; 
 }
 
 .factory-card:hover {
@@ -409,14 +409,16 @@ body {
 
 .factory-image {
   width: 100%;
-  height: 100px;
+  height: 150px;
   object-fit: cover;
 }
 
 .card-body {
   padding: 10px;
-  text-align: left;
-  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .card-title {
@@ -436,8 +438,8 @@ body {
   background-color: #ffcc00;
   color: #000;
   border: none;
-  padding: 5px 10px;
-  font-size: 0.875rem;
+  padding: 10px;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
@@ -449,8 +451,6 @@ body {
   background-color: #eea333f1;
   color: #fff;
 }
-
-
 
 .search-container {
   display: flex;
@@ -490,17 +490,17 @@ body {
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
-   border-radius: 5px 0 0 5px;
-  
+  border-radius: 5px;
   outline: none;
 }
+
 .location-dropdown {
   width: 5%;
   padding: 1px;
   margin: 1px;
   font-size: 1rem;
- display: flex;
- justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .sorting-container {
@@ -537,7 +537,6 @@ body {
 }
 
 .combo-box {
-  /* Assuming same styles are used for existing combo boxes */
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -558,7 +557,7 @@ body {
   border-left: none;
   background-color: #ffcc00;
   color: #000;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }

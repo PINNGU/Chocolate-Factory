@@ -12,7 +12,7 @@
         "weight": 100,
         "description": "Chocolate filled with caramel",
         "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
-        "quantity": 50,
+        "quantity": 48,
         "status": "Ima na stanju"
       },
       {
@@ -31,7 +31,7 @@
     "workingHours": "10 AM - 7 PM",
     "status": "Open",
     "location": {
-      "id": "91d77e3c-85d4-4553-93b5-4eefe6c36801",
+      "id": "64ba9292-142d-463e-be4f-e4d443cca54b",
       "longitude": 2.294351,
       "latitude": 48.858844,
       "address": "Eiffel Tower, Paris, Île-de-France, France",

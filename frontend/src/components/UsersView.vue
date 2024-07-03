@@ -51,9 +51,9 @@
         <p><strong>Customer Type:</strong> {{ user.customerType.name }}</p>
         <p><strong>Discount:</strong> {{ user.customerType.discountPercentage }}%</p>
         <p><strong>Points Required for Discount:</strong> {{ user.customerType.pointsRequiredForDiscount }}</p>
-        <button v-if="user.role==='worker'" @click ="promoteUser(user.id)" class ="search-button">Promote</button>
-        <button v-if="user.role==='manager'" @click ="demoteUser(user.id)" class="reset-button">Demote</button>
-        <button v-if="user.blocked===false && user.id != this.id" @click ="blockUser(user.id)" class="reset-button">Block</button>
+        <button v-if="user.role==='worker'" @click="promoteUser(user.id)" class="search-button">Promote</button>
+        <button v-if="user.role==='manager'" @click="demoteUser(user.id)" class="reset-button">Demote</button>
+        <button v-if="user.blocked===false && user.id !== id && canBlockUser(user)" @click="blockUser(user.id)" class="reset-button">Block</button>
       </div>
     </div>
   </div>
@@ -65,8 +65,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      id : localStorage.getItem('id'),
+      id: localStorage.getItem('id'),
       users: [],
+      purchases: [],
       searchQuery: '',
       roleFilter: '',
       userTypeFilter: '',
@@ -112,6 +113,7 @@ export default {
   },
   created() {
     this.fetchUsers();
+    this.fetchPurchases();
   },
   methods: {
     async fetchUsers() {
@@ -122,11 +124,17 @@ export default {
         console.error('Error fetching users:', error);
       }
     },
+    async fetchPurchases() {
+      try {
+        const response = await axios.get('http://localhost:3000/api/purchases');
+        this.purchases = response.data;
+      } catch (error) {
+        console.error('Error fetching purchases:', error);
+      }
+    },
     async search() {
-      try{
-        
+      try {
         const response = await axios.get(`http://localhost:3000/api/users/search/${this.searchQuery}`);
-
         this.users = response.data;
       } catch (error) {
         console.error('Error searching users:', error);
@@ -139,6 +147,7 @@ export default {
       this.sortBy = '';
       this.sortOrder = 'asc';
       this.fetchUsers();
+      this.fetchPurchases();
     },
     async promoteUser(userId) {
       try {
@@ -154,7 +163,6 @@ export default {
     async demoteUser(userId) {
       try {
         const user = this.users.find(user => user.id === userId);
-        console.log(user);
         user.role = 'worker';
         await axios.put(`http://localhost:3000/api/users/${userId}`, user);
         window.location.reload();
@@ -173,6 +181,14 @@ export default {
         console.error('Error blocking user:', error);
         alert('There was an error blocking the user. Please try again.');
       }
+    },
+    canBlockUser(user) {
+      if (user.role === 'customer') {
+        const canceledPurchasesCount = this.purchases.filter(purchase => purchase.customer === user.id && purchase.status === 'Otkazano').length;
+        return canceledPurchasesCount >= 5;
+      }
+      return true;
+      
     }
   }
 };
