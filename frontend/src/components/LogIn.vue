@@ -1,3 +1,4 @@
+<!-- Login.vue -->
 <template>
   <form @submit.prevent="login" class="login-form">
     <h2>Login</h2>
@@ -16,6 +17,7 @@
     </div>
     <button type="submit" class="login-button">Login</button>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <p>Don't have an account? <router-link to="/signup">Sign Up</router-link></p>
   </form>
 </template>
 
@@ -56,13 +58,13 @@ const login = async () => {
     const blocked = response.data.blocked;
     if(blocked)
     {
-     alert('You are blocked from the system,please contact the admin.');
+     alert('You are blocked from the system, please contact the admin.');
      router.push('/').then(() => {
       window.location.reload();
     });
       return;
     }
-        localStorage.setItem('token', token);
+    localStorage.setItem('token', token);
     localStorage.setItem('username', user);
     localStorage.setItem('role', role);
     localStorage.setItem('id', id);  // Store the id in localStorage

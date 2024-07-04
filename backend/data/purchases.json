@@ -277,8 +277,8 @@
     "dateTime": "2024-06-30T17:31:47.857Z",
     "price": 7.98,
     "customer": "4",
-    "status": "Obrada",
-    "deleted": false
+    "status": "Otkazano",
+    "deleted": true
   },
   {
     "id": "2916bcc8-3c79-4e2e-92fa-633629e92298",
@@ -300,8 +300,8 @@
     "dateTime": "2024-06-30T17:38:33.114Z",
     "price": 3.99,
     "customer": "4",
-    "status": "Obrada",
-    "deleted": false
+    "status": "Otkazano",
+    "deleted": true
   },
   {
     "id": "e10ec26d-ed38-478c-9ee8-432bdef45463",
@@ -323,8 +323,8 @@
     "dateTime": "2024-06-30T20:42:28.841Z",
     "price": 35.910000000000004,
     "customer": "4",
-    "status": "Obrada",
-    "deleted": false
+    "status": "Otkazano",
+    "deleted": true
   },
   {
     "id": "d77ebfa0-7ccf-4034-8e17-5abfee35230b",
@@ -348,5 +348,97 @@
     "customer": "4",
     "status": "Otkazano",
     "deleted": true
+  },
+  {
+    "id": "6ae220f2-cdd7-4be5-a90d-b663e29aa016",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 1
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-07-02T18:10:29.732Z",
+    "price": 3.99,
+    "customer": "4",
+    "status": "Otkazano",
+    "deleted": true
+  },
+  {
+    "id": "28a9cb8d-9728-4eaa-a990-ec8e14d100c5",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 1
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-07-02T18:10:39.740Z",
+    "price": 3.99,
+    "customer": "4",
+    "status": "Otkazano",
+    "deleted": true
+  },
+  {
+    "id": "24ef1ed8-3cde-4cec-bf98-8c8b9c01d374",
+    "chocolates": [
+      {
+        "id": "c34d5e6f-3456-7890-12cd-ef3456789d",
+        "name": "Caramel Filled Chocolate",
+        "price": 3.99,
+        "type": "Milk",
+        "kind": "Filled",
+        "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
+        "quantity": 1
+      }
+    ],
+    "factory": {
+      "id": "6e2d3f4b-5a68-90bc-def1-2345678901bc",
+      "name": "Niki Kiki Chocolatier"
+    },
+    "dateTime": "2024-07-04T20:06:21.594Z",
+    "price": 3.99,
+    "customer": "4",
+    "status": "Otkazano",
+    "deleted": true
+  },
+  {
+    "id": "9ee29786-2d73-43b6-9134-47ed2bd6e2cb",
+    "chocolates": [
+      {
+        "id": "acc33e11-dc1a-4333-8bb4-eb5882ba1b89",
+        "name": "Protein Chocolate",
+        "price": 20,
+        "type": "Protein",
+        "kind": "Caramel",
+        "image": "http://localhost:3000/images/1719484824151.jpg",
+        "quantity": 1
+      }
+    ],
+    "factory": {
+      "id": "c60544e4-c726-411d-9fa2-410d5cc23617",
+      "name": "choc test"
+    },
+    "dateTime": "2024-07-04T20:07:22.545Z",
+    "price": 20,
+    "customer": "4",
+    "status": "Odobreno",
+    "deleted": false
   }
 ]
