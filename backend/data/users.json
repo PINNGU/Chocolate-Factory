@@ -190,5 +190,29 @@
     },
     "deleted": false,
     "blocked": false
+  },
+  {
+    "id": "5f265d12-e2d0-426a-9935-6e21b0a6ad5c",
+    "username": "mrksooonnn",
+    "password": "1",
+    "name": "mile",
+    "surname": "kitic",
+    "gender": "Female",
+    "dateOfBirth": "2024-07-30",
+    "role": "customer",
+    "purchases": [],
+    "cart": [],
+    "chocolateFactory": {
+      "id": "",
+      "name": ""
+    },
+    "points": 0,
+    "customerType": {
+      "name": "Regular",
+      "discountPercentage": 0,
+      "pointsRequiredForDiscount": 0
+    },
+    "deleted": false,
+    "blocked": false
   }
 ]

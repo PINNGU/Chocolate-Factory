@@ -12,7 +12,7 @@
         "weight": 100,
         "description": "Chocolate filled with caramel",
         "image": "http://localhost:3000/images/caramel-filled-choco.jpg",
-        "quantity": 48,
+        "quantity": 47,
         "status": "Ima na stanju"
       },
       {
@@ -31,7 +31,7 @@
     "workingHours": "10 AM - 7 PM",
     "status": "Open",
     "location": {
-      "id": "64ba9292-142d-463e-be4f-e4d443cca54b",
+      "id": "eeb3d03e-4e88-48c3-8df4-2c033694319d",
       "longitude": 2.294351,
       "latitude": 48.858844,
       "address": "Eiffel Tower, Paris, Île-de-France, France",
@@ -255,14 +255,14 @@
         "weight": 65,
         "description": "lightweight baby",
         "image": "http://localhost:3000/images/1719484824151.jpg",
-        "quantity": 25,
+        "quantity": 24,
         "status": "Nema na stanju"
       }
     ],
     "workingHours": "02h - 12h",
     "status": "Open",
     "location": {
-      "id": "5464d89b-ca73-4870-8b31-d5ed12622a98",
+      "id": "8aba5102-b43c-45c8-bc57-23f69923787d",
       "longitude": -81.49338374291115,
       "latitude": 45.67902277731116,
       "address": "Northeastern Manitoulin and the Islands, ON, Canada",
