@@ -46,6 +46,9 @@
                 <strong>Rating:</strong>
                 <span v-for="n in comment.rating" :key="n" class="star">★</span>
               </div>
+              <div v-if="!comment.approved">
+                <button class="update-button" @click="approveComment(comment.id)">Approve</button>
+              </div>
             </div>
           </div>
           <div v-else>
@@ -149,6 +152,22 @@
         } catch (error) {
           console.error('Error subtracting chocolate:', error);
           alert('There was an error subtracting the chocolate. Please try again.');
+        }
+      },
+      async approveComment(commentId) {
+        try {
+          const comment = this.comments.find(comment => comment.id === commentId);
+          comment.approved = true;
+          let rating = (this.factory.rating + comment.rating) / 2;
+          this.factory.rating = rating;
+          await axios.put(`http://localhost:3000/api/factories/${this.factory.id}`, this.factory);
+          await axios.put(`http://localhost:3000/api/comments/${commentId}`, comment);
+         
+      window.location.reload();
+  
+        } catch (error) {
+          console.error('Error approving comment:', error);
+          alert('There was an error approving the comment. Please try again.');
         }
       }
     }

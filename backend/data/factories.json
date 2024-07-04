@@ -262,14 +262,14 @@
     "workingHours": "02h - 12h",
     "status": "Open",
     "location": {
-      "id": "8aba5102-b43c-45c8-bc57-23f69923787d",
+      "id": "2fcba6f7-935e-437f-aa10-87896f43cf1d",
       "longitude": -81.49338374291115,
       "latitude": 45.67902277731116,
       "address": "Northeastern Manitoulin and the Islands, ON, Canada",
       "deleted": false
     },
     "logo": "http://localhost:3000/images/1719484288973.jpg",
-    "rating": 4,
+    "rating": 4.25,
     "deleted": false
   }
 ]
