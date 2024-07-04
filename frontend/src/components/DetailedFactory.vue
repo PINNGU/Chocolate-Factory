@@ -5,14 +5,17 @@
       <div class="card">
         <div class="card-body">
           <div class="card-content">
-            <div class="card-text-content">
+          
+              <div class="card-text-content">
               <h2 class="card-title">{{ factory.name }}</h2>
               <p class="card-text"><strong>Location:</strong> {{ factory.location?.address || 'Loading...' }}</p>
               <p class="card-text"><strong>Working Hours:</strong> {{ factory.workingHours }}</p>
               <p class="card-text"><strong>Status:</strong> {{ factory.status }}</p>
               <p class="card-text"><strong>Rating:</strong> {{ factory.rating }}</p>
-            </div>
-            <span><img :src="factory.logo" alt="Factory Logo" class="factory-logo" width="300px" height="200px"></span>
+              </div>
+              <img :src="factory.logo" alt="Factory Logo" class="factory-logo" />
+            
+            
           </div>
           <p class="card-text"><strong>Chocolates:</strong></p>
           <div class="chocolates-container">
@@ -55,6 +58,14 @@
         <router-link :to="`/factory/${factory.id}/add-chocolate`" class="add-button">Add Chocolate</router-link>
         <router-link :to="`/factory/${factory.id}/update`" class="update-factory-button">Update Factory</router-link>
       </div>
+      <div class="comment-entry" v-if="customerHasPurchase">
+        <h3>Add a Comment</h3>
+        <div class="comment-input">
+          <input type="number" v-model.number="commentRating" min="1" max="5" placeholder="Rating (1-5)">
+          <textarea v-model="commentText" placeholder="Enter your comment"></textarea>
+        </div>
+        <button @click="postComment" class="post-comment-button">Post Comment</button>
+      </div>
     </div>
     <div v-else>
       <h2>You don't have an assigned factory yet...</h2>
@@ -71,24 +82,62 @@ export default {
       factory: null,
       chocolates: [],
       comments: [],
-      role: localStorage.getItem('role')
+      role: localStorage.getItem('role'),
+      customerId: localStorage.getItem('id'),
+      customerHasPurchase: false,
+      customerPurchases: [],
+      commentText: '',
+      commentRating: 1
     };
   },
   mounted() {
-    this.fetchFactoryDetails();
+    this.fetchPurchase(); 
+    this.fetchFactoryDetails()
+  
+    console.log('Customer ID:', this.customerId);
+  console.log('Customer Purchases:', this.customerPurchases);
+  console.log('Customer Has Purchase:', this.customerHasPurchase);
+  
   },
   computed: {
     filteredComments() {
-      this.comments = this.comments.filter(comment => comment.factory === this.factory.id && comment.deleted === false);
 
+      this.comments = this.comments.filter(comment => comment.factory === this.factory.id && comment.deleted === false);
       if (this.role === 'admin' || this.role === 'manager') {
         return this.comments;
       } else {
         return this.comments.filter(comment => comment.approved === true);
       }
+    },
+    customerHasPurchase() {
+      return this.customerPurchases.length > 0;
     }
   },
   methods: {
+    async postComment() {
+      const customerId = localStorage.getItem('id');
+      const factoryId = this.factory.id;
+      const comment = {
+        text: this.commentText,
+        rating: this.commentRating,
+        customer: customerId,
+        factory: factoryId,
+        approved: false,
+        deleted: false
+      };
+
+      try {
+        await axios.post('http://localhost:3000/api/comments', comment);
+        this.comments.push(comment);
+        this.commentText = '';
+        this.commentRating = 1;
+        window.location.reload();
+
+      } catch (error) {
+        console.error('Error posting comment:', error);
+        alert('There was an error posting your comment. Please try again.');
+      }
+    },
     async fetchFactoryDetails() {
       const factoryId = this.$route.params.id;
       try {
@@ -104,9 +153,23 @@ export default {
           quantityToAdd: 1
         }));
 
+        
+        
       } catch (error) {
         console.error('Error fetching factory details:', error);
         alert('Error loading factory details. Please try again later.');
+      }
+    },
+    async fetchPurchase() {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/purchases`);
+
+        this.customerPurchases = response.data.filter(purchase => purchase.customer === this.customerId && purchase.factory.id === this.$route.params.id && purchase.deleted === false && purchase.status === 'Odobreno');
+        this.customerHasPurchase = this.customerPurchases.length > 0;
+        console.log('Customer Purchases:', this.customerHasPurchase);
+        
+      } catch (error) {
+        console.error('Error fetching purchases:', error);
       }
     },
     validateQuantity(chocolate) {
@@ -180,9 +243,8 @@ export default {
     },
     async removeChocolate(chocolateId) {
       try {
-        this.factory.chocolates = this.factory.chocolates.filter(chocolate => chocolate.id !== chocolateId);
-        await axios.put(`http://localhost:3000/api/factories/${this.factory.id}`, this.factory);
-        this.chocolates = this.factory.chocolates;
+        await axios.delete(`http://localhost:3000/api/factories/${this.factory.id}/chocolates/${chocolateId}`);
+        this.chocolates = this.chocolates.filter(chocolate => chocolate.id !== chocolateId);
       } catch (error) {
         console.error('Error removing chocolate:', error);
         alert('There was an error removing the chocolate. Please try again.');
@@ -191,6 +253,8 @@ export default {
   }
 };
 </script>
+
+
 
 <style scoped>
 body {
@@ -356,6 +420,14 @@ body {
   margin-top: 30px;
 }
 
+.card-text-content {
+  flex: 1; /* Grow to fill remaining space */
+}
+
+.image-container {
+  margin-left: 20px; /* Adjust margin as needed */
+}
+
 .comment-card {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -365,6 +437,10 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.card-content {
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
 .comment-text {
   font-size: 1rem;
   color: #555;
@@ -415,4 +491,51 @@ body {
 .update-factory-button:hover {
   background-color: #218838;
 }
+.comment-entry {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: block;
+  visibility: visible;
+}
+
+.comment-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.comment-input input,
+.comment-input textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.comment-input input:focus,
+.comment-input textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.post-comment-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post-comment-button:hover {
+  background-color: #0056b3;
+}
+
 </style>
