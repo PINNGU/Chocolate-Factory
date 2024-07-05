@@ -53,7 +53,29 @@
         <p><strong>Points Required for Discount:</strong> {{ user.customerType.pointsRequiredForDiscount }}</p>
         <button v-if="user.role==='worker'" @click="promoteUser(user.id)" class="search-button">Promote</button>
         <button v-if="user.role==='manager'" @click="demoteUser(user.id)" class="reset-button">Demote</button>
-        <button v-if="user.blocked===false && user.id !== id && canBlockUser(user)" @click="blockUser(user.id)" class="reset-button">Block</button>
+        <button @click="blockUser(user.id)" class="reset-button">Block</button>
+      </div>
+    </div>
+
+    <!-- Suspicious Customers Section -->
+    <div v-if="suspiciousCustomers.length">
+      <h2>Suspicious Customers</h2>
+      <div class="user-cards-container">
+        <div v-for="user in suspiciousCustomers" :key="user.id" class="user-card">
+          <h3>{{ user.name }} {{ user.surname }}</h3>
+          <p><strong>Username:</strong> {{ user.username }}</p>
+          <p><strong>Gender:</strong> {{ user.gender }}</p>
+          <p><strong>Date of Birth:</strong> {{ user.dateOfBirth }}</p>
+          <p><strong>Role:</strong> {{ user.role }}</p>
+          <p><strong>Factory:</strong> {{ user.chocolateFactory.name }}</p>
+          <p><strong>Points:</strong> {{ user.points }}</p>
+          <p><strong>Customer Type:</strong> {{ user.customerType.name }}</p>
+          <p><strong>Discount:</strong> {{ user.customerType.discountPercentage }}%</p>
+          <p><strong>Points Required for Discount:</strong> {{ user.customerType.pointsRequiredForDiscount }}</p>
+          <button v-if="user.role==='worker'" @click="promoteUser(user.id)" class="search-button">Promote</button>
+          <button v-if="user.role==='manager'" @click="demoteUser(user.id)" class="reset-button">Demote</button>
+          <button @click="blockUser(user.id)" class="reset-button">Block</button>
+        </div>
       </div>
     </div>
   </div>
@@ -77,7 +99,7 @@ export default {
   },
   computed: {
     filteredUsers() {
-      let filtered = this.users;
+      let filtered = this.users.filter(user => !this.suspiciousCustomers.includes(user));
 
       // Apply role filter
       if (this.roleFilter) {
@@ -109,6 +131,15 @@ export default {
       }
 
       return filtered;
+    },
+    suspiciousCustomers() {
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+      return this.users.filter(user => {
+        const canceledPurchasesCount = this.purchases.filter(purchase => purchase.customer === user.id && purchase.status === 'Otkazano').length;
+        return canceledPurchasesCount >= 5;
+      });
     }
   },
   created() {
@@ -181,14 +212,6 @@ export default {
         console.error('Error blocking user:', error);
         alert('There was an error blocking the user. Please try again.');
       }
-    },
-    canBlockUser(user) {
-      if (user.role === 'customer') {
-        const canceledPurchasesCount = this.purchases.filter(purchase => purchase.customer === user.id && purchase.status === 'Otkazano').length;
-        return canceledPurchasesCount >= 5;
-      }
-      return true;
-      
     }
   }
 };
