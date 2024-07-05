@@ -30,7 +30,7 @@
                   <input type="number" v-model.number="chocolate.quantityToAdd" :max="chocolate.quantity" min="1" @input="validateQuantity(chocolate)">
                   <button class="add-to-cart-button" @click="addToCart(chocolate)">Add to Cart</button>
                 </div>
-                <div class="chocolate-actions" v-if="role === 'manager' || role === 'admin'">
+                <div class="chocolate-actions" v-if="this.customerFactory === this.$route.params.id && role === 'manager' || role === 'admin' ">
                   <button class="remove-button" @click="removeChocolate(chocolate.id)">Remove</button>
                   <router-link :to="`/chocolate/${chocolate.id}/update`" class="update-button">Update</router-link>
                 </div>
@@ -54,7 +54,7 @@
           <p class="no-comments">No comments for this factory.</p>
         </div>
       </div>
-      <div class="actions" v-if="role === 'manager' || role === 'admin'">
+      <div class="actions" v-if="this.customerFactory === this.$route.params.id && role === 'manager' || role === 'admin'">
         <router-link :to="`/factory/${factory.id}/add-chocolate`" class="add-button">Add Chocolate</router-link>
         <router-link :to="`/factory/${factory.id}/update`" class="update-factory-button">Update Factory</router-link>
       </div>
@@ -84,6 +84,7 @@ export default {
       comments: [],
       role: localStorage.getItem('role'),
       customerId: localStorage.getItem('id'),
+      customerFactory : localStorage.getItem('factoryId'),
       customerHasPurchase: false,
       customerPurchases: [],
       commentText: '',
@@ -94,9 +95,11 @@ export default {
     this.fetchPurchase(); 
     this.fetchFactoryDetails()
   
-    console.log('Customer ID:', this.customerId);
+    
+  console.log('Customer ID:', this.customerId);
   console.log('Customer Purchases:', this.customerPurchases);
   console.log('Customer Has Purchase:', this.customerHasPurchase);
+  
   
   },
   computed: {

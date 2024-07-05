@@ -86,7 +86,7 @@
       "id": "",
       "name": ""
     },
-    "points": 45,
+    "points": 48,
     "customerType": {
       "name": "Premium",
       "discountPercentage": 10,
@@ -107,8 +107,8 @@
     "purchases": [],
     "cart": [],
     "chocolateFactory": {
-      "id": "",
-      "name": ""
+      "id": "7g3h4i5j-6b79-01cd-ef23-3456789012cd",
+      "name": "Mrkson Chocolate Factory"
     },
     "points": 0,
     "customerType": {

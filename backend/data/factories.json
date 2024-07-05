@@ -54,7 +54,7 @@
         "weight": 150,
         "description": "Creamy milk chocolate truffles",
         "image": "http://localhost:3000/images/milk-truffles.jpg",
-        "quantity": 50,
+        "quantity": 45,
         "status": "Ima na stanju"
       },
       {
@@ -85,7 +85,7 @@
     "workingHours": "8 AM - 5 PM",
     "status": "Open",
     "location": {
-      "id": "91080613-8c5d-4009-9e1f-3e6df437377c",
+      "id": "a78c3659-6c4b-4500-b039-0fa88ef43d47",
       "longitude": 116.570374,
       "latitude": 40.431908,
       "address": "Great Wall of China, Beijing, China",

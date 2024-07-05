@@ -440,5 +440,28 @@
     "customer": "4",
     "status": "Odobreno",
     "deleted": false
+  },
+  {
+    "id": "440d54a9-a715-4b5f-a038-5e44f88427b4",
+    "chocolates": [
+      {
+        "id": "a12b3c4d-1234-5678-90ab-cdef3456789b",
+        "name": "Milk Chocolate Truffles",
+        "price": 4.99,
+        "type": "Milk",
+        "kind": "Truffles",
+        "image": "http://localhost:3000/images/milk-truffles.jpg",
+        "quantity": 5
+      }
+    ],
+    "factory": {
+      "id": "7g3h4i5j-6b79-01cd-ef23-3456789012cd",
+      "name": "Mrkson Chocolate Factory"
+    },
+    "dateTime": "2024-07-05T13:38:07.662Z",
+    "price": 24.950000000000003,
+    "customer": "4",
+    "status": "Odobreno",
+    "deleted": false
   }
 ]
